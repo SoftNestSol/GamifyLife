@@ -1,0 +1,26 @@
+{
+	"name": "gamifylife",
+	"version": "1.0.0",
+	"description": "backend for productivity-app",
+	"main": "server.js",
+	"scripts": {
+		"dev": "nodemon server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SoftNestSol/GamifyLife.git"
+	},
+	"keywords": [
+		"none"
+	],
+	"author": "MDS",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SoftNestSol/GamifyLife/issues"
+	},
+	"homepage": "https://github.com/SoftNestSol/GamifyLife#readme",
+	"dependencies": {
+		"express": "^4.19.2",
+		"nodemon": "^3.1.0"
+	}
+}
