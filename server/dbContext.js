@@ -1,36 +1,43 @@
+const mssql = require("mssql");
+require("dotenv").config();
 
+const DRIVER = {
+	/*
 
-const mssql = require('mssql');
-const env = require('./env');
-const DRIVER = env.DRIVER;
+	SERVER = "tcp:productivity-app.database.windows.net"
+PORT = "1433"
+INITIAL_CATALOG = "Productivity"
+Persist_Security_Info= "False"
+USER_ID = "mds"
+PASSWORD = "softnestdb#1"
+MultipleActiveResultSets = "False"
+Encrypt= "True"
+TrustServerCertificate = "False"
+Connection_Timeout = "1000"
+	*/
 
-
-const CONNECTION = await mssql.connect(DRIVER);
-
-
-const selectUsers = async () => {
-		const query = `SELECT * FROM Users`;
-		const result = await CONNECTION.query(query);
-		return result.recordset;
+	user: process.env.USER_ID,
+	password: process.env.PASSWORD,
+	server: process.env.SERVER,
+	port: parseInt(process.env.PORT),
+	database: process.env.INITIAL_CATALOG,
+	options: {
+		encrypt: true,
+		enableArithAbort: true
+	}
 };
 
-const selectUserById = async (id) => {
-		const query = `SELECT * FROM Users WHERE id = ${id}`;
-		const result = await CONNECTION.query(query);
-		return result.recordset;
-}
+const connect = async () => {
+	try {
+		const CONNECTION = await mssql.connect(DRIVER);
+		console.log("Connected to the database");
+		return CONNECTION;
+	} catch (err) {
+		console.log(err);
+		return null;
+	}
+};
 
-const insertUser = async (user) => {
-		const query = `INSERT INTO Users (name, email) VALUES ('${user.name}', '${user.email}')`;
-		const result = await CONNECTION.query(query);
-		return result;
-}
-
-
-
-
-
-
-
-
-
+module.exports = {
+	connect
+};

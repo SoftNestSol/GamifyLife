@@ -7,17 +7,20 @@ CREATE TABLE [Users]
     [created_at] DATETIME NULL CONSTRAINT [users_created_at_default] DEFAULT SYSUTCDATETIME(),
     [intelligence] INT NULL CONSTRAINT [users_intelligence_default] DEFAULT 0,
     [strength] INT NULL CONSTRAINT [users_strength_default] DEFAULT 0,
-    [checkpoint] INT NULL CONSTRAINT [users_checkpoint_default] DEFAULT 0
+    [checkpoint] INT NULL CONSTRAINT [users_checkpoint_default] DEFAULT 0,
+    [uid] VARCHAR(255) NOT NULL UNIQUE,
 );
 
 CREATE TABLE [Tasks]
 (
     [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    [from_app] BIT NULL, -- bool
+    [from_app] BIT NULL,
+    -- bool
     [from_buddy] INT NULL,
     [from_user] VARCHAR(255) NULL CONSTRAINT [tasks_from_user_default] DEFAULT 'daily',
     [created_at] DATETIME NULL CONSTRAINT [tasks_created_at_default] DEFAULT SYSUTCDATETIME(),
-    [done] BIT NULL CONSTRAINT [tasks_done_default] DEFAULT 0, -- bool 
+    [done] BIT NULL CONSTRAINT [tasks_done_default] DEFAULT 0,
+    -- bool 
     [description] VARCHAR(255) NULL,
     [title] VARCHAR(255) NULL
 );
@@ -34,17 +37,17 @@ CREATE TABLE [Buddies]
 
 CREATE TABLE [Interests]
 (
-		[id] VARCHAR(255) NOT NULL PRIMARY KEY,
-		[name] VARCHAR(255) NULL,
-		[description] VARCHAR(255) NULL
+    [id] VARCHAR(255) NOT NULL PRIMARY KEY,
+    [name] VARCHAR(255) NULL,
+    [description] VARCHAR(255) NULL
 );
 
 
 CREATE TABLE [UserInterests]
 (
-		[user_id] INT NOT NULL,
-		[interest_id] VARCHAR(255) NOT NULL,
-		CONSTRAINT [UserInterests_pkey] PRIMARY KEY ([user_id], [interest_id]),
-		CONSTRAINT fk_user FOREIGN KEY ([user_id]) REFERENCES [Users]([id]),
-		CONSTRAINT fk_interest FOREIGN KEY ([interest_id]) REFERENCES [Interests]([id])
+    [user_id] INT NOT NULL,
+    [interest_id] VARCHAR(255) NOT NULL,
+    CONSTRAINT [UserInterests_pkey] PRIMARY KEY ([user_id], [interest_id]),
+    CONSTRAINT fk_user FOREIGN KEY ([user_id]) REFERENCES [Users]([id]),
+    CONSTRAINT fk_interest FOREIGN KEY ([interest_id]) REFERENCES [Interests]([id])
 );
