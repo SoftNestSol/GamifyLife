@@ -1,12 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useState } from "react";
 import axios from "axios";
-import { Button } from "react-native";
-import { AuthContextProvider, useAuthContext } from "./contexts/auth.context";
+import { useAuthContext } from "./contexts/auth.context";
 
 export default function Index() {
-	const { register } = useAuthContext();
+	const { register, login, user } = useAuthContext();
 
 	const [formData, setFormData] = useState({
 		first_name: "",
@@ -26,7 +25,7 @@ export default function Index() {
 	const handleSubmit = async () => {
 		console.log(formData);
 
-		const user = await register(formData.email, formData.password);
+		await register(formData.email, formData.password);
 		if (user && user.uid) {
 			const updatedFormData = { ...formData, uid: user.uid };
 			try {
@@ -37,9 +36,16 @@ export default function Index() {
 				console.log(response.data); // Successfully posted to server
 			} catch (error) {
 				console.error("Error posting data to server:", error);
+				throw Error("Error posting data to server, won't continue to login");
+			}
+
+			try {
+				const response = await login(formData.email, formData.password);
+				console.log(response);
+			} catch (error) {
+				console.error("Error logging in:", error);
 			}
 		} else {
-			// Handle registration failure
 			console.error("Registration failed");
 		}
 	};
@@ -83,10 +89,16 @@ export default function Index() {
 				value={formData.confirm_password}
 				onChangeText={(text) => handleInputChange("confirm_password", text)}
 			/>
-			<Button
+			<Pressable
+				style={[
+					styles.formElement,
+					{ backgroundColor: "blue", color: "white" }
+				]}
 				title="Submit"
 				onPress={handleSubmit}
-			></Button>
+			>
+				Submit
+			</Pressable>
 
 			<StatusBar style="auto" />
 		</View>

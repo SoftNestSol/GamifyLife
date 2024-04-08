@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import React, { createContext, useContext } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
@@ -41,8 +43,39 @@ export const AuthContextProvider = ({ children }) => {
 			const user = userCredential.user;
 			const uid = user.uid;
 			setUser(user);
-			console.log(user);
 			return user;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const isLoggedIn = async () => {
+		if (AsyncStorage.getItem("isLoggedIn")) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	const login = async (email, password) => {
+		console.log(email, password);
+
+		try {
+			const userCredential = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
+			const user = userCredential.user;
+			const uid = user.uid;
+			setUser(user);
+			console.log(user);
+
+			await AsyncStorage.setItem("user", JSON.stringify(user));
+			await AsyncStorage.setItem("uid", JSON.stringify(uid));
+			await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+
+			return `User ${user.email} logged in successfully`;
 		} catch (error) {
 			console.log(error);
 		}
@@ -51,7 +84,9 @@ export const AuthContextProvider = ({ children }) => {
 	const value = {
 		user,
 		setUser,
-		register
+		register,
+		login,
+		isLoggedIn
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
