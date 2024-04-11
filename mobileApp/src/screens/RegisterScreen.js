@@ -2,9 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useState } from "react";
 import axios from "axios";
-import { useAuthContext } from "./contexts/auth.context";
+import { useAuthContext } from "../contexts/auth.context";
 
-export default function Index() {
+export default function RegisterScreen() {
 	const { register, login, user } = useAuthContext();
 
 	const [formData, setFormData] = useState({
@@ -97,7 +97,6 @@ export default function Index() {
 				title="Submit"
 				onPress={handleSubmit}
 			>
-				Submit
 			</Pressable>
 
 			<StatusBar style="auto" />
