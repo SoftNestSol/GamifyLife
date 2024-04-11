@@ -22,7 +22,9 @@ CREATE TABLE [Tasks]
     [done] BIT NULL CONSTRAINT [tasks_done_default] DEFAULT 0,
     -- bool 
     [description] VARCHAR(255) NULL,
-    [title] VARCHAR(255) NULL
+    [title] VARCHAR(255) NULL,
+    [user_id] INT NULL,
+    CONSTRAINT fk_user FOREIGN KEY ([user_id]) REFERENCES [Users]([id])
 );
 
 CREATE TABLE [Buddies]

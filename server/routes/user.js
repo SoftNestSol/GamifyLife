@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { connect } = require("../dbContext");
+
 
 router.get("/", (req, res) => {
 	res.send("User route");
@@ -30,31 +30,6 @@ router.delete("/:id", async (req, res) => {
 	const result = await deleteUser(id);
 	res.send(result);
 });
-
-const selectUsers = async () => {
-	const query = `SELECT * FROM Users`;
-	const result = await connect().query(query);
-	return result.recordset;
-};
-
-const selectUserById = async (id) => {
-	const query = `SELECT * FROM Users WHERE id = ${id}`;
-	const result = await connect().query(query);
-	return result.recordset;
-};
-
-const insertUser = async (user) => {
-	const query = `INSERT INTO Users (first_name, last_name, email, uid) VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.uid}')`;
-	const result = await connect();
-	result.query(query);
-	return "User inserted";
-};
-
-const deleteUser = async (id) => {
-	const query = `DELETE FROM Users WHERE id = ${id}`;
-	const result = await connect().query(query);
-	return result;
-};
 
 /*
 CREATE TABLE [Users]
