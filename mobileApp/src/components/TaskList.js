@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView ,TouchableOpacity} from "react-native";
 import React, { useState } from "react";
 
 export default function TaskList() {
@@ -9,7 +9,7 @@ export default function TaskList() {
     "Clean the room",
     "Go to the Gym",
     "Walk the dog",
-    "Make groceries",
+    "COokie groceries",
     "Water the plants",
     "Cook dinner2",
     "Walk the dog2",

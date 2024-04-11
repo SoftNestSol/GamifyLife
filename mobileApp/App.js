@@ -1,7 +1,7 @@
 import { Text, } from "react-native";
 // import { AuthContextProvider } from "./src/contexts/auth.context";
 import { NavigationContainer } from "@react-navigation/native";
-import createNativeStackNavigator from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContextProvider } from "./src/contexts/auth.context";
 
 //screens
@@ -14,11 +14,13 @@ const stack = createNativeStackNavigator();
 export default function App() {
 	return (
 		<AuthContextProvider>
-			{/* <NavigationContainer>
+			<NavigationContainer>
 				<stack.Navigator>
+					<stack.Screen name="Home" component={HomeScreen} />
 					<stack.Screen name="Register" component={RegisterScreen} />
+					<stack.Screen name="Quests" component={QuestsScreen} />
 				</stack.Navigator>
-			</NavigationContainer> */}
+			</NavigationContainer>
 		</AuthContextProvider>
 	);
 }
