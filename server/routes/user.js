@@ -1,7 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-
+const {
+	insertUser,
+	selectUsers,
+	selectUserById,
+	deleteUser,
+	getTodayUserTasks
+} = require("../repositories/UserRepository");
 
 router.get("/", (req, res) => {
 	res.send("User route");
@@ -23,6 +29,12 @@ router.get("/:id", async (req, res) => {
 	const id = req.params.id;
 	const user = await selectUserById(id);
 	res.send(user);
+});
+
+router.get("/tasks/:id", async (req, res) => {
+	const id = req.params.id;
+	const tasks = await getTodayUserTasks(id);
+	res.send(tasks);
 });
 
 router.delete("/:id", async (req, res) => {

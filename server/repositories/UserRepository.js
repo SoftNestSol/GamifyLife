@@ -13,8 +13,10 @@ const selectUserById = async (id) => {
 };
 
 const getTodayUserTasks = async (id) => {
-	const query = `SELECT * FROM Tasks WHERE user_id = ${id} AND created_at = GETDATE()`;
-	const result = await connect().query(query);
+	const query = `SELECT * FROM Tasks WHERE user_id = ${id}`;
+	const connection = await connect();
+	const result = await connection.query(query);
+	console.log(result);
 	return result.recordset;
 };
 
