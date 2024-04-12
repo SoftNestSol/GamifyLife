@@ -1,10 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
+<<<<<<< HEAD
 import { Button,FlatList,Text ,View,ScrollView,SafeAreaView } from "react-native";
 
 import TaskList from "../components/TaskList";
+=======
+import { Button, Text, View } from "react-native";
+
+import TaskList from "../components/TaskList";
+import CalendarSlider from "../components/CalendarSlider";
+>>>>>>> 62dd095c2c7e9cbf098488ba6a2a0171ab0911d8
 import TasksCarousel from "../components/TaskCarousel";
 import  CalendarSlider from "../components/CalendarSlider";
 
+<<<<<<< HEAD
 export default function QuestsScreen() {   
 
     return (
@@ -31,3 +39,21 @@ const styles = {
         alignItems: "center",
     }
 }
+=======
+export default function QuestsScreen() {
+	return (
+		<View style={styles.container}>
+			<Text>Quests Screen</Text>
+			{/* <TaskList /> */}
+			<TasksCarousel />
+		</View>
+	);
+}
+const styles = {
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center"
+	}
+};
+>>>>>>> 62dd095c2c7e9cbf098488ba6a2a0171ab0911d8
