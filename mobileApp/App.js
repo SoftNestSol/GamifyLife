@@ -16,9 +16,9 @@ export default function App() {
 		<AuthContextProvider>
 			<NavigationContainer>
 				<stack.Navigator>
-					<stack.Screen name="Home" component={HomeScreen} />
+					<stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
 					<stack.Screen name="Register" component={RegisterScreen} />
-					<stack.Screen name="Quests" component={QuestsScreen} />
+					<stack.Screen name="Quests" component={QuestsScreen}options={{ headerShown: false }} />
 				</stack.Navigator>
 			</NavigationContainer>
 		</AuthContextProvider>

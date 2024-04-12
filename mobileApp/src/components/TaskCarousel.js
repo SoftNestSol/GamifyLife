@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         marginTop: 45,
         marginBottom: 15,
         marginHorizontal: 12,
-        height: '50%',
+        // height: '50%',
         width: '100%',
     },
     header: {
@@ -107,9 +107,10 @@ const styles = StyleSheet.create({
         color: '#9CAFAA',
     },
     item: {
-        backgroundColor: '#9CAFAA',
+        backgroundColor: '#9BAAAA',
         padding: 10,
         width: 250,
+        height: 150,
         flex: 1,
         borderRadius: 20,
         marginRight: 30, 
