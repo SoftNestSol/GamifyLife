@@ -29,7 +29,7 @@ export default function TaskList() {
 
   const getTasks = async () => {  
     
-   const resp = await axios.get("http://172.20.10.3:3000/user/tasks/8").then((response) => {
+   const resp = await axios.get("http://192.168.8.100:3000/user/tasks/8").then((response) => {
       setUserTasks(response.data);
     });
   }
