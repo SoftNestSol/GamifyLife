@@ -1,11 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  FlatList,
-} from 'react-native';
+import {StyleSheet,View,Text,Image,FlatList, Button,} from 'react-native';
+
+
+//components
+import Card from './Card';
+import Button1 from './Button1';
 
 // will be replaced by the ongoing tasks
 const DATA = [
@@ -32,31 +31,16 @@ const DATA = [
 
 export default function TasksCarousel() {
 
-    // the items
-    // !! - the title of a task might not fit
-    // a description as well... put some input limits??
     const renderItem = ({item}) => {
+        console.log(item)
         return (
             <View style = {styles.item}>
-                <View style = {styles.itemHeader}>
-                    <Image
-                        resizeMode = 'contain'
-                        style = {styles.icon}
-                        source = {{
-                            uri: 'https://cdn-icons-png.freepik.com/512/2632/2632839.png',
-                        }}
-                    />
-                    <Text style = {styles.itemTitle}>
-                        {item.title} 
-                    </Text>
-                </View>
-                <View style = {styles.description}>
-                    <Text style = {styles.itemDesctiption}>
-                        {item.description}
-                    </Text>
-                </View>
-
+                <Card
+                    title={item.title}
+                    description={item.description}
+                ></Card>
             </View>
+            
         );
     }
 
@@ -71,7 +55,22 @@ export default function TasksCarousel() {
                     See all tasks
                 </Text>
             </View>
+            <View style={styles.filterContainer}>
+                    <Button1
+                        title='btn1'
+                        action={()=>{console.log("btn1")}}
+                    />
+                     <Button1
+                        title='btn2'
+                        action={()=>{console.log("btn2")}}
+                    />
+                     <Button1
+                        title='btn3'
+                        action={()=>{console.log("btn3")}}
+                    />
 
+
+            </View>
             <FlatList
                 horizontal
                 data = {DATA}
@@ -84,12 +83,21 @@ export default function TasksCarousel() {
 }
 
 const styles = StyleSheet.create({
+
     container: {
         marginTop: 45,
         marginBottom: 15,
-        marginHorizontal: 12,
-        // height: '50%',
+        marginRight: 30,
         width: '100%',
+    },
+    filterContainer:{
+        flex:1,
+        height:36,
+        flexDirection:'row',
+        justifyContent: 'space-between',
+        marginTop:10,
+        marginBottom:20,
+
     },
     header: {
         marginBottom: 10,
@@ -107,13 +115,11 @@ const styles = StyleSheet.create({
         color: '#9CAFAA',
     },
     item: {
-        backgroundColor: '#9BAAAA',
-        padding: 10,
-        width: 250,
-        height: 150,
-        flex: 1,
-        borderRadius: 20,
-        marginRight: 30, 
+        // backgroundColor: '#9BAAAA',
+        flex:1,
+        height:250,
+        width:400,
+        marginRight:-90
     },
     itemHeader: {
         flex: 1,
@@ -123,7 +129,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: '20%',
-        marginRight: 10,
+        marginRight:5,
     },
     itemTitle: {
         fontSize: 20,

@@ -99,7 +99,7 @@ export default function CalendarSlider() {
 			</View>
 
 			<View style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 10 }}>
-				<Text style={styles.subtitle}> {value.toDateString()} </Text>
+				{/* <Text style={styles.subtitle}> {value.toDateString()} </Text> */}
 			</View>
 		</View>
 	);

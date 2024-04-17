@@ -27,8 +27,9 @@ const style = StyleSheet.create({
     container:{
     // backgroundColor:"blue",
     height:240,
-    padding:6,
-    alignItems: "center",
+    // alignItems: "center",
+    marginLeft:'5%',
+    marginBottom:'5%',
     justifyContent: "center",
     },
     descriptionWrapper:{

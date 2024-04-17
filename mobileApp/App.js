@@ -12,7 +12,6 @@ import QuestsScreen from "./src/screens/QuestsScreen";
 const stack = createNativeStackNavigator();
 export default function App() {
 	return (
-		<SafeAreaProvider>
 		<AuthContextProvider>
 			<NavigationContainer>
 				<stack.Navigator>
@@ -22,6 +21,5 @@ export default function App() {
 				</stack.Navigator>
 			</NavigationContainer>
 		</AuthContextProvider>
-		</SafeAreaProvider>
 	);
 }

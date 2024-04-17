@@ -11,14 +11,13 @@ export default function QuestsScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                {/* <TasksCarousel style={styles.carouselContainer} /> */}
-                {/* <CalendarSlider style={styles.calendarContainer} /> */}
+                <TasksCarousel style={styles.carouselContainer} />
+                {/* <CalendarSlider/> */}
                 {/* <TaskList style={styles.taskContainer} /> */}
                 <Card
                     title="Title of a task"
                     description="A very cool description"
                     stats={stats}
-                
                 
                 />
             </ScrollView>

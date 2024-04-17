@@ -25,5 +25,5 @@ TestResults.xml
 #modules
 server/node_modules/
 server/package-lock.json
-client/node_modules/
-client/package-lock.json
+mobileApp/node_modules/
+mobileApp/package-lock.json
