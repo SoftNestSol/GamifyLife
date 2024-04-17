@@ -6,7 +6,8 @@ const {
 	selectUsers,
 	selectUserById,
 	deleteUser,
-	getTodayUserTasks
+	getTodayUserTasks,
+	insertTask
 } = require("../repositories/UserRepository");
 
 router.get("/", (req, res) => {
@@ -31,17 +32,25 @@ router.get("/:id", async (req, res) => {
 	res.send(user);
 });
 
+router.delete("/:id", async (req, res) => {
+	const id = req.params.id;
+	const result = await deleteUser(id);
+	res.send(result);
+});
+
 router.get("/tasks/:id", async (req, res) => {
 	const id = req.params.id;
 	const tasks = await getTodayUserTasks(id);
 	res.send(tasks);
 });
 
-router.delete("/:id", async (req, res) => {
-	const id = req.params.id;
-	const result = await deleteUser(id);
-	res.send(result);
+router.post("/tasks", async (req, res) => {
+    const task = req.body;
+    const result = await insertTask(task);
+    res.send(result);
 });
+
+
 
 /*
 CREATE TABLE [Users]
