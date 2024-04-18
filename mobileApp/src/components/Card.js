@@ -12,8 +12,14 @@ export default function Card({title,description,stats}) {
             <View style={style.top}>
                 <Text style={style.title}>{title}</Text>
             </View>
+            <View style={style.textArea}>
             <View style={style.descriptionWrapper}>
             <Text style={style.description}>{description}</Text>
+            </View>
+            <View style={style.statsWrapper}>
+              <Text>+Str {stats[0]}</Text>
+              <Text>+Int {stats[1]}</Text>
+            </View>
             </View>
         </View>
       
@@ -32,13 +38,29 @@ const style = StyleSheet.create({
     marginBottom:'5%',
     justifyContent: "center",
     },
+    textArea:{
+      flex:1,
+      flexDirection:'row',
+
+
+      
+    },
     descriptionWrapper:{
       flex:1,
       width:'75%',
-//      backgroundColor:'blue',
+    //  backgroundColor:'red',
       padding:"10%",
 
     },
+    statsWrapper:{
+      // flex:1,
+      width:"25%",
+      height:20,
+      marginTop:20,
+      // backgroundColor:'blue'
+
+    },
+
     title:{
       
 
@@ -53,9 +75,9 @@ const style = StyleSheet.create({
     borderWidth:2,
     backgroundColor: '#FFFFFF',
     flexDirection: 'column',
-    // alignItems: 'center',
     border:"3px",
     },
+
     shadow:{
     flex: 1,
     width:"75%",

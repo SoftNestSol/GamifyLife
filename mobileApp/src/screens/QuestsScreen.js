@@ -12,13 +12,12 @@ export default function QuestsScreen() {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TasksCarousel style={styles.carouselContainer} />
-                {/* <CalendarSlider/> */}
+                <CalendarSlider/>
                 {/* <TaskList style={styles.taskContainer} /> */}
                 <Card
                     title="Title of a task"
                     description="A very cool description"
                     stats={stats}
-                
                 />
             </ScrollView>
         </SafeAreaView>
@@ -28,8 +27,7 @@ export default function QuestsScreen() {
 const styles = {
     container: {
         flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
+        backgroundColor:"#FCF4E7"
     },
     //
     carouselContainer: {

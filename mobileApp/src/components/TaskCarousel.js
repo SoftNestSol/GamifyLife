@@ -13,19 +13,23 @@ const DATA = [
         title : 'walk the dog',
         iconId : 3, //  is this how we'll hold icon choices?? - should tell iordy for the db
         description : 'Husk has not gone out in some time',
-        // anything else? - type, some sort of date =))
+        // anything else? - type, some sort of date =))\
+        //strenght,intelligence,blabla
+        stats:[1,3,0]
     },
     {
         id : 220,
         title : 'wash the dishes',
         iconId : 5, //  is this how we'll hold icon choices?? - should tell iordy for the db
         description : 'you do not want bugs, do you??',
+        stats:[1,3,0]
     },
     {
         id : 230,
         title : 'finish aa homework =)',
         iconId : 1, //  is this how we'll hold icon choices?? - should tell iordy for the db
         description : 'you said you would not put it off until the last moment this time',
+        stats:[1,3,0]
     },
 ]
 
@@ -38,6 +42,7 @@ export default function TasksCarousel() {
                 <Card
                     title={item.title}
                     description={item.description}
+                    stats={item.stats}
                 ></Card>
             </View>
             
