@@ -52,7 +52,7 @@ export default function CalendarSlider() {
     // bigger timeout to make sure it uses the updated values of day and week
     setTimeout(() => {
       swiper.current.scrollTo(1, false); 
-    }, 25); 
+    }, 50); 
   };
 
   
@@ -76,18 +76,20 @@ export default function CalendarSlider() {
 									day.toDateString() === item.date.toDateString();
 								return (
 									<TouchableWithoutFeedback
-										key={dateIndex}
-                    // we update the selected date when we click it
-										onPress={() => setDay(item.date)} 
+										key = {dateIndex}
+										// we update the selected date when we click it
+										onPress = {() => setDay(item.date)} 
 									>
-										<View // day view 
-											style={[styles.item, isActive && styles.activeDay]}
-										>
-											<Text style={styles.itemWeekday}>{item.weekday}</Text>
-											<View style={styles.dateWrapper}>
-												<Text style={styles.itemDate}>
-                          {item.date.getDate()}
-												</Text>
+										
+										<View style = {[{flex: 1, height: 70,}, isActive && styles.wrapperActive]}>
+											<View style = {isActive && styles.selectedBorder}/>
+											<View style={[styles.item, isActive && styles.activeDay]}>				
+												<Text style={styles.itemWeekday}>{item.weekday}</Text>
+												<View style={styles.dateWrapper}>
+													<Text style={styles.itemDate}>
+														{item.date.getDate()}
+													</Text>
+												</View>
 											</View>
 										</View>
 									</TouchableWithoutFeedback>
@@ -97,10 +99,10 @@ export default function CalendarSlider() {
 					))}
 				</Swiper>
 			</View>
-
+			{/* the small heading showing the selected date
 			<View style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 10 }}>
-				{/* <Text style={styles.subtitle}> {value.toDateString()} </Text> */}
-			</View>
+				 <Text style={styles.subtitle}> {day.toDateString()} </Text> 
+			</View>*/}
 		</View>
 	);
 }
@@ -110,12 +112,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingVertical: 5
 	},
-	header: {
-		paddingHorizontal: 16
-	},
 	picker: {
 		flex: 1,
-		maxHeight: 100,
+		maxHeight: 120,
 		paddingVertical: 12,
 		flexDirection: "row",
 		alignItems: "center"
@@ -127,22 +126,23 @@ const styles = StyleSheet.create({
 		color: "#999999",
 		marginBottom: 12
 	},
+	itemRow: {
+		width: width,
+		flexDirection: "row",
+		alignItems: "flex-start",
+		justifyContent: "space-between",
+		marginHorizontal: -4,
+		marginTop: 5,
+	},
 	item: {
 		flex: 1,
 		height: 70,
 		marginHorizontal: 2,
 		paddingTop: 4,
 		borderRadius: 8,
-		backgroundColor: "#9CAFAA",
+		backgroundColor: "#E49773",
 		flexDirection: "column",
 		alignItems: "center"
-	},
-	itemRow: {
-		width: width,
-		flexDirection: "row",
-		alignItems: "flex-start",
-		justifyContent: "space-between",
-		marginHorizontal: -4
 	},
 	itemWeekday: {
 		fontSize: 13,
@@ -155,13 +155,29 @@ const styles = StyleSheet.create({
 	dateWrapper: {
 		flex: 1,
 		width: "100%",
-		backgroundColor: "#D6DAC8",
+		backgroundColor: "#cedefe",
 		borderRadius: 8,
 		alignItems: "center",
 		justifyContent: "center"
 	},
+	wrapperActive: {
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+		paddingHorizontal: 5,
+	},
 	activeDay: {
-		borderColor: "#9CAFAA",
-		borderWidth: 5
-	}
+		position: "absolute",
+		hieght: "100%",
+		width: "100%",
+	},
+	selectedBorder: {
+		flex: 1, 
+		height: 80,
+		flexBasis: 55, //width
+		borderStyle: "dashed",
+		borderColor: "black",
+		borderWidth: 1, 
+		borderRadius: 8,
+	},
 });
