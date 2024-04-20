@@ -20,14 +20,14 @@ const DATA = [
     {
         id : 220,
         title : 'wash the dishes',
-        iconId : 5, //  is this how we'll hold icon choices?? - should tell iordy for the db
+        iconId : 5, 
         description : 'you do not want bugs, do you??',
         stats:[1,3,0]
     },
     {
         id : 230,
         title : 'finish aa homework =)',
-        iconId : 1, //  is this how we'll hold icon choices?? - should tell iordy for the db
+        iconId : 1, 
         description : 'you said you would not put it off until the last moment this time',
         stats:[1,3,0]
     },

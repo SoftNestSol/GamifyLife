@@ -3,7 +3,6 @@ import { Button,FlatList,Text ,View,ScrollView,SafeAreaView } from "react-native
 
 import TaskList from "../components/TaskList";
 import TasksCarousel from "../components/TaskCarousel";
-import  CalendarSlider from "../components/CalendarSlider";
 import Card from "../components/Card";
 export default function QuestsScreen() {   
     const stats =[]
@@ -12,7 +11,6 @@ export default function QuestsScreen() {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TasksCarousel style={styles.carouselContainer} />
-                <CalendarSlider/>
                 {/* <TaskList style={styles.taskContainer} /> */}
                 <Card
                     title="Title of a task"
