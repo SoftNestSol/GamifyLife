@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         backgroundColor: "#FCF4E7",
         borderColor: "black",
-        borderWidth: 1,
+        borderWidth: 1.5,
     }
 });

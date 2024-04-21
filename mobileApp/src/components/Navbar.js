@@ -52,7 +52,7 @@ const style = StyleSheet.create({
         width:"100%",
         backgroundColor: '#fff',
         // Apply border only to the top
-        borderTopWidth: 4,  // Width of the top border
+        borderTopWidth: 2,  // Width of the top border
         borderTopColor: '#000',  // Color of the top border
       },
     home:{

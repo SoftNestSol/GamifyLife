@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet,View,Text,Image,FlatList, Button,} from 'react-native';
 
 
@@ -13,6 +13,7 @@ const DATA = [
         title : 'walk the dog',
         iconId : 3, //  is this how we'll hold icon choices?? - should tell iordy for the db
         description : 'Husk has not gone out in some time',
+        type:'Tasks',
         // anything else? - type, some sort of date =))\
         //strenght,intelligence,blabla
         stats:[1,3,0]
@@ -21,6 +22,7 @@ const DATA = [
         id : 220,
         title : 'wash the dishes',
         iconId : 5, 
+        type:'Tasks',
         description : 'you do not want bugs, do you??',
         stats:[1,3,0]
     },
@@ -29,24 +31,45 @@ const DATA = [
         title : 'finish aa homework =)',
         iconId : 1, 
         description : 'you said you would not put it off until the last moment this time',
+        type:'Habits',
         stats:[1,3,0]
     },
 ]
 
 export default function TasksCarousel() {
 
+    const [filter,setFilter] = useState('Tasks');
+    const [filteredTasks,setFilteredTasks] =useState(DATA)
+    useEffect(()=>{
+        setFilteredTasks(DATA.filter((item)=>item.type==filter))
+    },[filter]);
+    const filterButton = (filterType) => {
+        switch (filterType) {
+            case 'Tasks':
+                setFilter('Tasks');
+                break;
+            case 'Recurr.':
+                setFilter('Recurr.');
+                break;
+            case 'Habits':
+                setFilter('Habits');
+                break;
+            default:
+                setFilter('');
+                break;
+        }
+    };
+    
     const renderItem = ({item}) => {
-        console.log(item)
-        return (
-            <View style = {styles.item}>
-                <Card
-                    title={item.title}
-                    description={item.description}
-                    stats={item.stats}
-                ></Card>
-            </View>
-            
-        );
+            return (
+                <View style = {styles.item}>
+                    <Card
+                        title={item.title}
+                        description={item.description}
+                        stats={item.stats}
+                    ></Card>
+                </View>
+            );
     }
 
     // the list
@@ -54,7 +77,7 @@ export default function TasksCarousel() {
         <View style = {styles.container}>
             <View style = {styles.header}>
                 <Text style = {styles.title}> 
-                    Ongoing Tasks 
+                    Ongoing  
                 </Text>
                 <Text style = {styles.button}>
                     See all tasks
@@ -62,23 +85,26 @@ export default function TasksCarousel() {
             </View>
             <View style={styles.filterContainer}>
                     <Button1
-                        title='btn1'
-                        action={()=>{console.log("btn1")}}
+                        title='Tasks'
+                        action={()=>{filterButton('Tasks')}}
+                        pressed={filter === 'Tasks'}
                     />
                      <Button1
-                        title='btn2'
-                        action={()=>{console.log("btn2")}}
+                        title='Recurr.'
+                        action={()=>{filterButton('Recurr.')}}
+                        pressed={filter === 'Recurr.'}
                     />
                      <Button1
-                        title='btn3'
-                        action={()=>{console.log("btn3")}}
+                        title='Habits'
+                        action={()=>{filterButton('Habits')}}
+                        pressed={filter === 'Habits'}
                     />
 
 
             </View>
             <FlatList
                 horizontal
-                data = {DATA}
+                data = {filteredTasks}
                 renderItem = {renderItem}
                 keyExtractor = {item => item.id}
                 showsHorizontalScrollIndicator = {false}>

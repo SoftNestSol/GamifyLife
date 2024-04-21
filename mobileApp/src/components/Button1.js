@@ -1,18 +1,24 @@
 import { StyleSheet, Text, View, ScrollView ,TouchableOpacity} from "react-native";
 import React, { useEffect, useState } from "react";
 
-export default function Button1({title,action}) {
-    const [isPressed,setIsPressed] = useState(true);
-    btnColor = isPressed ? "#ffe200" : "#000"
+export default function Button1({title,action,pressed}) {
+    
+    const [btnColor,setBtnColor] = useState("#FFFFFF")
+    
+    useEffect(()=>{
+        console.log(pressed)
+        setBtnColor(pressed ? "#9EBEFE" : "#FFFFFF")
 
+    },[pressed])
   return (
     <TouchableOpacity
+    activeOpacity={1} 
         style = {styles.container}
-        onPress={()=>{setIsPressed(true); action();}}
+        onPress={()=>{action();}}
     >
          <View style={styles.shadow}/>
         <View style={[styles.button,{backgroundColor:btnColor}]}>
-            <Text>{title}</Text>
+            <Text style={styles.text}>{title}</Text>
         </View>
        
     </TouchableOpacity>
@@ -31,8 +37,13 @@ const styles = StyleSheet.create({
         width:"80%",
         borderRadius: 12,
         borderWidth:1.5,
-        backgroundColor:"#fff"
+        backgroundColor:"#fff",
+        alignItems:'center',
+        justifyContent:'center'
 
+    },
+    text:{
+        fontSize:20
     },
     shadow:{
         height:"100%",
