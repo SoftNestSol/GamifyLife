@@ -83,13 +83,14 @@ export default function CalendarSlider() {
 										
 										<View style = {[{flex: 1, height: 70,}, isActive && styles.wrapperActive]}>
 											<View style = {isActive && styles.selectedBorder}/>
-											<View style={[styles.item, isActive && styles.activeDay]}>				
-												<Text style={styles.itemWeekday}>{item.weekday}</Text>
-												<View style={styles.dateWrapper}>
-													<Text style={styles.itemDate}>
+											<View style = {[styles.shadow, isActive && styles.activeShadow]}></View>
+											<View style = {[styles.item, isActive && styles.activeDay]}>
+												<Text style = {styles.itemWeekday}>{item.weekday}</Text>		
+												<View style = {styles.dateWrapper}>
+													<Text style = {styles.itemDate}>
 														{item.date.getDate()}
 													</Text>
-												</View>
+												</View> 
 											</View>
 										</View>
 									</TouchableWithoutFeedback>
@@ -134,15 +135,26 @@ const styles = StyleSheet.create({
 		marginHorizontal: -4,
 		marginTop: 5,
 	},
+	shadow: {
+		top: 1,
+        left: 4,
+		width: "90%",
+		height: "100%",
+		backgroundColor: "black",
+		borderRadius: 8,
+	},
 	item: {
 		flex: 1,
+		position: "absolute",
 		height: 70,
+		width: "90%",
 		marginHorizontal: 2,
-		paddingTop: 4,
-		borderRadius: 8,
+		paddingTop: 2,
 		backgroundColor: "#E49773",
-		flexDirection: "column",
-		alignItems: "center"
+		alignItems: "center",
+		borderColor: "black",
+		borderWidth: 1,
+		borderRadius: 8,
 	},
 	itemWeekday: {
 		fontSize: 13,
@@ -154,12 +166,17 @@ const styles = StyleSheet.create({
 	},
 	dateWrapper: {
 		flex: 1,
+		position: "relative",
+		top: 1,
 		width: "100%",
 		backgroundColor: "#cedefe",
-		borderRadius: 8,
 		alignItems: "center",
-		justifyContent: "center"
+		justifyContent: "center",
+		borderColor: "black",
+		borderWidth: 1,
+		borderRadius: 8,
 	},
+	// active date special styles
 	wrapperActive: {
 		flexDirection: "row",
 		justifyContent: "center",
@@ -168,16 +185,23 @@ const styles = StyleSheet.create({
 	},
 	activeDay: {
 		position: "absolute",
-		hieght: "100%",
+		height: "100%",
 		width: "100%",
+		left: 3,
 	},
 	selectedBorder: {
 		flex: 1, 
 		height: 80,
-		flexBasis: 55, //width
+		flexBasis: 57, //width
 		borderStyle: "dashed",
 		borderColor: "black",
 		borderWidth: 1, 
 		borderRadius: 8,
 	},
+	activeShadow: {
+		position: "absolute",
+		top: 1,
+        left: 6,
+		width: "100%",
+	}
 });
