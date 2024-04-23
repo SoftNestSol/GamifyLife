@@ -4,6 +4,7 @@ import { Button,FlatList,Text ,View,ScrollView,SafeAreaView } from "react-native
 import TaskList from "../components/TaskList";
 import TasksCarousel from "../components/TaskCarousel";
 import Card from "../components/Card";
+import SuggestionsCard from "../components/SuggestionsCard";
 export default function QuestsScreen() {   
     const stats =[]
 
@@ -11,12 +12,13 @@ export default function QuestsScreen() {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TasksCarousel style={styles.carouselContainer} />
-                {/* <TaskList style={styles.taskContainer} /> */}
+                {/* <TaskList style={styles.taskContainer} /> 
                 <Card
                     title="Title of a task"
                     description="A very cool description"
                     stats={stats}
-                />
+                />*/}
+                <SuggestionsCard/>
             </ScrollView>
         </SafeAreaView>
     );
