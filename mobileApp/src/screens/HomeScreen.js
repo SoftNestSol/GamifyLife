@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, View, StyleSheet } from "react-native";
+import { Button, View, StyleSheet, Text } from "react-native";
 
 import Stats from "../components/Stats";
 import CalendarSlider from "../components/CalendarSlider";
@@ -28,11 +28,12 @@ export default function HomeScreen() {
         </View>
       </View>
       <View style={styles.bottomHalf}>
-        <View style = {styles.calendar}>
-            <CalendarSlider />
+        <View style={styles.calendar}>
+          <CalendarSlider />
         </View>
-        <View style = {styles.tasks}>
-            <TaskList />
+        <Text style={styles.tasksTitle}>Today's quests</Text>
+        <View style={styles.tasks}>
+          <TaskList />
         </View>
       </View>
     </View>
@@ -40,6 +41,13 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  tasksTitle: {
+    fontSize: 20,
+    paddingBottom: 5,
+    marginLeft: 115,
+    marginRight: 20,
+    marginBottom: 14,
+  },
   container: {
     flex: 1,
     backgroundColor: "#cedefe",
@@ -73,9 +81,9 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   calendar: {
-    flex: 1
+    flex: 1,
   },
   tasks: {
-    flex: 2
-  }
+    flex: 2,
+  },
 });
