@@ -1,56 +1,86 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView ,TouchableOpacity} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
-export default function TaskList() {
-  // this will be our list of tasks
-  const [userTasks, setUserTasks] = useState([
-    // "Wash the dishes",
-    // "Clean the room",
-    // "Go to the Gym",
-    // "Walk the dog",
-    // "COokie groceries",
-    // "Water the plants",
-    // "Cook dinner2",
-    // "Walk the dog2",
-    // "Make groceries2",
-    // "Water the plants2",
-    // "Cook dinner3",
-    // "Walk the dog3",
-    // "Make groceries3",
-    // "Water the plants3",
-    // "Cook dinner4",
-    // "Make groceries5",
-    // "Water the plants5",
-    // "Cook dinner5",
-  ]);
+import Task from "./Task";
 
-  const getTasks = async () => {  
-    
-   const resp = await axios.get("http://192.168.8.100:3000/user/tasks/8").then((response) => {
-      setUserTasks(response.data);
-    });
-  }
+const todayTasks = [
+  {
+    id: 2,
+    title: "walk the dog",
+    emoji: "🐶", //  is this how we'll hold icon choices?? - should tell iordy for the db
+    description: "Husk has not gone out in some time",
+    type: "Tasks",
+    // anything else? - type, some sort of date =))\
+    //strenght,intelligence,blabla
+    stats: [1, 3, 0],
+    state: "done",
+  },
+  {
+    id: 220,
+    title: "wash the dishes",
+    emoji: "🍽",
+    type: "Tasks",
+    description: "you do not want bugs, do you??",
+    stats: [1, 3, 0],
+    state: "undone",
+  },
+  {
+    id: 230,
+    title: "finish aa homework =)",
+    emoji: "📚",
+    description:
+      "you said you would not put it off until the last moment this time",
+    type: "Habits",
+    stats: [1, 3, 0],
+    state: "undone",
+  },
+];
+
+export default function TaskList() {
+  const [userTasks, setUserTasks] = useState(todayTasks);
+
+  const getTasks = async () => {
+    const resp = await axios
+      .get("http://192.168.8.100:3000/user/tasks/8")
+      .then((response) => {
+        setUserTasks(response.data);
+      });
+  };
   console.log(userTasks);
-  getTasks();
-  return (
-    <View style={styles.tasksContainer}>
-      <StatusBar style="auto" />
-      <View>
-        <ScrollView>
-          {userTasks.map((task) => (
-            <Text style={styles.taskItem} key={task}>
-              {" 📋 "}
-                
-              {task.title}{" "}
-            </Text>
-          ))}
-        </ScrollView>
+  //getTasks();
+  // <View style={styles.tasksContainer}>
+  //   <StatusBar style="auto" />
+  //   <View>
+  //     <ScrollView>
+  //       {userTasks.map((task) => (
+  //         <Text style={styles.taskItem} key={task}>
+  //           {" 📋 "}
+
+  //           {task.title}{" "}
+  //         </Text>
+  //       ))}
+  //     </ScrollView>
+  //   </View>
+  // </View>
+
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.taskItem}>
+        <Task emoji={item.emoji} title={item.title} state={item.state}></Task>
       </View>
-    </View>
-  );
+    );
+  };
+  return <FlatList data={todayTasks} renderItem={renderItem} />;
 }
 
 const styles = StyleSheet.create({
@@ -74,7 +104,9 @@ const styles = StyleSheet.create({
     padding: 18,
     width: 280,
     borderRadius: 10,
-    backgroundColor: "#d6dac8",
-    color: "black",
+    backgroundColor: "#FCF4E7",
+    borderWidth: 1,
+    border: "solid",
+    borderColor: "black",
   },
 });
