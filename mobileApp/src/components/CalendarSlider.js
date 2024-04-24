@@ -111,14 +111,13 @@ export default function CalendarSlider() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingVertical: 5
 	},
 	picker: {
 		flex: 1,
-		maxHeight: 120,
-		paddingVertical: 12,
+		height: "100%",
+		paddingVertical: 10,
 		flexDirection: "row",
-		alignItems: "center"
+		alignItems: "center",
 	},
 	// the date subtitle
 	subtitle: {
