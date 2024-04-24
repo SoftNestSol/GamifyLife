@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "flex-start",
 		justifyContent: "space-between",
-		marginHorizontal: -4,
 		marginTop: 5,
 	},
 	shadow: {

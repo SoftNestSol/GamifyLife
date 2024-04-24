@@ -1,10 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button,FlatList,Text ,View,ScrollView,SafeAreaView } from "react-native";
+import { ScrollView, SafeAreaView } from "react-native";
 
 import TaskList from "../components/TaskList";
 import TasksCarousel from "../components/TaskCarousel";
 import Card from "../components/Card";
 import SuggestionsCard from "../components/SuggestionsCard";
+import FriendsChallenges from "../components/FriendsChallenges";
 export default function QuestsScreen() {   
     const stats =[]
 
@@ -19,6 +20,7 @@ export default function QuestsScreen() {
                     stats={stats}
                 />*/}
                 <SuggestionsCard/>
+                <FriendsChallenges/>
             </ScrollView>
         </SafeAreaView>
     );
