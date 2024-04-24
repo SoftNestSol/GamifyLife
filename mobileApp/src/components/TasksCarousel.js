@@ -76,7 +76,7 @@ export default function TasksCarousel() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Ongoing</Text>
-        <Text style={styles.button}>See all tasks</Text>
+        <Text style={styles.button}>See all</Text>
       </View>
       <View style={styles.filterContainer}>
         <Button1
@@ -114,8 +114,7 @@ export default function TasksCarousel() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 45,
-    marginBottom: 15,
+    marginVertical: 20,
     marginRight: 30,
     width: "100%",
   },
@@ -129,18 +128,19 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 10,
+    paddingHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
   title: {
-    color: "#9CAFAA",
-    fontSize: 23,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "600",
   },
   button: {
     fontSize: 14,
-    color: "#9CAFAA",
+    opacity: 0.7,
+    textDecorationLine: "underline",
   },
   item: {
     // backgroundColor: '#9BAAAA',
