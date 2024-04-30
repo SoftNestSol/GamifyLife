@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     marginLeft: 115,
     marginRight: 20,
     marginBottom: 14,
+    fontWeight: "600",
   },
   container: {
     flex: 1,

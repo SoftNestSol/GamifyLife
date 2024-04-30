@@ -24,6 +24,7 @@ const todayTasks = [
     //strenght,intelligence,blabla
     stats: [1, 3, 0],
     state: "done",
+    date: null,
   },
   {
     id: 220,
@@ -33,6 +34,7 @@ const todayTasks = [
     description: "you do not want bugs, do you??",
     stats: [1, 3, 0],
     state: "undone",
+    date: null,
   },
   {
     id: 230,
@@ -43,11 +45,16 @@ const todayTasks = [
     type: "Habits",
     stats: [1, 3, 0],
     state: "undone",
+    date: null,
   },
 ];
 
-export default function TaskList() {
+export default function TaskList({ scheduled }) {
   const [userTasks, setUserTasks] = useState(todayTasks);
+
+  const filterByDate = scheduled
+    ? todayTasks.filter((task) => task.date != null)
+    : todayTasks.filter((task) => task.date == null);
 
   const getTasks = async () => {
     const resp = await axios
@@ -56,31 +63,19 @@ export default function TaskList() {
         setUserTasks(response.data);
       });
   };
-  console.log(userTasks);
-  //getTasks();
-  // <View style={styles.tasksContainer}>
-  //   <StatusBar style="auto" />
-  //   <View>
-  //     <ScrollView>
-  //       {userTasks.map((task) => (
-  //         <Text style={styles.taskItem} key={task}>
-  //           {" 📋 "}
 
-  //           {task.title}{" "}
-  //         </Text>
-  //       ))}
-  //     </ScrollView>
-  //   </View>
-  // </View>
+  console.log(userTasks);
 
   const renderItem = ({ item }) => {
     return (
-      <View style={styles.taskItem}>
-        <Task emoji={item.emoji} title={item.title} state={item.state}></Task>
+      <View>
+        <View style={styles.taskItem}>
+          <Task emoji={item.emoji} title={item.title} state={item.state}></Task>
+        </View>
       </View>
     );
   };
-  return <FlatList data={todayTasks} renderItem={renderItem} />;
+  return <FlatList data={filterByDate} renderItem={renderItem} />;
 }
 
 const styles = StyleSheet.create({
@@ -91,7 +86,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   tasksContainer: {
-    flex: 8,
     border: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -99,17 +93,14 @@ const styles = StyleSheet.create({
   taskItem: {
     alignItems: "stretch",
     margin: 7,
-    marginRight: 50,
-    marginLeft: 50,
     paddingTop: 25,
-    paddingBottom: 0,
-    paddingLeft: 10,
     paddingRight: 10,
-    width: 280,
-    borderRadius: 10,
+    paddingLeft: 10,
+    borderRadius: 3,
     backgroundColor: "#FCF4E7",
-    borderTopWidth: 1,
+    borderTopWidth: 2,
     border: "solid",
     borderColor: "black",
+    width: "97%",
   },
 });

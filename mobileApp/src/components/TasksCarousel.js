@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, FlatList, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 //components
 import Card from "./Card";
@@ -37,6 +38,7 @@ const DATA = [
 ];
 
 export default function TasksCarousel() {
+  const navigation = useNavigation();
   const [filter, setFilter] = useState("Tasks");
   const [filteredTasks, setFilteredTasks] = useState(DATA);
   useEffect(() => {
@@ -76,7 +78,11 @@ export default function TasksCarousel() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Ongoing</Text>
-        <Text style={styles.button}>See all</Text>
+        <Button
+          style={styles.button}
+          title="See all"
+          onPress={() => navigation.navigate("OngoingTasks")}
+        />
       </View>
       <View style={styles.filterContainer}>
         <Button1
