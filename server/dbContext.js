@@ -3,15 +3,18 @@ require("dotenv").config();
 
 const DRIVER = {
 
-	user: process.env.USER_ID,
+	user: process.env.UID,
 	password: process.env.PASSWORD,
 	server: process.env.SERVER,
 	port: parseInt(process.env.PORT),
 	database: process.env.INITIAL_CATALOG,
 	options: {
-		encrypt: true,
-		enableArithAbort: true
+		encrypt: process.env.ENCRYPT === "yes",
+		trustServerCertificate: process.env.TRUSTSERVERCERTIFICATE === "yes",
+		connectionTimeout: parseInt(process.env.CONNECTIONTIMEOUT),
+		authentification: process.env.AUTHENTIFICATION
 	}
+	
 };
 
 const connect = async () => {
