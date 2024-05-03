@@ -1,8 +1,8 @@
-import { Text, } from "react-native";
 // import { AuthContextProvider } from "./src/contexts/auth.context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContextProvider } from "./src/contexts/auth.context";
+import LoginScreen from "./src/screens/Login";
 
 //screens
 import RegisterScreen from "./src/screens/RegisterScreen";
@@ -16,6 +16,7 @@ export default function App() {
 		<AuthContextProvider>
 			<NavigationContainer>
 				<stack.Navigator>
+					<stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
 					<stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
 					<stack.Screen name="Register" component={RegisterScreen} />
 					<stack.Screen name="Quests" component={QuestsScreen}options={{ headerShown: false }} />

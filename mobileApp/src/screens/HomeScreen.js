@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Button,Text ,View} from "react-native";
+
 export default function HomeScreen() {
     const navigation = useNavigation();
     return (
@@ -7,6 +8,7 @@ export default function HomeScreen() {
             <Text>Home Screen</Text>
             <Button title="Go to Register" onPress={() => navigation.navigate("Register")} />
             <Button title="Go to Quests" onPress={() => navigation.navigate("Quests")} />
+            <Button title="Go to Login" onPress={() => navigation.navigate("Login")} />
         </View>
     );    
 }

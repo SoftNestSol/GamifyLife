@@ -69,7 +69,6 @@ export default function TasksCarousel() {
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
     container: {
         marginTop: 45,
         marginBottom: 15,
@@ -125,59 +124,3 @@ const styles = StyleSheet.create({
         fontSize: 12, 
     },
 });
-=======
-	container: {
-		marginTop: 45,
-		marginBottom: 15,
-		marginHorizontal: 12,
-		height: "50%",
-		width: "100%"
-	},
-	header: {
-		marginBottom: 10,
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center"
-	},
-	title: {
-		color: "#9CAFAA",
-		fontSize: 23,
-		fontWeight: "bold"
-	},
-	button: {
-		fontSize: 14,
-		color: "#9CAFAA"
-	},
-	item: {
-		backgroundColor: "#9CAFAA",
-		padding: 10,
-		width: 250,
-		flex: 1,
-		borderRadius: 20,
-		marginRight: 30
-	},
-	itemHeader: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "flex-start",
-		marginBottom: 5
-	},
-	icon: {
-		width: "20%",
-		marginRight: 10
-	},
-	itemTitle: {
-		fontSize: 20,
-		flex: 1,
-		flexWrap: "wrap",
-		alignSelf: "center",
-		textAlign: "center"
-	},
-	description: {
-		flex: 1
-	},
-	itemDesctiption: {
-		fontSize: 12
-	}
-});
->>>>>>> 62dd095c2c7e9cbf098488ba6a2a0171ab0911d8
