@@ -14,8 +14,8 @@ const DRIVER = {
 		connectionTimeout: parseInt(process.env.CONNECTIONTIMEOUT),
 		authentification: process.env.AUTHENTIFICATION
 	}
-	
 };
+
 
 const connect = async () => {
 	try {

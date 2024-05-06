@@ -6,12 +6,16 @@ const {
 	selectUsers,
 	selectUserById,
 	deleteUser,
+	getUserHabits,
+} = require("../repositories/UserRepository");
+const {
 	getTodayUserTasks,
 	insertTask,
 	getTasksByDate,
-	getUserHabits,
 	getUserReccuringTasks
-} = require("../repositories/UserRepository");
+} = require("../repositories/TaskRepository");
+
+const {suggestTask} = require('../services/TaskSugestions.js')
 
 router.get("/", (req, res) => {
 	res.send("User route");
@@ -74,10 +78,13 @@ router.get("/reccuring/:id", async (req, res) => {
 }
 );
 
+router.get("/suggest/:id", async (req, res) => {
+	const id = req.params.id;
+	const resp = await suggestTask(id);
+	res.send(resp);
+	
+});
 /*
-
-
-
 const selectUsers = async () => {
 	const query = `SELECT * FROM Users`;
 	const connection = await connect();
@@ -163,7 +170,6 @@ const getUserReccuringTasks = async (id) => {
 	const result = await connection.query(query)
 	return result.recordset;
 }
-
 */
 
 module.exports = router;
