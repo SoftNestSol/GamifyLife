@@ -7,8 +7,8 @@ import {
 } from "firebase/auth";
 import React, { createContext, useContext } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getReactNativePersistence } from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
@@ -23,8 +23,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = initializeAuth(app, {
-	persistence: getReactNativePersistence(AsyncStorage)
+const lStorage = getReactNativePersistence(ReactNativeAsyncStorage);
+const auth = getAuth(app, {
+	persistence: lStorage
 });
 
 export const useAuthContext = () => {
@@ -37,7 +38,10 @@ export const useAuthContext = () => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-	const [user, setUser] = useState(null);
+
+	const [user, setUser] = useState(
+		null
+	);
 
 	const register = async (email, password) => {
 		console.log(email, password);
@@ -57,7 +61,7 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const isLoggedIn = async () => {
-		if (AsyncStorage.getItem("isLoggedIn")) {
+		if (ReactNativeAsyncStorage.getItem("isLoggedIn")) {
 			return true;
 		} else {
 			return false;
@@ -65,7 +69,6 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const login = async (email, password) => {
-		console.log(email, password);
 
 		try {
 			const userCredential = await signInWithEmailAndPassword(
@@ -78,13 +81,16 @@ export const AuthContextProvider = ({ children }) => {
 			setUser(user);
 			console.log(user);
 
-			await AsyncStorage.setItem("user", JSON.stringify(user));
-			await AsyncStorage.setItem("uid", JSON.stringify(uid));
-			await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+			await ReactNativeAsyncStorage.setItem("user", JSON.stringify(user));
+			await ReactNativeAsyncStorage.setItem("uid", JSON.stringify(uid));
+			await ReactNativeAsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
 
+			console.log("User logged in successfully", user);
 			return `User ${user.email} logged in successfully`;
+	
 		} catch (error) {
-			console.log(error);
+		console.log(error);
+		
 		}
 	};
 

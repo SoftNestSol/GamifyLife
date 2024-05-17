@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 
 
 const corsOptions = {
-	origin: "http://localhost:8081",
+	//allow origin to be anything
+	origin: "*",
 	optionsSuccessStatus: 200,
 	credentials: true,
 	methods: "GET, POST, DELETE, PUT, PATCH"
