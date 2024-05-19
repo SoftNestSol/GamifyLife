@@ -10,17 +10,17 @@ const suggestTask =  async (userId)=>{
     const prompt =`Generate task suggestions based on user interests. Interests are ${interests}. Provide a short title and a brief description (50 words max) for each task. Example: "Create Digital Art: Use digital tools to express creativity. Experiment with colors, shapes, and textures to produce unique artworks."`
     const options = {
         method: 'POST',
-        url: 'http://4.232.161.184:33337/v1/chat/completions',
+        url: 'http://20.19.88.114:33337/v1/chat/completions',
         headers: {'Content-Type': 'application/json'},
         data: {
           messages: [
             {content: context, role: 'system'},
             {content: prompt, role: 'user'}
           ],
-          model: 'hermes-pro-7b',
+          model: "stable-zephyr-3b",
           stream: false,
           max_tokens: 2048,
-          stop: ['hello', 'Hello', 'HELLO', 'hELLO'],
+          stop: ['hello'],
           frequency_penalty: 0,
           presence_penalty: 0,
           temperature: 0.7,
