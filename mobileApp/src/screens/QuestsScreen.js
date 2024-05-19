@@ -22,8 +22,8 @@ export default function QuestsScreen() {
                     description="A very cool description"
                     stats={stats}
                 />*/}
-                <SuggestionsCard/>
                 <FriendsChallenges/>
+                <SuggestionsCard/>
             </ScrollView>
         </SafeAreaView>
     );
