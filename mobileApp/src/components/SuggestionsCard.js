@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
 
 export default function SuggestionsCard() {
+  const navigation = useNavigation();
+
   return (
     <View style = {styles.container}>
       <View style = {styles.title}>
@@ -8,8 +11,10 @@ export default function SuggestionsCard() {
       </View>
       <TouchableOpacity style = {styles.cardContainer}
         activeOpacity = {0.9}
+        onLongPress = {() => navigation.navigate("Suggestions")}
+        delayLongPress={100}
       >
-        <View>
+        <>
           <View style = {styles.shadow}></View>
           <View style = {styles.card}>
             <View style = {styles.cardText}>
@@ -21,7 +26,7 @@ export default function SuggestionsCard() {
               <Image source = {require('../../assets/swords.png')} style = {styles.icon}/>
             </View>
           </View>
-        </View>
+        </>
       </TouchableOpacity>
     </View>
   );
