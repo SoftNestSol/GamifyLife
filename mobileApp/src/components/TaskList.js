@@ -70,7 +70,7 @@ export default function TaskList({ scheduled }) {
     return (
       <View>
         <View style={styles.taskItem}>
-          <Task emoji={item.emoji} title={item.title} state={item.state}></Task>
+          <Task item={item} emoji={item.emoji} title={item.title} state={item.state}></Task>
         </View>
       </View>
     );
