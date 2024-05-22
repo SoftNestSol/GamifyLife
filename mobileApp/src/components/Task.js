@@ -3,12 +3,12 @@ import Checkbox from "expo-checkbox";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 
-export default function Task({ item, title, emoji, state }) {
+export default function Task({ id, item, title, emoji, state }) {
   const navigation = useNavigation();
   const [isSelected, setSelection] = useState(false);
 
   return (
-    <TouchableWithoutFeedback onPress = {() => navigation.navigate("Task", {task : item})}>
+    <TouchableWithoutFeedback onPress = {() => navigation.navigate("Task", {taskId : id, task: item})}>
       <View style={styles.container}>
         <View style={styles.titleWrapper}>
           <Text style={styles.emojiWrapper}>{emoji}</Text>

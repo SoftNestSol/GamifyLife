@@ -37,7 +37,7 @@ export default function SuggestionsSwiper() {
 
     const pickTask = (pickedSuggestionIndex) => {
         const pickedSuggestion = suggestionsList[pickedSuggestionIndex]; // get the picked list
-        console.log("Picked task:" + pickedSuggestion.suggestion.title);
+        //console.log("Picked task:" + pickedSuggestion.suggestion.title);
         selectedTasks.push(pickedSuggestion); // add the selected task
         setPicked(picked + 1); // increase the counter
         // we will want to also remove the card from the cards list - from the remaining
@@ -48,7 +48,7 @@ export default function SuggestionsSwiper() {
     }
 
     const checkLast = (index) => {
-        console.log("Checked" + index);
+        //console.log("Checked" + index);
         // if we're at the end update suggestions
         if(index == suggestionsList.length - 1)
             setSuggestionsList(remainingSuggestions);
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 20,
         alignSelf: "center",
+        textAlign: "center",
     },
     top: {
         flex: 1,
