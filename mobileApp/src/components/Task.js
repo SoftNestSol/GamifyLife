@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import Checkbox from "expo-checkbox";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 
-export default function Task({ title, emoji, state }) {
+export default function Task({ id, item, title, emoji, state }) {
+  const navigation = useNavigation();
   const [isSelected, setSelection] = useState(false);
 
   return (
-    <View>
+    <TouchableWithoutFeedback onPress = {() => navigation.navigate("Task", {taskId : id, task: item})}>
       <View style={styles.container}>
         <View style={styles.titleWrapper}>
           <Text style={styles.emojiWrapper}>{emoji}</Text>
@@ -23,7 +25,7 @@ export default function Task({ title, emoji, state }) {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

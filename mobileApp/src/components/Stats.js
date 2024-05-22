@@ -6,21 +6,27 @@ import {StyleSheet, View, Text} from 'react-native';
 const stats = [
     {
         id: 1,
-        name: "health",
+        name: "fitness",
         level: 5,
         procent: 30,
     },
     {
         id: 2,
-        name: "fitness",
+        name: "intelligence",
         level: 3,
         procent: 50,
     },
     {
         id: 3,
-        name: "intelligence",
-        level: 6,
+        name: "wellness",
+        level: 5,
         procent: 15,
+    },
+    {
+        id: 4,
+        name: "skill",
+        level: 6,
+        procent: 45,
     }
 ]
 
@@ -65,9 +71,9 @@ function Stat({name, level, procent}) {
 const styles = StyleSheet.create({
     statsContainer: {
         marginHorizontal: 10,
-        marginVertical: 15,
+        marginBottom: 20,
         width: "70%",
-        height: "65%",
+        height: "85%",
     },
     // styles for just one stat
     container: {

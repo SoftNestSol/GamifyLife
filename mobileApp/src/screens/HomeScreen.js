@@ -11,6 +11,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <View style={styles.topHalf}>
         <View style={styles.leftQuarter}>
+          {/*
           <Button
             title="Go to Register"
             onPress={() => navigation.navigate("Register")}
@@ -18,7 +19,7 @@ export default function HomeScreen() {
           <Button
             title="Go to Quests"
             onPress={() => navigation.navigate("Quests")}
-          />
+          />*/}
         </View>
         <View style={styles.rightQuarter}>
           <View style={styles.chest}></View>
@@ -33,7 +34,7 @@ export default function HomeScreen() {
         </View>
         <Text style={styles.tasksTitle}>Today's quests</Text>
         <View style={styles.tasks}>
-          <TaskList />
+          <TaskList scheduled={true}/>
         </View>
       </View>
     </View>

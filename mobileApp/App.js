@@ -10,56 +10,22 @@ import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import QuestsScreen from "./src/screens/QuestsScreen";
 import TasksScreen from "./src/screens/TasksScreen";
-import TaskCreationScreen1 from "./src/screens/TaskCreationScreen1.js";
-import NewTaskCreation from "./src/screens/NewTaskCreation.js";
-import NewRecurrentTask from "./src/screens/NewRecurrentTask.js";
-import NewHabitCreation from "./src/screens/NewHabitCreation.js";
+
 
 const stack = createNativeStackNavigator();
 export default function App() {
-  return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        <stack.Navigator>
-          <stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-          {/* <stack.Screen name="Register" component={RegisterScreen} /> */}
-          <stack.Screen
-            name="Quests"
-            component={QuestsScreen}
-            options={{ headerShown: false }}
-          />
-          <stack.Screen
-            name="OngoingTasks"
-            component={TasksScreen}
-            options={{ headerShown: false }}
-          />
-          <stack.Screen
-            name="TasksMenu1"
-            component={TaskCreationScreen1}
-            options={{ headerShown: false }}
-          />
-          <stack.Screen
-            name="NewTaskCreation"
-            component={NewTaskCreation}
-            options={{ headerShown: false }}
-          />
-          <stack.Screen
-            name="NewHabitCreation"
-            component={NewHabitCreation}
-            options={{ headerShown: false }}
-          />
-          <stack.Screen
-            name="NewRecurrentTask"
-            component={NewRecurrentTask}
-            options={{ headerShown: false }}
-          />
-        </stack.Navigator>
-        <Navbar />
-      </NavigationContainer>
-    </AuthContextProvider>
-  );
+	return (
+		<AuthContextProvider>
+			<NavigationContainer>
+				<stack.Navigator>
+					<stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+					{/* <stack.Screen name="Register" component={RegisterScreen} /> */}
+					<stack.Screen name="Quests" component={QuestsScreen}options={{ headerShown: false }} />
+					<stack.Screen name="OngoingTasks" component={TasksScreen}options={{ headerShown: false }} />
+				</stack.Navigator>
+				<Navbar/>
+			</NavigationContainer>
+			
+		</AuthContextProvider>
+	);
 }

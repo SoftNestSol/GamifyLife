@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet, FlatList} from "react-native";
 
-import Card from "./Card";
+import FriendCard from "./FriendCard";
 
 // i'll consider them filtered from now
 // i'm guessing they will be retrieved from a separate table or 
@@ -16,6 +16,7 @@ const friendsChallenges = [
         //strenght,intelligence,blabla
         stats: [3, 0, 0],
         friendId: 222,  // "Radu" =)
+        friend: "Radu", // would get it from the db
       },
       {
         id: 23,
@@ -25,6 +26,47 @@ const friendsChallenges = [
         description: "buddy reading",
         stats: [0, 3, 0],
         friendId: 210, // "Ioana" =)
+        friend: "Ioana",
+      },
+      {
+        id: 24,
+        title: "read \"Jane Eyre\" with me",
+        iconId: 5,
+        type: "Tasks",
+        description: "buddy reading",
+        stats: [0, 3, 0],
+        friendId: 210, // "Ioana" =)
+        friend: "Maria",
+      },
+      {
+        id: 25,
+        title: "read \"Jane Eyre\" with me",
+        iconId: 5,
+        type: "Tasks",
+        description: "buddy reading",
+        stats: [0, 3, 0],
+        friendId: 210, // "Ioana" =)
+        friend: "Iordy",
+      },
+      {
+        id: 26,
+        title: "read \"Jane Eyre\" with me",
+        iconId: 5,
+        type: "Tasks",
+        description: "buddy reading",
+        stats: [0, 3, 0],
+        friendId: 210, // "Ioana" =)
+        friend: "Elena",
+      },
+      {
+        id: 27,
+        title: "read \"Jane Eyre\" with me",
+        iconId: 5,
+        type: "Tasks",
+        description: "buddy reading",
+        stats: [0, 3, 0],
+        friendId: 210, // "Ioana" =)
+        friend: "Ana",
       },
 ];
 
@@ -33,11 +75,11 @@ export default function FriendsChallenges() {
     function renderItem({item}) {
         return(
             <View style = {styles.item}>
-                {/* kinda feel like i should do my own cards */}
-                <Card 
+                <FriendCard 
                     title = {item.title}
                     description = {item.description}
                     stats = {item.stats}
+                    friend = {item.friend}
                 />
             </View>
         );
@@ -76,11 +118,10 @@ const styles = StyleSheet.create({
     },
     cards: {
         flex: 3,
+        paddingLeft: 15,
     },
     item: {
         flex: 1,
-        height: 250,
-        width: 400,
-        marginRight: -90,
-    },
+        marginRight: 15,
+    }
 });
