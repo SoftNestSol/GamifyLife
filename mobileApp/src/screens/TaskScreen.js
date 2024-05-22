@@ -4,48 +4,33 @@ import {
     Text,
     SafeAreaView,
   } from "react-native";
+import TaskCard from "../components/TaskCard";
+import TrashBin from "../svg-components/TrashBin";
 
 export default function TaskScreen({route}) {
-    const {task} = route.params; 
+    const {taskId, task} = route.params; // we use it to make a call to the back and get the whole task
+
+    const renderWeekdays = (day, index) => {
+        return(
+            <Text style = {[styles.day, task.days[index] && styles.pickedDay]}> {day} </Text>
+        )
+    } 
+
     return (
         <SafeAreaView style = {styles.container}>
             <View style = {styles.titleContainer}>
-                <Text style = {styles.title}> Task </Text>
+                {/* for alignment*/}
+                <TrashBin width = "30" height = "30" fill = "none"/> 
+                <Text style = {styles.title}> {task.type} </Text>
+                <TrashBin width = "30" height = "30"/>
             </View>
             <View style = {styles.taskContainer}>
                 <View style = {styles.taskTitleWrapper}>
                     <Text style = {styles.taskTitle}> {task.title} </Text>
+                    <Text style = {styles.emoji}> {task.emoji} </Text>
                 </View>
                 <View style = {styles.taskDetailsContainer}>
-                    <View style = {styles.taskDetails}>
-                        <View style = {styles.sectionWrapper}>
-                            <Text style = {styles.sectionTitle}>
-                                Description
-                            </Text>
-                            <Text style = {styles.sectionContent}>
-                                {task.description}
-                            </Text>
-                        </View>
-                        <View style = {styles.sectionWrapper}>
-                            <Text style = {styles.sectionTitle}>
-                                Section 2
-                            </Text>
-                            <Text style = {styles.sectionContent}>
-                                Section 2 content
-                            </Text>
-                        </View>
-                        <View style = {styles.sectionWrapper}>
-                            <Text style = {styles.sectionTitle}>
-                                Section 3
-                            </Text>
-                            <Text style = {styles.sectionContent}>
-                                Section 3 content
-                            </Text>
-                        </View>
-                        <View style = {styles.something}>
-                            <Text style = {styles.sectionTitle}> Big Section </Text>
-                        </View>
-                    </View>
+                    <TaskCard task = {task} />
                 </View>
             </View>
         </SafeAreaView>
@@ -65,11 +50,15 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderStyle: "dashed",
         borderBottomWidth: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     title: {
         fontSize: 24,
         fontWeight: "600",
-        alignSelf: "center",
+    },
+    deleteButton: {
     },
     taskContainer: {
         flex: 1,
@@ -77,42 +66,18 @@ const styles = StyleSheet.create({
     taskTitleWrapper: {
         flex: 1,
         paddingHorizontal: "10%",
+        flexDirection: "row",
         justifyContent: "center",
+        alignItems: "center",
     },
     taskTitle: {
         fontSize: 32,
-        alignSelf: "center",
         textAlign: "center",
+    },
+    emoji: {
+        fontSize: 24,
     },
     taskDetailsContainer: {
         flex: 3,
-    },
-    taskDetails: {
-        height: "75%",
-        width: "80%",
-        alignSelf: "center",
-        paddingHorizontal: "7%",
-        borderWidth: 1,
-        borderRadius: 24,
-        borderColor: "#C7B0A0",
-        backgroundColor: "#fff",
-    },
-    sectionWrapper: {
-        flex: 1,
-        borderBottomWidth: 1,
-        borderColor: "black",
-        borderStyle: "dashed",
-    },
-    sectionTitle: {
-        marginTop: 10,
-        fontSize: 15,
-        fontWeight: "200",
-    },
-    sectionContent: {
-        fontSize: 14,
-        paddingHorizontal: 15,
-    },
-    something: {
-        flex: 1.5,
     },
 })

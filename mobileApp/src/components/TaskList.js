@@ -19,22 +19,26 @@ const todayTasks = [
     title: "walk the dog",
     emoji: "🐶", //  is this how we'll hold icon choices?? - should tell iordy for the db
     description: "Husk has not gone out in some time",
-    type: "Tasks",
+    type: "Task",
     // anything else? - type, some sort of date =))\
     //strenght,intelligence,blabla
-    stats: [1, 3, 0],
+    stats: [1, 3, 0, 1],
     state: "done",
-    date: null,
+    date: "22/05/2024",
+    frequency: null,
+    days: null,
   },
   {
     id: 220,
     title: "wash the dishes",
     emoji: "🍽",
-    type: "Tasks",
+    type: "Task",
     description: "you do not want bugs, do you??",
-    stats: [1, 3, 0],
+    stats: [1, 3, 0, 1],
     state: "undone",
-    date: null,
+    date: "23/05/02024",
+    frquency: null,
+    days: null,
   },
   {
     id: 230,
@@ -42,10 +46,12 @@ const todayTasks = [
     emoji: "📚",
     description:
       "you said you would not put it off until the last moment this time",
-    type: "Habits",
-    stats: [1, 3, 0],
+    type: "Habit",
+    stats: [1, 3, 0, 3],
     state: "undone",
-    date: null,
+    date: "24/05/2024",
+    frequency: "Every Week",
+    days: [0, 1, 0, 0, 1, 0, 0] // 0100100 - 36 
   },
 ];
 
@@ -70,7 +76,7 @@ export default function TaskList({ scheduled }) {
     return (
       <View>
         <View style={styles.taskItem}>
-          <Task item={item} emoji={item.emoji} title={item.title} state={item.state}></Task>
+          <Task id={item.id} item={item} emoji={item.emoji} title={item.title} state={item.state}></Task>
         </View>
       </View>
     );

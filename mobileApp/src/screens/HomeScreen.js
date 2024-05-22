@@ -34,7 +34,7 @@ export default function HomeScreen() {
         </View>
         <Text style={styles.tasksTitle}>Today's quests</Text>
         <View style={styles.tasks}>
-          <TaskList />
+          <TaskList scheduled={true}/>
         </View>
       </View>
     </View>
