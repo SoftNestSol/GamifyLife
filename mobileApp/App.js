@@ -18,11 +18,14 @@ import NewHabitCreation from "./src/screens/NewHabitCreation.js";
 import SuggestionsScreen from "./src/screens/SuggestionsScreen";
 import TaskScreen from "./src/screens/TaskScreen.js";
 import LoginScreen from "./src/screens/LoginScreen";
+import Task from "./src/components/Task.js";
+import { TasksContextProvider } from "./src/contexts/tasks.context.jsx";
 
 const stack = createNativeStackNavigator();
 export default function App() {
 	return (
 		<AuthContextProvider>
+			<TasksContextProvider>
 			<NavigationContainer>
 				<stack.Navigator>
 					<stack.Screen
@@ -84,6 +87,7 @@ export default function App() {
 				</stack.Navigator>
 				<Navbar />
 			</NavigationContainer>
+			</TasksContextProvider>
 		</AuthContextProvider>
 	);
 }
