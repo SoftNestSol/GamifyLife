@@ -77,7 +77,9 @@ export const AuthContextProvider = ({ children }) => {
 
 			return `User ${user.email} logged in successfully`;
 		} catch (error) {
-			console.log(error);
+			
+			return new Error(error);
+			
 		}
 	};
 
