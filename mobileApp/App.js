@@ -7,6 +7,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "./src/components/Navbar";
 //screens
 import RegisterScreen from "./src/screens/RegisterScreen";
+import JourneyScreen from "./src/screens/JourneyScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import QuestsScreen from "./src/screens/QuestsScreen";
 import TasksScreen from "./src/screens/TasksScreen";
@@ -32,6 +33,11 @@ export default function App() {
           <stack.Screen
             name="Quests"
             component={QuestsScreen}
+            options={{ headerShown: false }}
+          />
+          <stack.Screen
+            name="Journey"
+            component={JourneyScreen}
             options={{ headerShown: false }}
           />
           <stack.Screen
