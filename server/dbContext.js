@@ -5,13 +5,13 @@ const DRIVER = {
 	user: process.env.UID,
 	password: process.env.PASSWORD,
 	server: process.env.SERVER,
-	port: parseInt(process.env.PORT),
-	database: process.env.INITIAL_CATALOG,
+	port: parseInt(process.env.PORT_DB),
+	database: "Productivity",
 	options: {
 		encrypt: 1,
-		trustServerCertificate: process.env.TRUSTSERVERCERTIFICATE === "yes",
-		connectionTimeout: parseInt(process.env.CONNECTIONTIMEOUT),
-		authentification: process.env.AUTHENTIFICATION
+		trustServerCertificate: 1,
+		connectionTimeout: 3000,
+		authentification: "ActiveDirectoryIntegrated"
 	}
 };
 
