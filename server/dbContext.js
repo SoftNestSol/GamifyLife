@@ -8,8 +8,8 @@ const DRIVER = {
 	port: parseInt(process.env.PORT_DB),
 	database: "Productivity",
 	options: {
-		encrypt: 1,
-		trustServerCertificate: 1,
+		encrypt: true,
+		trustServerCertificate: true,
 		connectionTimeout: 3000,
 		authentification: "ActiveDirectoryIntegrated"
 	}
