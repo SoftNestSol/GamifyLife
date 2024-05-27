@@ -1,20 +1,20 @@
 import { initializeApp } from "firebase/app";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import React, { createContext, useContext } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
 const firebaseConfig = {
-	apiKey: "AIzaSyAGXOzUWltIjkZ-eCILSI8hkIkpyA5f1TU",
-	authDomain: "productivity-app-b9293.firebaseapp.com",
-	projectId: "productivity-app-b9293",
-	storageBucket: "productivity-app-b9293.appspot.com",
-	messagingSenderId: "528679293327",
-	appId: "1:528679293327:web:5f7faa15c20bc45040bbfa",
-	measurementId: "G-4H4DGNG1KY"
+	apiKey: "AIzaSyDgWzwPVeVyASwxIYTAwzba3nEH_68Ztx8",
+	authDomain: "gamifylife-810f8.firebaseapp.com",
+	projectId: "gamifylife-810f8",
+	storageBucket: "gamifylife-810f8.appspot.com",
+	messagingSenderId: "202382868927",
+	appId: "1:202382868927:web:53776240f2683cb34fa10a",
+	measurementId: "G-BKT0TVZ3HX"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -31,9 +31,27 @@ export const useAuthContext = () => {
 
 export const AuthContextProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const checkLoginStatus = async () => {
+			try {
+				const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+				if (isLoggedIn) {
+					const user = await AsyncStorage.getItem("user");
+					setUser(JSON.parse(user));
+				}
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		checkLoginStatus();
+	}, []);
 
 	const register = async (email, password) => {
-		console.log(email, password);
 		try {
 			const userCredential = await createUserWithEmailAndPassword(
 				auth,
@@ -41,25 +59,15 @@ export const AuthContextProvider = ({ children }) => {
 				password
 			);
 			const user = userCredential.user;
-			const uid = user.uid;
 			setUser(user);
 			return user;
 		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const isLoggedIn = async () => {
-		if (AsyncStorage.getItem("isLoggedIn")) {
-			return true;
-		} else {
-			return false;
+			console.error(error);
+			return new Error(error.message);
 		}
 	};
 
 	const login = async (email, password) => {
-		console.log(email, password);
-
 		try {
 			const userCredential = await signInWithEmailAndPassword(
 				auth,
@@ -67,17 +75,28 @@ export const AuthContextProvider = ({ children }) => {
 				password
 			);
 			const user = userCredential.user;
-			const uid = user.uid;
 			setUser(user);
-			console.log(user);
 
 			await AsyncStorage.setItem("user", JSON.stringify(user));
-			await AsyncStorage.setItem("uid", JSON.stringify(uid));
-			await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+			await AsyncStorage.setItem("uid", user.uid);
+			await AsyncStorage.setItem("isLoggedIn", "true");
 
-			return `User ${user.email} logged in successfully`;
+			return user;
 		} catch (error) {
-			return new Error(error);
+			console.error("Login failed:", error);
+			return new Error("Login failed");
+		}
+	};
+
+	const logout = async () => {
+		try {
+			await signOut(auth);
+			await AsyncStorage.removeItem("user");
+			await AsyncStorage.removeItem("uid");
+			await AsyncStorage.removeItem("isLoggedIn");
+			setUser(null);
+		} catch (error) {
+			console.error("Logout failed:", error);
 		}
 	};
 
@@ -86,7 +105,8 @@ export const AuthContextProvider = ({ children }) => {
 		setUser,
 		register,
 		login,
-		isLoggedIn
+		isLoading,
+		logout
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
