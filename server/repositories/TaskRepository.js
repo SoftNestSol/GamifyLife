@@ -1,6 +1,7 @@
 const { connect } = require("../dbContext");
+
 const getTodayUserTasks = async (id) => {
-	const query = `SELECT * FROM Tasks WHERE user_id = ${id} AND created_at = CAST(GETDATE() AS DATE) AND type != 'habit' and type != 'reccuring'`;
+	const query = `SELECT *  FROM Tasks WHERE user_id = 9 AND CAST(created_at AS DATE) = CAST(GETDATE() AS DATE) AND type != 'habit' and type != 'reccuring'`;
 	const connection = await connect();
 	const result = await connection.query(query);
 	return result.recordset;
