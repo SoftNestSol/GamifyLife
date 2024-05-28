@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import { useAuthContext } from "../contexts/auth.context";
 import {
 	Button,
@@ -13,10 +12,12 @@ import {
 import Stats from "../components/Stats";
 import CalendarSlider from "../components/CalendarSlider";
 import TaskList from "../components/TaskList";
+import { useEffect } from "react";
 
 export default function HomeScreen() {
 	const navigation = useNavigation();
 	const { logout } = useAuthContext();
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.topHalf}>

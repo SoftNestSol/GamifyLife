@@ -99,7 +99,6 @@ export const TasksContextProvider = ({ children }) => {
 		setUser,
 		tasks,
 		setTasks,
-		getTasks,
 		getTodaysTasks,
 		deleteTask,
 		createTask
