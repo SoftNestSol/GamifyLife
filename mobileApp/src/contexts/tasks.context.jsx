@@ -1,6 +1,7 @@
 import { useContext, createContext } from "react";
 import { useState } from "react";
 import { endEvent } from "react-native/Libraries/Performance/Systrace";
+import axios from "axios";
 
 export const TasksContext = createContext({});
 
@@ -19,19 +20,6 @@ export const useTasksContext = () => {
 export const TasksContextProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [tasks, setTasks] = useState([]);
-
-	const getTasks = async () => {
-		try {
-			const response = await fetch(
-				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/tasks/${user.id}`
-			);
-			const data = await response.json();
-			setTasks(data);
-			return data;
-		} catch (error) {
-			console.log(error);
-		}
-	};
 
 	const getUserHabits = async () => {
 		try {

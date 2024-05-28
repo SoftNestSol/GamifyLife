@@ -31,7 +31,6 @@ const Stack = createNativeStackNavigator();
 
 function MainNavigator() {
 	const { isLoading, user, logout } = useAuthContext();
-	console.log(user);
 	const routes = useNavigationState((state) => state?.routes || []);
 	const currentRoute = routes[routes.length - 1]?.name;
 
