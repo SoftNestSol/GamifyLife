@@ -13,13 +13,13 @@ import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 export const AuthContext = createContext({});
 
 const firebaseConfig = {
-	apiKey: "AIzaSyAGXOzUWltIjkZ-eCILSI8hkIkpyA5f1TU",
-	authDomain: "productivity-app-b9293.firebaseapp.com",
-	projectId: "productivity-app-b9293",
-	storageBucket: "productivity-app-b9293.appspot.com",
-	messagingSenderId: "528679293327",
-	appId: "1:528679293327:web:5f7faa15c20bc45040bbfa",
-	measurementId: "G-4H4DGNG1KY"
+	apiKey: "AIzaSyDgWzwPVeVyASwxIYTAwzba3nEH_68Ztx8",
+	authDomain: "gamifylife-810f8.firebaseapp.com",
+	projectId: "gamifylife-810f8",
+	storageBucket: "gamifylife-810f8.appspot.com",
+	messagingSenderId: "202382868927",
+	appId: "1:202382868927:web:53776240f2683cb34fa10a",
+	measurementId: "G-BKT0TVZ3HX"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -38,10 +38,7 @@ export const useAuthContext = () => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-
-	const [user, setUser] = useState(
-		null
-	);
+	const [user, setUser] = useState(null);
 
 	const register = async (email, password) => {
 		console.log(email, password);
@@ -69,7 +66,6 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const login = async (email, password) => {
-
 		try {
 			const userCredential = await signInWithEmailAndPassword(
 				auth,
@@ -87,10 +83,8 @@ export const AuthContextProvider = ({ children }) => {
 
 			console.log("User logged in successfully", user);
 			return `User ${user.email} logged in successfully`;
-	
 		} catch (error) {
-		console.log(error);
-		
+			console.log(error);
 		}
 	};
 

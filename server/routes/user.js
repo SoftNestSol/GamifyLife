@@ -6,8 +6,9 @@ const {
 	selectUsers,
 	selectUserById,
 	deleteUser,
-	getUserHabits,
+	getUserHabits
 } = require("../repositories/UserRepository");
+
 const {
 	getTodayUserTasks,
 	insertTask,
@@ -15,7 +16,7 @@ const {
 	getUserReccuringTasks
 } = require("../repositories/TaskRepository");
 
-const {suggestTask} = require('../services/TaskSugestions.js')
+const { suggestTask } = require("../services/TaskSugestions.js");
 
 router.get("/", (req, res) => {
 	res.send("User route");
@@ -48,14 +49,15 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/tasks/:id", async (req, res) => {
 	const id = req.params.id;
+	console.log(id);
 	const tasks = await getTodayUserTasks(id);
 	res.send(tasks);
 });
 
 router.post("/tasks", async (req, res) => {
-    const task = req.body;
-    const result = await insertTask(task);
-    res.send(result);
+	const task = req.body;
+	const result = await insertTask(task);
+	res.send(result);
 });
 
 router.get("/tasks/:id/:date", async (req, res) => {
@@ -75,14 +77,12 @@ router.get("/reccuring/:id", async (req, res) => {
 	const id = req.params.id;
 	const reccuring = await getUserReccuringTasks(id);
 	res.send(reccuring);
-}
-);
+});
 
 router.get("/suggest/:id", async (req, res) => {
 	const id = req.params.id;
 	const resp = await suggestTask(id);
 	res.send(resp);
-	
 });
 /*
 const selectUsers = async () => {
