@@ -6,7 +6,12 @@ CREATE TABLE [Users]
     [email] VARCHAR(255) NULL,
     [created_at] DATETIME NULL CONSTRAINT [users_created_at_default] DEFAULT SYSUTCDATETIME(),
     [intelligence] INT NULL CONSTRAINT [users_intelligence_default] DEFAULT 0,
-    [strength] INT NULL CONSTRAINT [users_strength_default] DEFAULT 0,
+    -- fitness
+    [fitness] INT NULL CONSTRAINT [users_fitness_default] DEFAULT 0,
+    -- health
+    [wellness] INT NULL CONSTRAINT [users_health_default] DEFAULT 0,
+    -- skill
+    [skill] INT NULL CONSTRAINT [users_skill_default] DEFAULT 0,
     [checkpoint] INT NULL CONSTRAINT [users_checkpoint_default] DEFAULT 0,
     [uid] VARCHAR(255) NOT NULL UNIQUE,
 );
@@ -17,12 +22,18 @@ CREATE TABLE [Tasks]
     [from_app] BIT NULL,
     -- bool
     [from_buddy] INT NULL,
-    [from_user] VARCHAR(255) NULL CONSTRAINT [tasks_from_user_default] DEFAULT 'daily',
-    [created_at] DATETIME NULL CONSTRAINT [tasks_created_at_default] DEFAULT SYSUTCDATETIME(),
+    [type] VARCHAR(255) NULL CONSTRAINT [tasks_from_user_default] DEFAULT 'daily',
+    [creation_date] DATETIME NULL CONSTRAINT [tasks_created_at_default] DEFAULT SYSUTCDATETIME(),
+    [due_date] DATETIME NULL,
     [done] BIT NULL CONSTRAINT [tasks_done_default] DEFAULT 0,
     -- bool 
     [description] VARCHAR(255) NULL,
-    [title] VARCHAR(255) NULL
+    [title] VARCHAR(255) NULL,
+    [user_id] INT NULL,
+    [days_per_week] VARCHAR(255) NULL,
+    [week_interval] INT NULL,
+    [category] VARCHAR(255) NULL,
+    CONSTRAINT fk_user FOREIGN KEY ([user_id]) REFERENCES [Users]([id])
 );
 
 CREATE TABLE [Buddies]
@@ -38,8 +49,7 @@ CREATE TABLE [Buddies]
 CREATE TABLE [Interests]
 (
     [id] VARCHAR(255) NOT NULL PRIMARY KEY,
-    [name] VARCHAR(255) NULL,
-    [description] VARCHAR(255) NULL
+    [title] VARCHAR(255) NULL,
 );
 
 

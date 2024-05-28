@@ -1,8 +1,7 @@
 const { connect } = require("../dbContext");
 
 const getTodayUserTasks = async (id) => {
-	console.log("ID", id);
-	const query = `SELECT *  FROM Tasks WHERE user_id = ${id} AND CAST(created_at AS DATE) = CAST(GETDATE() AS DATE) AND type != 'habit' and type != 'reccuring'`;
+	const query = `SELECT *  FROM Tasks WHERE uid = ${id} AND CAST(created_at AS DATE) = CAST(GETDATE() AS DATE) AND type != 'habit' and type != 'reccuring'`;
 	const connection = await connect();
 	const result = await connection.query(query);
 	return result.recordset;
@@ -12,7 +11,7 @@ const getTasksByDate = async (id, date) => {
 	nextDay = new Date(date);
 	nextDay.setDate(nextDay.getDate() + 1);
 	nextDay = nextDay.toISOString().split("T")[0];
-	const query = `SELECT * FROM Tasks WHERE user_id = ${id} AND created_at >= ${date} AND created_at < ${nextDay}`; //YYYY-MM-DD
+	const query = `SELECT * FROM Tasks WHERE uid = ${id} AND created_at >= ${date} AND created_at < ${nextDay}`; //YYYY-MM-DD
 	const connection = await connect();
 	const result = await connection.query(query);
 	return result.recordset;
@@ -44,7 +43,7 @@ const insertTask = async (task) => {
 };
 
 const getUserReccuringTasks = async (id) => {
-	const query = `SELECT * FROM TASKS WHERE user_id = ${id} AND type = 'reccuring'`;
+	const query = `SELECT * FROM TASKS WHERE uid = ${id} AND type = 'reccuring'`;
 	const connection = await connect();
 	const result = await connection.query(query);
 	return result.recordset;

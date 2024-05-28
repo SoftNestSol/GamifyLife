@@ -2,34 +2,22 @@ const mssql = require("mssql");
 require("dotenv").config();
 
 const DRIVER = {
-	/*
-
-	SERVER = "tcp:productivity-app.database.windows.net"
-PORT = "1433"
-INITIAL_CATALOG = "Productivity"
-Persist_Security_Info= "False"
-USER_ID = "mds"
-PASSWORD = "softnestdb#1"
-MultipleActiveResultSets = "False"
-Encrypt= "True"
-TrustServerCertificate = "False"
-Connection_Timeout = "1000"
-	*/
-
-	user: process.env.USER_ID,
+	user: process.env.UID,
 	password: process.env.PASSWORD,
 	server: process.env.SERVER,
-	port: parseInt(process.env.PORT),
-	database: process.env.INITIAL_CATALOG,
+	port: parseInt(process.env.PORT_DB),
+	database: "Productivity",
 	options: {
 		encrypt: true,
-		enableArithAbort: true
+		trustServerCertificate: true,
+		connectionTimeout: 3000,
+		authentification: "ActiveDirectoryIntegrated"
 	}
 };
 
 const connect = async () => {
 	try {
-		const CONNECTION = await mssql.connect(DRIVER);
+		const CONNECTION = mssql.connect(DRIVER);
 		console.log("Connected to the database");
 		return CONNECTION;
 	} catch (err) {

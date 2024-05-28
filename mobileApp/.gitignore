@@ -15,6 +15,9 @@ web-build/
 *.p12
 *.key
 *.mobileprovision
+/package.json
+/yarn.lock
+/package-lock.json
 
 # Metro
 .metro-health-check*

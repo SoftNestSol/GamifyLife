@@ -18,7 +18,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const lStorage = getReactNativePersistence(ReactNativeAsyncStorage);
+const auth = getAuth(app, {
+	persistence: lStorage
+});
 
 export const useAuthContext = () => {
 	const authContext = useContext(AuthContext);
@@ -62,8 +65,15 @@ export const AuthContextProvider = ({ children }) => {
 			setUser(user);
 			return user;
 		} catch (error) {
-			console.error(error);
-			return new Error(error.message);
+			console.log(error);
+		}
+	};
+
+	const isLoggedIn = async () => {
+		if (ReactNativeAsyncStorage.getItem("isLoggedIn")) {
+			return true;
+		} else {
+			return false;
 		}
 	};
 

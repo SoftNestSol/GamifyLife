@@ -30,7 +30,7 @@ export default function RegisterScreen() {
 			const updatedFormData = { ...formData, uid: user.uid };
 			try {
 				const response = await axios.post(
-					"http://localhost:3000/user/register",
+					"http://172.20.10.3:3000/user/register",
 					updatedFormData
 				);
 				console.log(response.data); // Successfully posted to server
