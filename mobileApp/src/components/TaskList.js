@@ -3,11 +3,6 @@ import { StyleSheet, View, FlatList } from "react-native";
 import Task from "./Task";
 import { useTasksContext } from "../contexts/tasks.context";
 
-<<<<<<< Updated upstream
-export default function TaskList() {
-	const [userTasks, setUserTasks] = useState([]);
-	const { getTasks } = useTasksContext();
-=======
 const todayTasks = [
 	{
 		id: 2,
@@ -54,20 +49,11 @@ export default function TaskList({ scheduled }) {
 	const [userTasks, setUserTasks] = useState(null);
 
 	const { getTodaysTasks } = useTasksContext();
->>>>>>> Stashed changes
 
 	useEffect(() => {
-<<<<<<< Updated upstream
-		const fetchTasks = async () => {
-			const tasks = await getTasks();
-			setUserTasks(tasks);
-		};
-		fetchTasks();
-=======
 		getTodaysTasks().then((data) => {
 			setUserTasks(data);
 		});
->>>>>>> Stashed changes
 	}, []);
 
 	const renderItem = ({ item }) => {
