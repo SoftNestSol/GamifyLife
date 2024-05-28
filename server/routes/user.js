@@ -5,15 +5,15 @@ const {
 	insertUser,
 	selectUsers,
 	selectUserById,
-	deleteUser,
-	getUserHabits
+	deleteUser
 } = require("../repositories/UserRepository");
 
 const {
 	getTodayUserTasks,
 	insertTask,
 	getTasksByDate,
-	getUserReccuringTasks
+	getUserReccuringTasks,
+	getUserHabits
 } = require("../repositories/TaskRepository");
 
 const { suggestTask } = require("../services/TaskSugestions.js");

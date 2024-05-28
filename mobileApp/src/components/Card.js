@@ -8,6 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 export default function Card({ title, description, stats }) {
+	stats = stats || [0, 0, 0, 0];
 	return (
 		<>
 			<View style={style.container}>

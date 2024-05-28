@@ -28,13 +28,6 @@ const deleteUser = async (id) => {
 	return result.recordset;
 };
 
-const getUserHabits = async (id) => {
-	const query = `SELECT * FROM TASKS WHERE user_id = ${id} AND type = 'habit'`;
-	const connection = await connect();
-	const result = await connection.query(query);
-	return result.recordset;
-};
-
 const statIncrease = async (stat, user) => {
 	//to do : discuss about how a task changes the user parameters (inteligence, strenght, etc)
 	const query = `UPDATE Users SET ${stat} = ${stat} *1.1 WHERE id = ${user.id}`;
@@ -55,7 +48,6 @@ module.exports = {
 	selectUserById,
 	insertUser,
 	deleteUser,
-	getUserHabits,
 	statIncrease,
 	getUserInterests
 };

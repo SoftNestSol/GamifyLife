@@ -22,7 +22,7 @@ export const TasksContextProvider = ({ children }) => {
 	const getUserHabits = async () => {
 		try {
 			const response = await axios.get(
-				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/habits/${user.id}`,
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/habits/${user.uid}`,
 				{
 					headers: {
 						"Content-Type": "application/json"
@@ -42,7 +42,7 @@ export const TasksContextProvider = ({ children }) => {
 	const getUserRecurrentTasks = async () => {
 		try {
 			const response = await axios.get(
-				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/reccuring/${user.id}`,
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/reccuring/${user.uid}`,
 				{
 					headers: {
 						"Content-Type": "application/json"

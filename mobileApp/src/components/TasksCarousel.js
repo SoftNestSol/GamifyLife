@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Button } from "react-native";
+import { StyleSheet, View, Text, FlatList, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useTasksContext } from "../contexts/tasks.context";
 
@@ -7,91 +7,58 @@ import { useTasksContext } from "../contexts/tasks.context";
 import Card from "./Card";
 import Button1 from "./Button1";
 
-// will be replaced by the ongoing tasks
-const DATA = [
-	{
-		id: 2,
-		title: "walk the dog",
-		iconId: 3, //  is this how we'll hold icon choices?? - should tell iordy for the db
-		description: "Husk has not gone out in some time",
-		type: "Tasks",
-		// anything else? - type, some sort of date =))\
-		//strenght,intelligence,blabla
-		stats: [1, 3, 0]
-	},
-	{
-		id: 220,
-		title: "wash the dishes",
-		iconId: 5,
-		type: "Tasks",
-		description: "you do not want bugs, do you??",
-		stats: [1, 3, 0]
-	},
-	{
-		id: 230,
-		title: "finish aa homework =)",
-		iconId: 1,
-		description:
-			"you said you would not put it off until the last moment this time",
-		type: "Habits",
-		stats: [1, 3, 0]
-	}
-];
-
 export default function TasksCarousel() {
 	const { getUserHabits, getUserRecurrentTasks, getTodaysTasks } =
 		useTasksContext();
 
-	useEffect(() => {
-		getTodaysTasks().then((data) => {
-			console.log("Tasks", data);
-		});
-
-		getUserHabits().then((data) => {
-			console.log("Habits", data);
-		});
-
-		getUserRecurrentTasks().then((data) => {
-			console.log("Recurrent", data);
-		});
-	}, []);
+	const [tasks, setTasks] = useState([]);
+	const [habits, setHabits] = useState([]);
+	const [recurrentTasks, setRecurrentTasks] = useState([]);
+	const [filteredTasks, setFilteredTasks] = useState([]);
 
 	const navigation = useNavigation();
 	const [filter, setFilter] = useState("Tasks");
-	const [filteredTasks, setFilteredTasks] = useState(DATA);
+
 	useEffect(() => {
-		setFilteredTasks(DATA.filter((item) => item.type == filter));
-	}, [filter]);
-	const filterButton = (filterType) => {
-		switch (filterType) {
-			case "Tasks":
-				setFilter("Tasks");
-				break;
-			case "Recurr.":
-				setFilter("Recurr.");
-				break;
-			case "Habits":
-				setFilter("Habits");
-				break;
-			default:
-				setFilter("");
-				break;
+		getTodaysTasks().then((data) => {
+			setTasks(data);
+		});
+
+		getUserHabits().then((data) => {
+			setHabits(data);
+		});
+
+		getUserRecurrentTasks().then((data) => {
+			setRecurrentTasks(data);
+		});
+	}, []);
+
+	useEffect(() => {
+		let allTasks = [];
+		if (filter === "Tasks") {
+			allTasks = tasks;
+		} else if (filter === "Habits") {
+			allTasks = habits;
+		} else if (filter === "Recurr.") {
+			allTasks = recurrentTasks;
 		}
+		setFilteredTasks(allTasks);
+	}, [filter, tasks, habits, recurrentTasks]);
+
+	const filterButton = (filterType) => {
+		setFilter(filterType);
 	};
 
-	const renderItem = ({ item }) => {
-		return (
-			<View style={styles.item}>
-				<Card
-					title={item.title}
-					description={item.description}
-					stats={item.stats}
-				></Card>
-			</View>
-		);
-	};
+	const renderItem = ({ item }) => (
+		<View style={styles.item}>
+			<Card
+				title={item.title}
+				description={item.description}
+				stats={item.stats}
+			/>
+		</View>
+	);
 
-	// the list
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
@@ -105,23 +72,17 @@ export default function TasksCarousel() {
 			<View style={styles.filterContainer}>
 				<Button1
 					title="Tasks"
-					action={() => {
-						filterButton("Tasks");
-					}}
+					action={() => filterButton("Tasks")}
 					pressed={filter === "Tasks"}
 				/>
 				<Button1
 					title="Recurr."
-					action={() => {
-						filterButton("Recurr.");
-					}}
+					action={() => filterButton("Recurr.")}
 					pressed={filter === "Recurr."}
 				/>
 				<Button1
 					title="Habits"
-					action={() => {
-						filterButton("Habits");
-					}}
+					action={() => filterButton("Habits")}
 					pressed={filter === "Habits"}
 				/>
 			</View>
@@ -129,9 +90,9 @@ export default function TasksCarousel() {
 				horizontal
 				data={filteredTasks}
 				renderItem={renderItem}
-				keyExtractor={(item) => item.id}
+				keyExtractor={(item) => item.id.toString()}
 				showsHorizontalScrollIndicator={false}
-			></FlatList>
+			/>
 		</View>
 	);
 }
@@ -167,7 +128,6 @@ const styles = StyleSheet.create({
 		textDecorationLine: "underline"
 	},
 	item: {
-		// backgroundColor: '#9BAAAA',
 		flex: 1,
 		height: 250,
 		width: 400,
@@ -193,7 +153,7 @@ const styles = StyleSheet.create({
 	description: {
 		flex: 1
 	},
-	itemDesctiption: {
+	itemDescription: {
 		fontSize: 12
 	}
 });

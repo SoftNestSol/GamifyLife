@@ -1,18 +1,28 @@
 const { connect } = require("../dbContext");
 
 const getTodayUserTasks = async (id) => {
-	const query = `SELECT *  FROM Tasks WHERE uid = ${id} AND CAST(created_at AS DATE) = CAST(GETDATE() AS DATE) AND type != 'habit' and type != 'reccuring'`;
+	const findUser = `SELECT * FROM Users WHERE uid = '${id}'`;
 	const connection = await connect();
+	const user = await connection.query(findUser);
+	const id_user = user.recordset[0].id;
+	const query = `SELECT *  FROM Tasks WHERE user_id = ${id_user} AND CAST(created_at AS DATE) = CAST(GETDATE() AS DATE) AND type != 'habit' and type != 'reccuring'`;
 	const result = await connection.query(query);
 	return result.recordset;
 };
 
 const getTasksByDate = async (id, date) => {
+	const find_user = `SELECT * FROM Users WHERE uid = '${id}'`;
+
+	const connection = await connect();
+
+	const user = await connection.query(find_user);
+
+	const id_user = user.recordset[0].id;
+
 	nextDay = new Date(date);
 	nextDay.setDate(nextDay.getDate() + 1);
 	nextDay = nextDay.toISOString().split("T")[0];
-	const query = `SELECT * FROM Tasks WHERE uid = ${id} AND created_at >= ${date} AND created_at < ${nextDay}`; //YYYY-MM-DD
-	const connection = await connect();
+	const query = `SELECT * FROM Tasks WHERE id = '${id_user}' AND created_at >= ${date} AND created_at < ${nextDay}`; //YYYY-MM-DD
 	const result = await connection.query(query);
 	return result.recordset;
 };
@@ -43,8 +53,12 @@ const insertTask = async (task) => {
 };
 
 const getUserReccuringTasks = async (id) => {
-	const query = `SELECT * FROM TASKS WHERE uid = ${id} AND type = 'reccuring'`;
+	const findUser = `SELECT * FROM Users WHERE uid = '${id}'`;
 	const connection = await connect();
+	const user = await connection.query(findUser);
+	const id_user = user.recordset[0].id;
+	const id_str = id_user.toString();
+	const query = `SELECT * FROM Tasks WHERE user_id = ${id_str} AND type = 'reccuring'`;
 	const result = await connection.query(query);
 	return result.recordset;
 };
@@ -56,6 +70,17 @@ const completeTask = async (id) => {
 	return result;
 };
 
+const getUserHabits = async (id) => {
+	const findUser = `SELECT * FROM Users WHERE uid = '${id}'`;
+	const connection = await connect();
+	const user = await connection.query(findUser);
+	const id_user = user.recordset[0].id;
+	const id_str = id_user.toString();
+	const query = `SELECT * FROM Tasks WHERE user_id = ${id_str} AND type = 'habit'`;
+	const result = await connection.query(query);
+	return result.recordset;
+};
+
 module.exports = {
 	getTodayUserTasks,
 	getTasksByDate,
@@ -64,5 +89,6 @@ module.exports = {
 	updateTask,
 	insertTask,
 	getUserReccuringTasks,
-	completeTask
+	completeTask,
+	getUserHabits
 };
