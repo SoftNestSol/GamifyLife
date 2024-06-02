@@ -28,13 +28,6 @@ const deleteUser = async (id) => {
 	return result.recordset;
 };
 
-const statIncrease = async (stat, user) => {
-	//to do : discuss about how a task changes the user parameters (inteligence, strenght, etc)
-	const query = `UPDATE Users SET ${stat} = ${stat} *1.1 WHERE id = ${user.id}`;
-	const connection = await connect();
-	const result = await connection.query(query);
-	return result;
-};
 
 const getUserInterests = async (id) => {
 	const query = `SELECT interest_id FROM UserInterests where user_id = ${id}`;
@@ -43,11 +36,13 @@ const getUserInterests = async (id) => {
 	return result;
 };
 
+
+
+
 module.exports = {
 	selectUsers,
 	selectUserById,
 	insertUser,
 	deleteUser,
-	statIncrease,
 	getUserInterests
 };

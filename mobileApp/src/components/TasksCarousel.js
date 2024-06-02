@@ -55,6 +55,7 @@ export default function TasksCarousel() {
 				title={item.title}
 				description={item.description}
 				stats={item.stats}
+				emoji={item.emoji}
 			/>
 		</View>
 	);

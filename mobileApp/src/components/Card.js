@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
-export default function Card({ title, description, stats }) {
+export default function Card({ title, description, stats, emoji }) {
 	stats = stats || [0, 0, 0, 0];
 	return (
 		<>
@@ -24,6 +24,7 @@ export default function Card({ title, description, stats }) {
 						<View style={style.statsWrapper}>
 							<Text>+Str {stats[0]}</Text>
 							<Text>+Int {stats[1]}</Text>
+							<Text>{emoji}</Text>
 						</View>
 					</View>
 				</View>

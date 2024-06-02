@@ -23,6 +23,4 @@ app.listen(3000, () => {
 	console.log("Server is running on port 3000");
 });
 
-exports.api = functions
-	.region("europe-west1")
-	.https.onRequest(app);
+exports.api = functions.region("europe-west1").https.onRequest(app);
