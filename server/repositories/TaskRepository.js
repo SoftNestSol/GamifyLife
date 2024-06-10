@@ -10,6 +10,17 @@ const getTodayUserTasks = async (id) => {
 	return result.recordset;
 };
 
+const getAllUserTasks = async (id) => {
+	const findUser = `SELECT * FROM Users WHERE uid = '${id}'`;
+	const connection = await connect();
+	const user = await connection.query(findUser);
+
+	const id_user = user.recordset[0].id;
+	const query = `SELECT *  FROM Tasks WHERE user_id = ${id_user}`;
+	const result = await connection.query(query);
+	return result.recordset;
+};
+
 const getTasksByDate = async (id, date) => {
 	const find_user = `SELECT * FROM Users WHERE uid = '${id}'`;
 
@@ -19,13 +30,15 @@ const getTasksByDate = async (id, date) => {
 
 	const id_user = user.recordset[0].id;
 
+	date = new Date(date).toISOString().split("T")[0];
+
 	let nextDay = new Date(date);
 	nextDay.setDate(nextDay.getDate() + 1);
 	nextDay = nextDay.toISOString().split("T")[0];
 
 	const query = `
         SELECT * FROM Tasks 
-        WHERE id = '${id_user}' 
+        WHERE user_id = '${id_user}' 
         AND CAST(created_at AS DATE) >= '${date}' 
         AND CAST(created_at AS DATE) < '${nextDay}'
     `;
@@ -214,5 +227,6 @@ module.exports = {
 	completeTask,
 	getUserHabits,
 	insertHabit,
-	insertReccuring
+	insertReccuring,
+	getAllUserTasks
 };
