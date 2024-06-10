@@ -33,7 +33,7 @@ function MainNavigator() {
 	const { isLoading, user, logout } = useAuthContext();
 	const routes = useNavigationState((state) => state?.routes || []);
 	const currentRoute = routes[routes.length - 1]?.name;
-	
+
 	if (isLoading) {
 		return <LoadingScreen />;
 	}
@@ -44,7 +44,7 @@ function MainNavigator() {
 	return (
 		<>
 			<Stack.Navigator>
-				{true ? (
+				{user ? (
 					<>
 						<Stack.Screen
 							name="Home"
@@ -112,7 +112,7 @@ function MainNavigator() {
 					</>
 				)}
 			</Stack.Navigator>
-			{shouldShowNavbar && true && <Navbar />}
+			{shouldShowNavbar && user && <Navbar />}
 		</>
 	);
 }

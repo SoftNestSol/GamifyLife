@@ -157,6 +157,7 @@ router.post("/add/reccuring/:id", async (req, res) => {
 });
 
 router.get("/tasks/:id/:date", async (req, res) => {
+	console.log(req.params);
 	const id = req.params.id;
 	const date = req.params.date;
 	const tasks = await getTasksByDate(id, date);

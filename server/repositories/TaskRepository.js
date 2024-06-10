@@ -11,6 +11,7 @@ const getTodayUserTasks = async (id) => {
 };
 
 const getTasksByDate = async (id, date) => {
+	
 	const find_user = `SELECT * FROM Users WHERE uid = '${id}'`;
 
 	const connection = await connect();
