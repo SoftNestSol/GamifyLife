@@ -15,7 +15,8 @@ const {
 	insertReccuring,
 	getTasksByDate,
 	getUserReccuringTasks,
-	getUserHabits
+	getUserHabits,
+	getAllUserTasks
 } = require("../repositories/TaskRepository");
 
 const { suggestTask } = require("../services/TaskSugestions.js");
@@ -157,10 +158,15 @@ router.post("/add/reccuring/:id", async (req, res) => {
 });
 
 router.get("/tasks/:id/:date", async (req, res) => {
-	console.log(req.params);
 	const id = req.params.id;
 	const date = req.params.date;
 	const tasks = await getTasksByDate(id, date);
+	res.send(tasks);
+});
+
+router.get("/all/tasks/:id", async (req, res) => {
+	const id = req.params.id;
+	const tasks = await getAllUserTasks(id);
 	res.send(tasks);
 });
 

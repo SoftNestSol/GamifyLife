@@ -19,6 +19,28 @@ export const TasksContextProvider = ({ children }) => {
 
 	const [tasks, setTasks] = useState([]);
 
+	const getAllUserTasks = async () => {
+		try {
+			const response = await axios.get(
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/all/tasks/${user.uid}`,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			);
+
+			console.log("All tasks response:", response.data); // Log the response
+
+			return response.data;
+		} catch (error) {
+			console.log(
+				"Error fetching all tasks:",
+				error.response ? error.response.data : error.message
+			);
+		}
+	};
+
 	const getUserHabits = async () => {
 		try {
 			const response = await axios.get(
@@ -127,7 +149,8 @@ export const TasksContextProvider = ({ children }) => {
 		deleteTask,
 		createTask,
 		getUserHabits,
-		getUserRecurrentTasks
+		getUserRecurrentTasks,
+		getAllUserTasks
 	};
 
 	return (
