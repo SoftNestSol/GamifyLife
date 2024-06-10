@@ -25,7 +25,7 @@ const JourneyScreen = () => {
     const scrollY = event.nativeEvent.contentOffset.y;
     const viewportHeight = event.nativeEvent.layoutMeasurement.height;
     const newVisibleMonths = months.map((monthData, index) => {
-      const startY = index * (monthData.days * 80); // height of one month
+      const startY = index * (monthData.days * 80);
       const endY = startY + monthData.days * 80;
       return scrollY + viewportHeight >= startY && scrollY <= endY;
     });
@@ -33,19 +33,20 @@ const JourneyScreen = () => {
   };
 
   const today = new Date();
-  const currentMonth = today.getMonth() + 1; // getMonth() returns 0-based month
+  const currentMonth = today.getMonth() + 1;
   const currentDay = today.getDate();
 
   useEffect(() => {
-    console.log(`Today is: ${currentMonth}/${currentDay}`);
     const currentMonthIndex = months.findIndex(month => month.month === currentMonth);
     if (currentMonthIndex !== -1) {
       const scrollToY = currentMonthIndex * (months[currentMonthIndex].days * 80) + ((currentDay - 1) * 80);
       setTimeout(() => {
         scrollViewRef.current.scrollTo({ y: scrollToY, animated: true });
-      }, 100); // slight delay to ensure the scrollView is rendered before scrolling
+      }, 100);
     }
   }, []);
+
+  const backgroundImage = require('../../assets/summer.png');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,6 +68,7 @@ const JourneyScreen = () => {
               {...monthData} 
               isVisible={visibleMonths[index]} 
               highlightDay={monthData.month === currentMonth ? currentDay : null}
+              backgroundImage={backgroundImage}
             />
           </View>
         ))}
