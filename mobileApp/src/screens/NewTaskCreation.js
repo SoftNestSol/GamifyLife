@@ -1,5 +1,4 @@
 import {
-<<<<<<< Updated upstream
 	StyleSheet,
 	View,
 	Text,
@@ -7,13 +6,6 @@ import {
 	Button,
 	Platform,
 	TouchableOpacity
-=======
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
->>>>>>> Stashed changes
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -22,49 +14,42 @@ import axios from "axios";
 import { useAuthContext } from "../contexts/auth.context";
 
 export default function NewTaskCreation() {
-<<<<<<< Updated upstream
 	const { user } = useAuthContext();
-=======
-  const [title, setTitle] = React.useState("");
-  const [titleEmoji, setTitleEmoji] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [category, setCategory] = React.useState("");
-  const [description, setDescription] = React.useState("");
+	const [title, setTitle] = React.useState("");
+	const [titleEmoji, setTitleEmoji] = React.useState("");
+	const [date, setDate] = React.useState("");
+	const [category, setCategory] = React.useState("");
+	const [description, setDescription] = React.useState("");
 
-  const [wellnessCounter, setWellnessCounter] = useState(1);
-  const [intelligenceCounter, setIntelligenceCounter] = useState(1);
-  const [skillCounter, setSkillCounter] = useState(1);
-  const [fitnessCounter, setFitnessCounter] = useState(1);
+	const [wellnessCounter, setWellnessCounter] = useState(1);
+	const [intelligenceCounter, setIntelligenceCounter] = useState(1);
+	const [skillCounter, setSkillCounter] = useState(1);
+	const [fitnessCounter, setFitnessCounter] = useState(1);
 
-  const incWellness = () => setWellnessCounter(wellnessCounter + 1);
-  const decWellness = () => {
-    if (wellnessCounter > 0) {
-      setWellnessCounter(wellnessCounter - 1);
-    }
-  };
-  const incIntelligence = () => setIntelligenceCounter(intelligenceCounter + 1);
-  const decIntelligence = () => {
-    if (intelligenceCounter > 0) {
-      setIntelligenceCounter(intelligenceCounter - 1);
-    }
-  };
+	const incWellness = () => setWellnessCounter(wellnessCounter + 1);
+	const decWellness = () => {
+		if (wellnessCounter > 0) {
+			setWellnessCounter(wellnessCounter - 1);
+		}
+	};
+	const incIntelligence = () => setIntelligenceCounter(intelligenceCounter + 1);
+	const decIntelligence = () => {
+		if (intelligenceCounter > 0) {
+			setIntelligenceCounter(intelligenceCounter - 1);
+		}
+	};
 
-  const incSkill = () => setSkillCounter(skillCounter + 1);
-  const decskill = () => {
-    if (skillCounter > 0) setSkillCounter(skillCounter - 1);
-  };
-  const incFitness = () => setFitnessCounter(fitnessCounter + 1);
-  const decFitness = () => {
-    if (fitnessCounter > 0) setFitnessCounter(fitnessCounter - 1);
-  };
->>>>>>> Stashed changes
+	const incSkill = () => setSkillCounter(skillCounter + 1);
+	const decskill = () => {
+		if (skillCounter > 0) setSkillCounter(skillCounter - 1);
+	};
+	const incFitness = () => setFitnessCounter(fitnessCounter + 1);
+	const decFitness = () => {
+		if (fitnessCounter > 0) setFitnessCounter(fitnessCounter - 1);
+	};
 
-	const [title, setTitle] = useState("");
-	const [titleEmoji, setTitleEmoji] = useState("");
 	const [mode, setMode] = useState("date");
 	const [show, setShow] = useState(false);
-	const [category, setCategory] = useState("");
-	const [description, setDescription] = useState("");
 	const [wellness, setWellness] = useState("");
 	const [intelligence, setIntelligence] = useState("");
 	const [skill, setSkill] = useState("");
@@ -134,7 +119,6 @@ export default function NewTaskCreation() {
 					/>
 				</View>
 
-<<<<<<< Updated upstream
 				<View style={styles.taskDetails}>
 					<View style={styles.sectionWrapper}>
 						<Text style={styles.sectionTitle}>Date</Text>
@@ -183,60 +167,116 @@ export default function NewTaskCreation() {
 					</View>
 
 					<View style={styles.statsContainer}>
-						<Text style={styles.sectionTitle}>Stats</Text>
+						<Text style={styles.sectionTitle}> Stats </Text>
 						<View style={styles.statsWrapper}>
 							<View>
 								<View style={styles.stat}>
-									<Text style={styles.statName}>Fitness</Text>
-									<TextInput
-										style={styles.sectionContent}
-										onChangeText={setFitness}
-										value={fitness}
-									/>
+									<Text style={styles.statName}> Fitness </Text>
+									<View style={styles.IncContainer}>
+										<TouchableOpacity
+											style={styles.button}
+											onPress={decFitness}
+										>
+											<Text style={styles.buttonText}>-</Text>
+										</TouchableOpacity>
+										<Text style={styles.counter}>{fitnessCounter}</Text>
+										<TouchableOpacity
+											style={styles.button}
+											onPress={incFitness}
+										>
+											<Text style={styles.buttonText}>+</Text>
+										</TouchableOpacity>
+									</View>
 								</View>
+
 								<View style={styles.stat}>
-									<Text style={styles.statName}>Intelligence</Text>
-									<TextInput
-										style={styles.sectionContent}
-										onChangeText={setIntelligence}
-										value={intelligence}
-									/>
+									<Text style={styles.statName}> Intelligence </Text>
+									<View style={styles.IncContainer}>
+										<TouchableOpacity
+											style={styles.button}
+											onPress={decIntelligence}
+										>
+											<Text style={styles.buttonText}>-</Text>
+										</TouchableOpacity>
+										<Text style={styles.counter}>{intelligenceCounter}</Text>
+										<TouchableOpacity
+											style={styles.button}
+											onPress={incIntelligence}
+										>
+											<Text style={styles.buttonText}>+</Text>
+										</TouchableOpacity>
+									</View>
 								</View>
-							</View>
-							<View>
-								<View style={styles.stat}>
-									<Text style={styles.statName}>Wellness</Text>
-									<TextInput
-										style={styles.sectionContent}
-										onChangeText={setWellness}
-										value={wellness}
-									/>
-								</View>
-								<View style={styles.stat}>
-									<Text style={styles.statName}>Skill</Text>
-									<TextInput
-										style={styles.sectionContent}
-										onChangeText={setSkill}
-										value={skill}
-									/>
+
+								<View>
+									<View>
+										<View style={styles.stat}>
+											<Text style={styles.statName}> Wellness </Text>
+											<View style={styles.IncContainer}>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={decWellness}
+												>
+													<Text style={styles.buttonText}>-</Text>
+												</TouchableOpacity>
+												<Text style={styles.counter}>{wellnessCounter}</Text>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={incWellness}
+												>
+													<Text style={styles.buttonText}>+</Text>
+												</TouchableOpacity>
+											</View>
+										</View>
+									</View>
+
+									<View>
+										<View style={styles.stat}>
+											<Text style={styles.statName}> Skill </Text>
+											<View style={styles.IncContainer}>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={decskill}
+												>
+													<Text style={styles.buttonText}>-</Text>
+												</TouchableOpacity>
+												<Text style={styles.counter}>{skillCounter}</Text>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={incSkill}
+												>
+													<Text style={styles.buttonText}>+</Text>
+												</TouchableOpacity>
+											</View>
+										</View>
+									</View>
 								</View>
 							</View>
 						</View>
 					</View>
 				</View>
+			</View>
 
-				<View style={styles.submitButtonWrapper}>
-					<Button
-						title="Submit"
-						onPress={handleSubmit}
-					/>
-				</View>
+			<View style={styles.submitButtonWrapper}>
+				<Button
+					title="Submit"
+					onPress={handleSubmit}
+				/>
 			</View>
 		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
+	button: {
+		padding: 4
+	},
+
+	IncContainer: {
+		flexDirection: "row",
+		alignItems: "center"
+	},
+
 	container: {
 		flex: 1,
 		paddingTop: 40,
@@ -252,8 +292,19 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		marginTop: 30
 	},
+	shadow: {
+		position: "fixed",
+		top: 105,
+		left: -98,
+		width: "80%",
+		height: "70%",
+		backgroundColor: "black",
+		borderRadius: 24
+	},
 	taskDetails: {
-		marginTop: 20,
+		position: "absolute",
+		top: 100,
+		height: "70%",
 		width: "80%",
 		alignSelf: "center",
 		paddingHorizontal: "7%",
@@ -267,7 +318,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff"
 	},
 	sectionWrapper: {
-		marginBottom: 10,
+		flex: 1,
 		borderBottomWidth: 1,
 		borderColor: "black",
 		borderStyle: "dashed"
@@ -281,6 +332,7 @@ const styles = StyleSheet.create({
 		fontWeight: "200"
 	},
 	sectionContentWrapper: {
+		flex: 1,
 		justifyContent: "center",
 		paddingBottom: 4
 	},
@@ -294,7 +346,10 @@ const styles = StyleSheet.create({
 		marginTop: 15
 	},
 	statsContainer: {
-		marginTop: 10
+		flex: 1.5,
+		display: "flex",
+		alignItems: "flex-start",
+		justifyContent: "flex-start"
 	},
 	statsWrapper: {
 		paddingHorizontal: 15,
@@ -302,7 +357,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between"
 	},
 	stat: {
-		flexDirection: "row",
+		alignItems: "center",
 		marginVertical: 5,
 		justifyContent: "space-between"
 	},
@@ -313,204 +368,5 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 24,
 		fontWeight: "600"
-	},
-	submitButtonWrapper: {
-		marginTop: 20,
-		alignItems: "center"
 	}
-=======
-          <View style={styles.statsContainer}>
-            <Text style={styles.sectionTitle}> Stats </Text>
-            <View style={styles.statsWrapper}>
-              <View>
-                <View style={styles.stat}>
-                  <Text style={styles.statName}> Fitness </Text>
-                  <View style={styles.IncContainer}>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={decFitness}
-                    >
-                      <Text style={styles.buttonText}>-</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.counter}>{fitnessCounter}</Text>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={incFitness}
-                    >
-                      <Text style={styles.buttonText}>+</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                <View style={styles.stat}>
-                  <Text style={styles.statName}> Intelligence </Text>
-                  <View style={styles.IncContainer}>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={decIntelligence}
-                    >
-                      <Text style={styles.buttonText}>-</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.counter}>{intelligenceCounter}</Text>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={incIntelligence}
-                    >
-                      <Text style={styles.buttonText}>+</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-
-              <View>
-                <View>
-                  <View style={styles.stat}>
-                    <Text style={styles.statName}> Wellness </Text>
-                    <View style={styles.IncContainer}>
-                      <TouchableOpacity
-                        style={styles.button}
-                        onPress={decWellness}
-                      >
-                        <Text style={styles.buttonText}>-</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.counter}>{wellnessCounter}</Text>
-                      <TouchableOpacity
-                        style={styles.button}
-                        onPress={incWellness}
-                      >
-                        <Text style={styles.buttonText}>+</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-
-                <View>
-                  <View style={styles.stat}>
-                    <Text style={styles.statName}> Skill </Text>
-                    <View style={styles.IncContainer}>
-                      <TouchableOpacity
-                        style={styles.button}
-                        onPress={decskill}
-                      >
-                        <Text style={styles.buttonText}>-</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.counter}>{skillCounter}</Text>
-                      <TouchableOpacity
-                        style={styles.button}
-                        onPress={incSkill}
-                      >
-                        <Text style={styles.buttonText}>+</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  button: {
-    padding: 4,
-  },
-
-  IncContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: "#FCF4E7",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  taskTitleWrapper: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    marginTop: 30,
-  },
-  shadow: {
-    position: "fixed",
-    top: 105,
-    left: -98,
-    width: "80%",
-    height: "70%",
-    backgroundColor: "black",
-    borderRadius: 24,
-  },
-  taskDetails: {
-    position: "absolute",
-    top: 100,
-    height: "70%",
-    width: "80%",
-    alignSelf: "center",
-    paddingHorizontal: "7%",
-    paddingVertical: "7%",
-    borderRadius: 20,
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderBottomWidth: 7,
-    borderRightWidth: 7,
-    borderColor: "black",
-    backgroundColor: "#fff",
-  },
-  sectionWrapper: {
-    flex: 1,
-    borderBottomWidth: 1,
-    borderColor: "black",
-    borderStyle: "dashed",
-  },
-  taskContainer: {
-    flex: 1,
-  },
-  sectionTitle: {
-    marginTop: 10,
-    fontSize: 15,
-    fontWeight: "200",
-  },
-  sectionContentWrapper: {
-    flex: 1,
-    justifyContent: "center",
-    paddingBottom: 4,
-  },
-  sectionContent: {
-    fontSize: 14,
-    paddingHorizontal: 15,
-  },
-  sectionContentTitleEmoji: {
-    fontSize: 14,
-    paddingHorizontal: 15,
-    marginTop: 15,
-  },
-  statsContainer: {
-    flex: 1.5,
-  },
-  statsWrapper: {
-    paddingHorizontal: 15,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  stat: {
-    alignItems: "center",
-    marginVertical: 5,
-    justifyContent: "space-between",
-  },
-  statName: {},
-  statValue: {
-    fontWeight: "500",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "600",
-  },
->>>>>>> Stashed changes
 });
