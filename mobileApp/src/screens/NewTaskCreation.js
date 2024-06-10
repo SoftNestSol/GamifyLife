@@ -67,7 +67,10 @@ export default function NewTaskCreation() {
 			emoji: titleEmoji
 		};
 		try {
-			axios.post(`http://192.168.1.4:3000/user/add/tasks/${user.uid}`, newTask);
+			axios.post(
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/tasks/${user.uid}`,
+				newTask
+			);
 		} catch (err) {
 			console.error(err);
 		}

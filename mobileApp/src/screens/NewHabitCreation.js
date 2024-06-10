@@ -57,7 +57,7 @@ export default function NewHabitCreation() {
 
 		try {
 			const response = await axios.post(
-				`http://192.168.1.4:3000/user/add/habits/${user.uid}`,
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/habits/${user.uid}`,
 				objectToSend
 			);
 			console.log(response.data);
