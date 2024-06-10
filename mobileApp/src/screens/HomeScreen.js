@@ -12,25 +12,43 @@ import {
 import Stats from "../components/Stats";
 import CalendarSlider from "../components/CalendarSlider";
 import TaskList from "../components/TaskList";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function HomeScreen() {
 	const navigation = useNavigation();
 	const { logout } = useAuthContext();
 
+	const [day, setDay] = useState(new Date()); // selected day of the calendar slider
+
+	// a function that updates the value of the selected day for the calendar slider
+	// will be passed down to the calendar slider component as a prop
+	const updateDay = (newDay) => {
+		setDay(newDay);
+	};
+
+	// function that checks if a day is today
+	// to change the title of the tasks list
+	const isToday = (date) => {
+		const today = new Date();
+		return (
+		  date.getDate() === today.getDate() &&
+		  date.getMonth() === today.getMonth() &&
+		  date.getFullYear() === today.getFullYear()
+		);
+	  };
+
+	// format the date for the title of the tasks list
+	const formatDate = (date) => {
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		return `${day}.${month}.${year}`;
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.topHalf}>
 				<View style={styles.leftQuarter}>
-					{/*
-          <Button
-            title="Go to Register"
-            onPress={() => navigation.navigate("Register")}
-          />
-          <Button
-            title="Go to Quests"
-            onPress={() => navigation.navigate("Quests")}
-          />*/}
 				</View>
 				<View style={styles.rightQuarter}>
 					<View style={styles.chest}></View>
@@ -48,11 +66,15 @@ export default function HomeScreen() {
 			</View>
 			<View style={styles.bottomHalf}>
 				<View style={styles.calendar}>
-					<CalendarSlider />
+					<CalendarSlider day={day} setDay={updateDay}/>
 				</View>
-				<Text style={styles.tasksTitle}>Today's quests</Text>
+				{ isToday(day) 
+					? (<Text style={styles.tasksTitle}> Today's quests </Text>)
+					: (<Text style={styles.tasksTitle}> Quests for {formatDate(day)}</Text>)
+				}
+				{/* we'll need the tasks list to receive the day we selected and filter only those tasks*/}
 				<View style={styles.tasks}>
-					<TaskList scheduled={true} />
+					<TaskList scheduled={true} date={day}/>
 				</View>
 			</View>
 		</View>
@@ -63,10 +85,9 @@ const styles = StyleSheet.create({
 	tasksTitle: {
 		fontSize: 20,
 		paddingBottom: 5,
-		marginLeft: 115,
-		marginRight: 20,
 		marginBottom: 14,
-		fontWeight: "600"
+		fontWeight: "600",
+		alignSelf: "center",
 	},
 	container: {
 		flex: 1,

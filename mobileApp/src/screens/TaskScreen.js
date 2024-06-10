@@ -21,7 +21,14 @@ export default function TaskScreen({route}) {
             <View style = {styles.titleContainer}>
                 {/* for alignment*/}
                 <TrashBin width = "30" height = "30" fill = "none"/> 
-                <Text style = {styles.title}> {task.type} </Text>
+                <Text style = {styles.title}> 
+                    { (task.type === "daily") 
+                        ? (<Text style = {styles.sectionContent}> Task </Text>)
+                        : (task.type === "habit")
+                            ? (<Text style = {styles.sectionContent}> Habit </Text>)
+                            : (<Text style = {styles.sectionContent}> Reccuring Task </Text>)
+                    }
+                </Text>
                 <TrashBin width = "30" height = "30"/>
             </View>
             <View style = {styles.taskContainer}>
