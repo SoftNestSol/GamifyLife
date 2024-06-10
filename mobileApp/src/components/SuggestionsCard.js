@@ -11,8 +11,7 @@ export default function SuggestionsCard() {
       </View>
       <TouchableOpacity style = {styles.cardContainer}
         activeOpacity = {0.9}
-        onLongPress = {() => navigation.navigate("Suggestions")}
-        delayLongPress={100}
+        onPressOut = {() => navigation.navigate("Suggestions")}
       >
         <>
           <View style = {styles.shadow}></View>

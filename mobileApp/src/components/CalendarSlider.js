@@ -11,9 +11,8 @@ import Swiper from "react-native-swiper";
 
 const { width } = Dimensions.get("window");
 
-export default function CalendarSlider() {
+export default function CalendarSlider({day, setDay}) {
 	const swiper = useRef(); // reference - nice for storing, if it changes it doesn't trigger a re-render
-	const [day, setDay] = useState(new Date()); // selected day
 	const [week, setWeek] = useState(0); // how many weeks away am i from the actual week
 
   // returns an array of array of objects - adjacent weeks with their days

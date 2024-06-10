@@ -8,29 +8,36 @@ export default function TaskCard({task}) {
 
     const renderWeekdays = (day, index) => {
         return(
-            <Text style = {[styles.day, task.days[index] && styles.pickedDay]}> {day} </Text>
+            <Text style = {[styles.day, task.days_per_week[index] && styles.pickedDay]}> {day} </Text>
         )
     } 
+
+    const formatDate = (date) => {
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		return `${day}.${month}.${year}`;
+	};
 
     return (
         <>
             <View style = {styles.shadow}></View>
             <View style = {styles.taskDetails}>
                 {
-                    task.type == "Task" &&
+                    task.type == "daily" &&
                     <View style = {styles.sectionWrapper}>
                         <Text style = {styles.sectionTitle}>
                             Date
                         </Text>
                         <View style = {styles.sectionContentWrapper}>
                             <Text style = {styles.sectionContent}>
-                                {task.date}
+                                {formatDate(new Date(task.created_at))}
                             </Text>
                         </View>
                     </View>
                 }
                 {
-                    (task.type == "Habit" || task.type == "Recurring") &&
+                    (task.type == "habit" || task.type == "recurring") &&
                     <View style = {styles.row}>
                         <View style = {styles.sectionWrapper}>
                             <Text style = {styles.sectionTitle}>
@@ -38,7 +45,7 @@ export default function TaskCard({task}) {
                             </Text>
                             <View style = {styles.sectionContentWrapper}>
                                 <Text style = {styles.sectionContent}>
-                                    {task.frequency}
+                                    Once every {task.week_interval} week(s)
                                 </Text>
                             </View>
                         </View>
@@ -63,9 +70,12 @@ export default function TaskCard({task}) {
                         Category
                     </Text>
                     <View style = {styles.sectionContentWrapper}>
-                        <Text style = {styles.sectionContent}>
-                            {task.type}
-                        </Text>
+                        { (task.type === "daily") 
+                            ? (<Text style = {styles.sectionContent}> Task </Text>)
+                            : (task.type === "habit")
+                                ? (<Text style = {styles.sectionContent}> Habit </Text>)
+                                : (<Text style = {styles.sectionContent}> Reccuring Task </Text>)
+                        }
                     </View>
                 </View>
                 <View style = {styles.sectionWrapper}>
@@ -84,21 +94,21 @@ export default function TaskCard({task}) {
                         <View>
                             <View style = {styles.stat}>
                                 <Text style = {styles.statName}> Fitness </Text>
-                                <Text style = {styles.statValue}> +{task.stats[0]} </Text>
+                                <Text style = {styles.statValue}> +{task.fitness} </Text>
                             </View>
                             <View style = {styles.stat}>
                                 <Text style = {styles.statName}> Intelligence </Text>
-                                <Text style = {styles.statValue}> +{task.stats[1]} </Text>
+                                <Text style = {styles.statValue}> +{task.intelligence} </Text>
                             </View>
                         </View>
                         <View> 
                             <View style = {styles.stat}>
                                 <Text style = {styles.statName}> Wellness </Text>
-                                <Text style = {styles.statValue}> +{task.stats[2]} </Text>
+                                <Text style = {styles.statValue}> +{task.wellness} </Text>
                             </View>
                             <View style = {styles.stat}>
                                 <Text style = {styles.statName}> Skill </Text>
-                                <Text style = {styles.statValue}> +{task.stats[3]} </Text>
+                                <Text style = {styles.statValue}> +{task.skill} </Text>
                             </View>
                         </View>
                     </View>
