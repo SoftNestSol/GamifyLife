@@ -30,12 +30,18 @@
     "react-native-svg": "15.2.0",
     "react-native-swiper": "^1.6.0",
     "react-native-visibility-sensor": "^1.0.0",
+<<<<<<< Updated upstream
     "react-native-web": "~0.19.10",
     "@react-native-community/datetimepicker": "8.0.1"
+=======
+    "react-native-web": "~0.19.10"
+>>>>>>> Stashed changes
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "^18.2.79",
+    "metro": "^0.80.9",
+    "metro-react-native-babel-preset": "^0.77.0",
     "react-native-svg-transformer": "^1.3.0"
   },
   "private": true

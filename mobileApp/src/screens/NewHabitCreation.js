@@ -1,5 +1,11 @@
-import { StyleSheet, View, Text, TextInput } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import { useAuthContext } from "../contexts/auth.context";
@@ -11,6 +17,7 @@ export default function NewHabitCreation() {
 
 	const { user } = useAuthContext();
 
+<<<<<<< Updated upstream
 	const [frequency, setFrequency] = React.useState("");
 	const [days, setDays] = React.useState([
 		false,
@@ -21,6 +28,37 @@ export default function NewHabitCreation() {
 		false,
 		false
 	]);
+=======
+  const [category, setCategory] = React.useState("");
+  const [description, setDescription] = React.useState("");
+
+  const [wellnessCounter, setWellnessCounter] = useState(1);
+  const [intelligenceCounter, setIntelligenceCounter] = useState(1);
+  const [skillCounter, setSkillCounter] = useState(1);
+  const [fitnessCounter, setFitnessCounter] = useState(1);
+
+  const incWellness = () => setWellnessCounter(wellnessCounter + 1);
+  const decWellness = () => {
+    if (wellnessCounter > 0) {
+      setWellnessCounter(wellnessCounter - 1);
+    }
+  };
+  const incIntelligence = () => setIntelligenceCounter(intelligenceCounter + 1);
+  const decIntelligence = () => {
+    if (intelligenceCounter > 0) {
+      setIntelligenceCounter(intelligenceCounter - 1);
+    }
+  };
+
+  const incSkill = () => setSkillCounter(skillCounter + 1);
+  const decskill = () => {
+    if (skillCounter > 0) setSkillCounter(skillCounter - 1);
+  };
+  const incFitness = () => setFitnessCounter(fitnessCounter + 1);
+  const decFitness = () => {
+    if (fitnessCounter > 0) setFitnessCounter(fitnessCounter - 1);
+  };
+>>>>>>> Stashed changes
 
 	const [category, setCategory] = React.useState("");
 	const [description, setDescription] = React.useState("");
@@ -109,6 +147,7 @@ export default function NewHabitCreation() {
 					/>
 				</View>
 
+<<<<<<< Updated upstream
 				<View style={styles.taskDetails}>
 					<View style={styles.multipleInputWrapper}>
 						<View style={styles.sectionWrapper}>
@@ -321,4 +360,214 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		alignItems: "center"
 	}
+=======
+          <View style={styles.statsContainer}>
+            <Text style={styles.sectionTitle}> Stats </Text>
+            <View style={styles.statsWrapper}>
+              <View>
+                <View style={styles.stat}>
+                  <Text style={styles.statName}> Fitness </Text>
+                  <View style={styles.IncContainer}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={decFitness}
+                    >
+                      <Text style={styles.buttonText}>-</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.counter}>{fitnessCounter}</Text>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={incFitness}
+                    >
+                      <Text style={styles.buttonText}>+</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={styles.stat}>
+                  <Text style={styles.statName}> Intelligence </Text>
+                  <View style={styles.IncContainer}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={decIntelligence}
+                    >
+                      <Text style={styles.buttonText}>-</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.counter}>{intelligenceCounter}</Text>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={incIntelligence}
+                    >
+                      <Text style={styles.buttonText}>+</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View>
+                <View>
+                  <View style={styles.stat}>
+                    <Text style={styles.statName}> Wellness </Text>
+                    <View style={styles.IncContainer}>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={decWellness}
+                      >
+                        <Text style={styles.buttonText}>-</Text>
+                      </TouchableOpacity>
+                      <Text style={styles.counter}>{wellnessCounter}</Text>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={incWellness}
+                      >
+                        <Text style={styles.buttonText}>+</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+
+                <View>
+                  <View style={styles.stat}>
+                    <Text style={styles.statName}> Skill </Text>
+                    <View style={styles.IncContainer}>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={decskill}
+                      >
+                        <Text style={styles.buttonText}>-</Text>
+                      </TouchableOpacity>
+                      <Text style={styles.counter}>{skillCounter}</Text>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={incSkill}
+                      >
+                        <Text style={styles.buttonText}>+</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    padding: 4,
+  },
+
+  IncContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    backgroundColor: "#FCF4E7",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  taskTitleWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginTop: 30,
+  },
+  multipleInputWrapper: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  shadow: {
+    position: "fixed",
+    top: 105,
+    left: -98,
+    width: "80%",
+    height: "70%",
+    backgroundColor: "black",
+    borderRadius: 24,
+  },
+  taskDetails: {
+    height: "70%",
+    width: "80%",
+    alignSelf: "center",
+    paddingHorizontal: "7%",
+    paddingVertical: "7%",
+    marginTop: 20,
+    borderRadius: 20,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderBottomWidth: 7,
+    borderRightWidth: 7,
+    borderColor: "black",
+    backgroundColor: "#fff",
+  },
+  sectionWrapper: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderColor: "black",
+    borderStyle: "dashed",
+  },
+  taskContainer: {
+    flex: 1,
+  },
+  sectionTitle: {
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: "200",
+  },
+  sectionContentWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    paddingBottom: 4,
+  },
+  sectionContent: {
+    fontSize: 14,
+    paddingHorizontal: 15,
+  },
+  sectionContentTitleEmoji: {
+    fontSize: 14,
+    paddingHorizontal: 15,
+    marginTop: 15,
+  },
+  statsContainer: {
+    flex: 1.5,
+  },
+  statsWrapper: {
+    paddingHorizontal: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  stat: {
+    flexDirection: "row",
+    marginVertical: 5,
+    justifyContent: "space-between",
+  },
+  statName: {},
+  statValue: {
+    fontWeight: "500",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "600",
+  },
+  daysWrapper: {
+    flex: 1,
+    paddingBottom: 4,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  day: {
+    fontSize: 14,
+  },
+  pickedDay: {
+    backgroundColor: "#cedefe",
+    borderRadius: 10,
+  },
+>>>>>>> Stashed changes
 });
