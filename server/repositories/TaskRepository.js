@@ -47,11 +47,11 @@ const updateTask = async (task) => {
 };
 
 const insertTask = async (task, id) => {
+	console.log(task);
 	const findUser = `SELECT * FROM Users WHERE uid = '${id}'`;
 	const connection = await connect();
 	const user = await connection.query(findUser);
 	const id_user = user.recordset[0].id;
-	console.log(task);
 	const query = `
 			INSERT INTO Tasks (
 					from_app, from_buddy, type, created_at, done, description, title, user_id, 

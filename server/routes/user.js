@@ -57,17 +57,96 @@ router.get("/tasks/:id", async (req, res) => {
 });
 
 router.post("/add/tasks/:id", async (req, res) => {
-	const task = req.body;
+	const {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	} = req.body;
+	const task = {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	};
 	const id = req.params.id;
-	const result = await insertTask(task, id);
-	res.send(result);
+	try {
+		const result = await insertTask(task, id);
+		res.send(result);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err.message);
+	}
 });
 
 router.post("/add/habits/:id", async (req, res) => {
-	const task = req.body;
+	const {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	} = req.body;
+
+	const habit = {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	};
+
 	const id = req.params.id;
-	const result = await insertHabit(task, id);
-	res.send(result);
+
+	try {
+		const result = await insertHabit(habit, id);
+		res.send(result);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err.message);
+	}
 });
 
 router.post("/add/reccuring/:id", async (req, res) => {
