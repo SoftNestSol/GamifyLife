@@ -1,6 +1,13 @@
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Platform } from "react-native";
+import {
+	StyleSheet,
+	View,
+	Text,
+	TextInput,
+	Button,
+	Platform,
+	TouchableOpacity
+} from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
@@ -9,45 +16,30 @@ import { useAuthContext } from "../contexts/auth.context";
 export default function NewTaskCreation() {
 	const { user } = useAuthContext();
 
-	const [title, setTitle] = React.useState("");
-	const [titleEmoji, setTitleEmoji] = React.useState("");
+	const [title, setTitle] = useState("");
+	const [titleEmoji, setTitleEmoji] = useState("");
 	const [mode, setMode] = useState("date");
-	const [show, setShow] = useState(true);
-	const [category, setCategory] = React.useState("");
-	const [description, setDescription] = React.useState("");
-	const [wellness, setWellness] = React.useState("");
-	const [intelligence, setIntelligence] = React.useState("");
-	const [skill, setSkill] = React.useState("");
-	const [fitness, setFitness] = React.useState("");
-	const [type, setType] = React.useState("daily");
-	const [createdAt, setCreatedAt] = React.useState(new Date());
+	const [show, setShow] = useState(false);
+	const [category, setCategory] = useState("");
+	const [description, setDescription] = useState("");
+	const [wellness, setWellness] = useState("");
+	const [intelligence, setIntelligence] = useState("");
+	const [skill, setSkill] = useState("");
+	const [fitness, setFitness] = useState("");
+	const [type, setType] = useState("daily");
+	const [createdAt, setCreatedAt] = useState(new Date());
 	const done = 0;
 
 	const onChange = (event, selectedDate) => {
-		if (selectedDate !== undefined) {
-			setCreatedAt(selectedDate);
-		}
-		if (Platform.OS === "android") {
-			setShow(false);
-		}
+		const currentDate = selectedDate || createdAt;
+		setShow(Platform.OS === "ios");
+		setCreatedAt(currentDate);
 	};
 
-	/*
-  '${task.from_app}', 
-					${task.from_buddy}, 
-					'${task.type}', 
-					'${task.created_at}', 
-					${task.done}, 
-					'${task.description}', 
-					'${task.title}', 
-					${id_user}, 
-					'${task.category}', 
-					${task.fitness}, 
-					${task.skill}, 
-					${task.wellness}, 
-					${task.inteligence}, 
-					N'${task.emoji}'
-  */
+	const showMode = (currentMode) => {
+		setShow(true);
+		setMode(currentMode);
+	};
 
 	const handleSubmit = () => {
 		const newTask = {
@@ -103,6 +95,11 @@ export default function NewTaskCreation() {
 					<View style={styles.sectionWrapper}>
 						<Text style={styles.sectionTitle}>Date</Text>
 						<View style={styles.sectionContentWrapper}>
+							<TouchableOpacity onPress={() => showMode("date")}>
+								<Text style={styles.sectionContent}>
+									{createdAt.toDateString()} {createdAt.toLocaleTimeString()}
+								</Text>
+							</TouchableOpacity>
 							{show && (
 								<DateTimePicker
 									testID="dateTimePicker"
@@ -111,6 +108,7 @@ export default function NewTaskCreation() {
 									is24Hour={true}
 									display="default"
 									onChange={onChange}
+									onTouchCancel={() => setShow(false)}
 								/>
 							)}
 						</View>

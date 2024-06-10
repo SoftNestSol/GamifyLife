@@ -11,7 +11,6 @@ const getTodayUserTasks = async (id) => {
 };
 
 const getTasksByDate = async (id, date) => {
-	
 	const find_user = `SELECT * FROM Users WHERE uid = '${id}'`;
 
 	const connection = await connect();
@@ -20,10 +19,17 @@ const getTasksByDate = async (id, date) => {
 
 	const id_user = user.recordset[0].id;
 
-	nextDay = new Date(date);
+	let nextDay = new Date(date);
 	nextDay.setDate(nextDay.getDate() + 1);
 	nextDay = nextDay.toISOString().split("T")[0];
-	const query = `SELECT * FROM Tasks WHERE id = '${id_user}' AND created_at >= ${date} AND created_at < ${nextDay}`; //YYYY-MM-DD
+
+	const query = `
+        SELECT * FROM Tasks 
+        WHERE id = '${id_user}' 
+        AND CAST(created_at AS DATE) >= '${date}' 
+        AND CAST(created_at AS DATE) < '${nextDay}'
+    `;
+
 	const result = await connection.query(query);
 	return result.recordset;
 };
