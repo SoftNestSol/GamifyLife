@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
 const amplitude = 80;
-const frequency = 0.22; 
+const frequency = 0.22;
 const verticalSpacing = 79;
 
 const generatePath = (positions) => {
@@ -14,7 +14,7 @@ const generatePath = (positions) => {
   }).join(' ');
 };
 
-const MonthPath = ({ month, year, days, isVisible, highlightDay }) => {
+const MonthPath = ({ month, year, days, isVisible, highlightDay, backgroundImage }) => {
   const positions = Array.from({ length: days }, (_, index) => {
     const y = index * verticalSpacing;
     const x = width / 2 + amplitude * Math.sin(frequency * index * Math.PI);
@@ -26,14 +26,14 @@ const MonthPath = ({ month, year, days, isVisible, highlightDay }) => {
   return (
     <View style={styles.container}>
       {isVisible && (
-        <>
+        <ImageBackground source={backgroundImage} style={styles.background} resizeMode="cover">
           <Svg height={days * verticalSpacing} width={width}>
             <Path d={path} stroke="black" strokeWidth={2} fill="none" strokeDasharray="4, 4" />
           </Svg>
           {positions.map(([x, y], index) => {
             const isHighlighted = highlightDay === index + 1;
             return (
-              <View key={index} style={[styles.dayItem, { top: y - 35, left: x - 35 }]}>
+              <View key={index} style={[styles.dayItem, { top: y - 30, left: x - 30 }]}>
                 {isHighlighted && (
                   <>
                     <View style={styles.highlightCircle}></View>
@@ -47,7 +47,7 @@ const MonthPath = ({ month, year, days, isVisible, highlightDay }) => {
               </View>
             );
           })}
-        </>
+        </ImageBackground>
       )}
     </View>
   );
@@ -56,11 +56,19 @@ const MonthPath = ({ month, year, days, isVisible, highlightDay }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    // justifyContent: 'center',
+    alignItems: 'center',
+  },
+  background: {
+    width: '100%',
+    height: '80%',
+    // color: 'black',
+    // backgroundColor: 'black',
   },
   dayItem: {
     position: 'absolute',
-    width: 60, // Increased size for highlighting
-    height: 60, // Increased size for highlighting
+    width: 60,
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -71,7 +79,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: '#000',
-    borderRadius: 30, // Half of the width and height for a perfect circle
+    borderRadius: 30,
   },
   highlightCircle: {
     position: 'absolute',
@@ -81,44 +89,43 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 45,
     borderWidth: 2,
-    borderColor: '#87CEEB', // Light blue color
+    borderColor: '#87CEEB',
     borderStyle: 'dotted',
     justifyContent: 'center',
     alignItems: 'center',
   },
   indicatorText: {
     position: 'absolute',
-    top:-10, // Adjust this value to position the text above the circle
-    left: -90, // Adjust this value to position the text horizontally
-    backgroundColor: '#87CEEB', // Match the highlight color
-    color: '#fff', // White text color
+    top: -10,
+    left: -80,
+    backgroundColor: '#87CEEB',
+    color: '#fff',
     padding: 5,
     borderRadius: 10,
     fontSize: 12,
     width:80,
-    
     fontWeight: 'bold',
-    zIndex: 1, // Ensure the text is on top
+    zIndex: 1,
   },
   circle: {
     width: '100%',
     height: '100%',
-    borderRadius: 30, // Half of the width and height for a perfect circle
-    backgroundColor: '#e49773', // Orange color
+    borderRadius: 30,
+    backgroundColor: '#e49773',
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'black',
     borderWidth: 1,
   },
   highlightedCircle: {
-    backgroundColor: '#87CEEB', // Light blue color for highlighting
+    backgroundColor: '#87CEEB',
   },
   dayText: {
     fontSize: 16,
     color: '#282c34',
   },
   highlightedDayText: {
-    color: '#fff', // White color for highlighted text
+    color: '#fff',
   },
 });
 
