@@ -56,14 +56,10 @@ const MonthPath = ({ month, year, days, isVisible, highlightDay, backgroundImage
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    // justifyContent: 'center',
-    alignItems: 'center',
   },
   background: {
     width: '100%',
-    height: '80%',
-    // color: 'black',
-    // backgroundColor: 'black',
+    height: '100%',
   },
   dayItem: {
     position: 'absolute',
@@ -96,14 +92,13 @@ const styles = StyleSheet.create({
   },
   indicatorText: {
     position: 'absolute',
-    top: -10,
-    left: -80,
+    top: -40,
+    left: 70,
     backgroundColor: '#87CEEB',
     color: '#fff',
     padding: 5,
     borderRadius: 10,
     fontSize: 12,
-    width:80,
     fontWeight: 'bold',
     zIndex: 1,
   },
