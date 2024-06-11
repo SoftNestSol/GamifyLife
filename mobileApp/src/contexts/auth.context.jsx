@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { useState } from "react";
 import {
 	createUserWithEmailAndPassword,
+	initializeAuth,
 	getAuth,
-	initializeAuth
+	getReactNativePersistence
 } from "firebase/auth";
 import React, { createContext, useContext } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { getReactNativePersistence } from "firebase/auth";
-import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
@@ -23,8 +23,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const lStorage = getReactNativePersistence(ReactNativeAsyncStorage);
-const auth = getAuth(app, {
+
+const lStorage = getReactNativePersistence(AsyncStorage);
+
+const auth = initializeAuth(app, {
 	persistence: lStorage
 });
 
@@ -58,7 +60,7 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const isLoggedIn = async () => {
-		if (ReactNativeAsyncStorage.getItem("isLoggedIn")) {
+		if (AsyncStorage.getItem("isLoggedIn")) {
 			return true;
 		} else {
 			return false;
@@ -66,6 +68,8 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const login = async (email, password) => {
+		console.log(email, password);
+
 		try {
 			const userCredential = await signInWithEmailAndPassword(
 				auth,
@@ -77,14 +81,15 @@ export const AuthContextProvider = ({ children }) => {
 			setUser(user);
 			console.log(user);
 
-			await ReactNativeAsyncStorage.setItem("user", JSON.stringify(user));
-			await ReactNativeAsyncStorage.setItem("uid", JSON.stringify(uid));
-			await ReactNativeAsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+			await AsyncStorage.setItem("user", JSON.stringify(user));
+			await AsyncStorage.setItem("uid", JSON.stringify(uid));
+			await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
 
-			console.log("User logged in successfully", user);
 			return `User ${user.email} logged in successfully`;
 		} catch (error) {
 			console.log(error);
+
+			return new Error(error);
 		}
 	};
 

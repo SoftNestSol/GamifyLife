@@ -1,80 +1,119 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView ,TouchableOpacity} from "react-native";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { StyleSheet, View, FlatList } from "react-native";
+import Task from "./Task";
+import { useTasksContext } from "../contexts/tasks.context";
 
-export default function TaskList() {
-  // this will be our list of tasks
-  const [userTasks, setUserTasks] = useState([
-    // "Wash the dishes",
-    // "Clean the room",
-    // "Go to the Gym",
-    // "Walk the dog",
-    // "COokie groceries",
-    // "Water the plants",
-    // "Cook dinner2",
-    // "Walk the dog2",
-    // "Make groceries2",
-    // "Water the plants2",
-    // "Cook dinner3",
-    // "Walk the dog3",
-    // "Make groceries3",
-    // "Water the plants3",
-    // "Cook dinner4",
-    // "Make groceries5",
-    // "Water the plants5",
-    // "Cook dinner5",
-  ]);
+export default function TaskList({ tasks, scheduled, date }) {
+  const [userTasks, setUserTasks] = useState(null);
+  const { getTodaysTasks, getAllUserTasks } = useTasksContext();
 
-  const getTasks = async () => {  
-    
-   const resp = await axios.get("http://172.20.10.3:3000/user/tasks/8").then((response) => {
-      setUserTasks(response.data);
-    });
-  }
-  console.log(userTasks);
-  getTasks();
-  return (
-    <View style={styles.tasksContainer}>
-      <StatusBar style="auto" />
-      <View>
-        <ScrollView>
-          {userTasks.map((task) => (
-            <Text style={styles.taskItem} key={task}>
-              {" 📋 "}
-                
-              {task.title}{" "}
-            </Text>
-          ))}
-        </ScrollView>
+  // checks that two Date objects have the same date (and not necessarily the same time)
+  const checkEqualDates = (date1, date2) => {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  };
+
+	// check if a reccuring task / habit happens on a date
+	const checkMatchingDates = (task, date) => {
+		let dateDayOfWeek = date.getDay(); // 0 for Sunday
+		if (dateDayOfWeek == 0) {
+			dateDayOfWeek = 6;
+		}
+		else {
+			dateDayOfWeek -= 1;
+		}
+		// if by any chance the days_per_week or week_interval is null
+		if(task.days_per_week === null || task.week_interval === null) {
+			return false;
+		}
+		// check if it's a right day of the week
+		if (task.days_per_week[dateDayOfWeek] == "0") {
+			return false;
+		}
+		// check if the right number of weeks has passed
+		const createDate = new Date(task.created_at);
+		// convert the difference from miliseconds to weeks
+		const weeksBetween = Math.ceil((date - createDate) / (1000 * 60 * 60 * 24 * 7)); 
+		if (weeksBetween % task.week_interval > 0) {
+			return false;
+		}
+		// lastly, if we have a reccurent task and it's after it's due date, no need to
+		// take it into consideration anymore
+		if (task.type === "recurring" && task.due_date < date) {
+			return false;
+		}
+		return true;
+	};
+
+  useEffect(() => {
+    // filter the tasks by date if necessary
+    if (date !== undefined && tasks !== undefined) {
+      const data = tasks.filter((task) =>
+        task.type === "daily"
+          ? // if we have a task
+            checkEqualDates(new Date(task.created_at), new Date(date))
+          : // if we have a reccuring task / habit we have to see if it must be done on date
+            checkMatchingDates(task, new Date(date))
+      );
+      setUserTasks(data);
+    } else if (date !== undefined) {
+      getTodaysTasks().then((data) => {
+        setUserTasks(data);
+      });
+    } else {
+      getAllUserTasks().then((data) => {
+        const dataFiltered = data.filter((task) => {
+          if (scheduled) {
+            return task.due_date != null;
+          } else {
+            return task.due_date == null;
+          }
+        });
+
+        setUserTasks(dataFiltered);
+      });
+    }
+  }, [date]); // dependent on the date
+
+  const renderItem = ({ item }) => {
+    const taskDone = item.done ? "done" : "undone";
+
+    return (
+      <View style={styles.taskItem}>
+        <Task
+          id={item.id}
+          item={item}
+          title={item.title}
+          state={taskDone}
+          showCheckbox={true}
+        />
       </View>
-    </View>
+    );
+  };
+
+  return (
+    <FlatList
+      data={userTasks}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tasksContainer: {
-    flex: 8,
-    border: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   taskItem: {
-    alignItems: "stretch",
-    margin: 10,
-    marginRight: 50,
-    marginLeft: 50,
-    padding: 18,
-    width: 280,
-    borderRadius: 10,
-    backgroundColor: "#d6dac8",
-    color: "black",
+    margin: 7,
+    paddingTop: 25,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 3,
+    backgroundColor: "#FCF4E7",
+    borderTopWidth: 2,
+    border: "solid",
+    borderColor: "black",
+    width: "97%",
   },
 });

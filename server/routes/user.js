@@ -5,15 +5,18 @@ const {
 	insertUser,
 	selectUsers,
 	selectUserById,
-	deleteUser,
-	getUserHabits
+	deleteUser
 } = require("../repositories/UserRepository");
 
 const {
 	getTodayUserTasks,
 	insertTask,
+	insertHabit,
+	insertReccuring,
 	getTasksByDate,
-	getUserReccuringTasks
+	getUserReccuringTasks,
+	getUserHabits,
+	getAllUserTasks
 } = require("../repositories/TaskRepository");
 
 const { suggestTask } = require("../services/TaskSugestions.js");
@@ -54,16 +57,163 @@ router.get("/tasks/:id", async (req, res) => {
 	res.send(tasks);
 });
 
-router.post("/tasks", async (req, res) => {
-	const task = req.body;
-	const result = await insertTask(task);
-	res.send(result);
+router.post("/add/tasks/:id", async (req, res) => {
+	console.log(req.body);
+	const {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	} = req.body;
+
+	const task = {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	};
+	const id = req.params.id;
+	try {
+		const result = await insertTask(task, id);
+		res.send(result);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err.message);
+	}
+});
+
+router.post("/add/habits/:id", async (req, res) => {
+	const {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	} = req.body;
+
+	const habit = {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	};
+
+	const id = req.params.id;
+
+	try {
+		const result = await insertHabit(habit, id);
+		res.send(result);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err.message);
+	}
+});
+
+router.post("/add/reccuring/:id", async (req, res) => {
+	const {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		due_date,
+		days_per_week,
+		category,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	} = req.body;
+
+	const reccuring = {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		due_date,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	};
+
+	const id = req.params.id;
+
+	try {
+		const result = await insertReccuring(reccuring, id);
+		res.send(result);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err.message);
+	}
 });
 
 router.get("/tasks/:id/:date", async (req, res) => {
 	const id = req.params.id;
 	const date = req.params.date;
 	const tasks = await getTasksByDate(id, date);
+	res.send(tasks);
+});
+
+router.get("/all/tasks/:id", async (req, res) => {
+	const id = req.params.id;
+	const tasks = await getAllUserTasks(id);
 	res.send(tasks);
 });
 
@@ -84,92 +234,5 @@ router.get("/suggest/:id", async (req, res) => {
 	const resp = await suggestTask(id);
 	res.send(resp);
 });
-/*
-const selectUsers = async () => {
-	const query = `SELECT * FROM Users`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-};
-
-const selectUserById = async (id) => {
-	const query = `SELECT * FROM Users WHERE id = ${id}`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-};
-
-const getTodayUserTasks = async (id) => {
-	const query = `SELECT * FROM Tasks WHERE user_id = ${id} AND created_at = CAST(GETDATE() AS DATE) AND from_user != 'habit' and from_user != 'reccuring'`;
-	const connection = await connect();
-	const result = await connection.query(query);
-	return result.recordset;
-};
-
-const getTasksByDate = async (id, date) => {
-	nextDay = new Date(date);
-	nextDay.setDate(nextDay.getDate() + 1);
-	nextDay = nextDay.toISOString().split("T")[0];
-	const query = `SELECT * FROM Tasks WHERE user_id = ${id} AND created_at >= ${date} AND created_at < ${nextDay}`; //YYYY-MM-DD
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-};
-
-const insertUser = async (user) => {
-	const query = `INSERT INTO Users (first_name, last_name, email, uid) VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.uid}')`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-};
-
-const deleteUser = async (id) => {
-	const query = `DELETE FROM Users WHERE id = ${id}`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-};
-
-const addTask = async (task) => {
-	const query = `INSERT INTO Tasks (from_app, from_buddy, from_user, description, title, user_id) VALUES (${task.from_app}, ${task.from_buddy}, '${task.from_user}', '${task.description}', '${task.title}', ${task.user_id})`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-};
-
-const deleteTask = async (id) => {
-	const query = `DELETE FROM Tasks WHERE id = ${id}`;
-	const result = await connect().query(query);
-	return result;
-};
-
-const updateTask = async (task) => {
-	const query = `UPDATE Tasks SET from_app = ${task.from_app}, from_buddy = ${task.from_buddy}, from_user = '${task.from_user}', description = '${task.description}', title = '${task.title}' WHERE id = ${task.id}`;
-	const result = await connect().query(query);
-	return result;
-};
-
-
-const insertTask = async (task) => {
-	const query = `INSERT INTO Tasks (from_app, from_buddy, from_user, description, title, user_id) VALUES (${task.from_app}, ${task.from_buddy}, '${task.from_user}', '${task.description}', '${task.title}', ${task.user_id})`;
-	const result = await connect().query(query);
-	return result;
-}
-
-
-const getUserHabits = async (id) => {
-	const query = `SELECT * FROM TASKS WHERE user_id = ${id} AND from_user == 'habit'`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-}
-
-const getUserReccuringTasks = async (id) => {
-	const query = `SELECT * FROM TASKS WHERE user_id = ${id} AND from_user == 'reccuring'`;
-	const connection = await connect();
-	const result = await connection.query(query)
-	return result.recordset;
-}
-*/
 
 module.exports = router;
