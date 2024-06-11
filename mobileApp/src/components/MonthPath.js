@@ -39,7 +39,7 @@ const getSeasonBackground = (month) => {
   }
 };
 
-const MonthPath = ({ tasks,month, year, days, isVisible, highlightDay }) => {
+const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay }) => {
   const positions = Array.from({ length: days }, (_, index) => {
     const y = index * verticalSpacing;
     const x = width / 2 + amplitude * Math.sin(frequency * index * Math.PI);

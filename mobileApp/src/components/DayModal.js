@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import Task from './Task';
@@ -70,67 +70,67 @@ export default function DayModal({ tasks, date, modalVisible, setModalVisible })
     }, []);
 
     return (
-        <View style = {styles.container}>
-            <View style = {styles.header}>
-                <Pressable
-                    style={styles.closeButton}
-                    onPress={() => setModalVisible(!modalVisible)}>
-                        <Text style={styles.closeText}> X </Text>
-                </Pressable>
-                <Text style = {styles.title}> Your journey on {dateString} </Text>
+            <View style = {styles.container}>
+                <View style = {styles.header}>
+                    <Pressable
+                        style={styles.closeButton}
+                        onPress={() => setModalVisible(!modalVisible)}>
+                            <Text style={styles.closeText}> X </Text>
+                    </Pressable>
+                    <Text style = {styles.title}> Your journey on {dateString} </Text>
+                </View>
+                <ScrollView style = {styles.body}>
+                    <View style = {styles.stats}>
+                        <Text style = {styles.subtitle}> Progress: </Text>
+                        <Text style = {styles.doneStatus}> {finished.length} / {finished.length + unfinished.length} </Text>
+                    </View>
+                    <View style = {styles.section}>
+                        <View style = {styles.sectionTitle}>
+                            <Text style = {styles.subtitle}> Finished: </Text>
+                        </View>
+                        <View style = {styles.list}>
+                            { finished.map(item => {
+                                {
+                                    const taskDone = item.done ? "done" : "undone";
+                                    return (
+                                        <View style={styles.taskItem}>
+                                            <Task
+                                                id={item.id}
+                                                item={item}
+                                                title={item.title}
+                                                state={taskDone}
+                                            />
+                                        </View>
+                                    );
+                                }
+                            })}
+                        </View>
+                    </View>
+                    <View style = {styles.section}>
+                        <View style = {styles.sectionTitle}>
+                            <Text style = {styles.subtitle}> Unfinished: </Text>
+                        </View>
+                        <View style = {styles.list}>
+                            { unfinished.map(item => {
+                                {
+                                    const taskDone = item.done ? "done" : "undone";
+                                    return (
+                                        <View style={styles.taskItem}>
+                                            <Task
+                                                id={item.id}
+                                                item={item}
+                                                title={item.title}
+                                                state={taskDone}
+                                                showCheckbox={false}
+                                            />
+                                        </View>
+                                    );
+                                }
+                            })}
+                        </View>
+                    </View>
+                </ScrollView>
             </View>
-            <ScrollView style = {styles.body}>
-                <View style = {styles.stats}>
-                    <Text style = {styles.subtitle}> Progress: </Text>
-                    <Text style = {styles.doneStatus}> {finished.length} / {finished.length + unfinished.length} </Text>
-                </View>
-                <View style = {styles.section}>
-                    <View style = {styles.sectionTitle}>
-                        <Text style = {styles.subtitle}> Finished: </Text>
-                    </View>
-                    <View style = {styles.list}>
-                        { finished.map(item => {
-                            {
-                                const taskDone = item.done ? "done" : "undone";
-                                return (
-                                    <View style={styles.taskItem}>
-                                        <Task
-                                            id={item.id}
-                                            item={item}
-                                            title={item.title}
-                                            state={taskDone}
-                                        />
-                                    </View>
-                                );
-                            }
-                        })}
-                    </View>
-                </View>
-                <View style = {styles.section}>
-                    <View style = {styles.sectionTitle}>
-                        <Text style = {styles.subtitle}> Unfinished: </Text>
-                    </View>
-                    <View style = {styles.list}>
-                        { unfinished.map(item => {
-                            {
-                                const taskDone = item.done ? "done" : "undone";
-                                return (
-                                    <View style={styles.taskItem}>
-                                        <Task
-                                            id={item.id}
-                                            item={item}
-                                            title={item.title}
-                                            state={taskDone}
-                                            showCheckbox={false}
-                                        />
-                                    </View>
-                                );
-                            }
-                        })}
-                    </View>
-                </View>
-            </ScrollView>
-        </View>
     );
 }
 

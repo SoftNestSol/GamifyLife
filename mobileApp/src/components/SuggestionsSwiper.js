@@ -1,7 +1,56 @@
-import { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import SwipeCard from "./SwipeCard";
+
+const { width, height } = Dimensions.get('window');
+
+const labels = {
+  left: {
+      title: "PICK",
+      style: {
+          label: {
+              position: "relative",
+              bottom: 10,
+              width: width / 2,
+              marginTop: height / 2,
+              padding: 10,
+              color: "#cedefe",
+              fontSize: 24,
+              textAlign: 'center',
+              alignSelf: 'center',
+          },
+          wrapper: {
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              justifyContent: 'flex-start',
+              marginLeft: 10,
+          },
+      },
+  },
+  right: {
+      title: "DISCARD",
+      style: {
+          label: {
+              position: "relative",
+              bottom: 10,
+              width: width / 2,
+              marginTop: height / 2,
+              padding: 10,
+              color: "#E49773",
+              fontSize: 24,
+              textAlign: "center",
+              alignSelf: "center",
+          },
+          wrapper: {
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-start',
+              marginRight: 10,
+          },
+      },
+  },
+}
 
 // will get the json with the suggestions from jan
 const suggestions = [
@@ -32,62 +81,83 @@ const suggestions = [
 ];
 
 export default function SuggestionsSwiper() {
-  const [picked, setPicked] = useState(0); // counter - we want it to be reset at midnight...
-  // initially we have all the suggestions, but the list gets shorter as we choose tasks
-  const [suggestionsList, setSuggestionsList] = useState(suggestions);
-  const [remainingSuggestions, setRemainingSuggestions] =
-    useState(suggestionsList);
-  const selectedTasks = []; // the selected tasks
+    const numSuggestions = suggestions.length;
+    const [picked, setPicked] = useState(0); // counter - we want it to be reset at midnight...
+    // initially we have all the suggestions, but the list gets shorter as we choose tasks
+    const [suggestionsList, setSuggestionsList] = useState(suggestions);
+    // for each suggestions see if it was picked or not
+    const [selectedTasks, setSelectedTasks] = useState([]); // the selected tasks
 
-  const pickTask = (pickedSuggestionIndex) => {
-    const pickedSuggestion = suggestionsList[pickedSuggestionIndex]; // get the picked list
-    //console.log("Picked task:" + pickedSuggestion.suggestion.title);
-    selectedTasks.push(pickedSuggestion); // add the selected task
-    setPicked(picked + 1); // increase the counter
-    // we will want to also remove the card from the cards list - from the remaining
-    setRemainingSuggestions((oldRemainingSuggestions) => {
-      return oldRemainingSuggestions.filter(
-        (suggestion) => suggestion !== pickedSuggestion
-      );
-    });
-    checkLast(pickedSuggestionIndex);
-  };
+    const pickTask = (pickedSuggestionIndex) => {
+        // we just add the card to the selected tasks and increase the counter
+        setSelectedTasks([...selectedTasks, suggestionsList[pickedSuggestionIndex]]);
+        setPicked(picked + 1);
+    };
+
+    const addBack = (notPickedIndex) => {
+        setSuggestionsList([...suggestionsList, suggestionsList[notPickedIndex]]);
+    };
 
   const checkLast = (index) => {
-    //console.log("Checked" + index);
+    // console.log("Checked" + index);
     // if we're at the end update suggestions
-    if (index == suggestionsList.length - 1)
-      setSuggestionsList(remainingSuggestions);
+    if (firstList) {
+        if (index == suggestionsList.length - 1) {
+            setSuggestionsList(remainingSuggestions);
+        }
+        setFirstList(!firstList);
+    }
+    else {
+        if(index == remainingSuggestions.length - 1) {
+            setRemainingSuggestions(suggestionsList);
+        }
+        setFirstList(!firstList);
+    }
+  };
+
+  const renderEmpty = () => {
+    return (
+        <View style={styles.messageContainer}>
+            <View style={styles.top}></View>
+            <View style={styles.messageWrapper}>
+              <Text style={styles.message}>
+                {" "} You have picked all the suggested tasks for today! {" "}
+              </Text>
+            </View>
+        </View>
+    );
   };
 
   return (
     <View style={styles.containerExterior}>
       <View style={styles.container}>
-        {suggestionsList.length > 0 && (
-          <Swiper
-            cards={suggestionsList}
-            renderCard={(card) => {
-              return <SwipeCard object={card} />;
-            }}
-            verticalSwipe={false}
-            onSwipedLeft={pickTask}
-            onSwipedRight={checkLast}
-            infinite={true}
-            backgroundColor="transparent"
-            cardIndex={0}
-            stackSize={2}
-            containerStyle={styles.containerSwiper}
-            cardHorizontalMargin={50} // keeps the card slim - width seems to render odd results
-            cardStyle={styles.card}
-          ></Swiper>
-        )}
-        {suggestionsList.length == 0 && ( // when we run out of suggested tasks
+        {
+            picked < numSuggestions &&
+            <Swiper
+                cards={suggestionsList}
+                renderCard={(card) => {
+                    return <SwipeCard object={card} />;
+                }}
+                onSwipedAll={renderEmpty}
+                renderEmpty={renderEmpty}
+                overlayLabels={labels}
+                verticalSwipe={false}
+                onSwipedLeft={pickTask}
+                onSwipedRight={addBack}
+                backgroundColor="transparent"
+                cardIndex={0}
+                stackSize={3}
+                containerStyle={styles.containerSwiper}
+                cardHorizontalMargin={50} // keeps the card slim - width seems to render odd results
+                cardStyle={styles.card}
+            ></Swiper>
+        }
+        {picked == numSuggestions && ( // when we run out of suggested tasks
           <View style={styles.messageContainer}>
             <View style={styles.top}></View>
             <View style={styles.messageWrapper}>
               <Text style={styles.message}>
-                {" "}
-                You have picked all the suggested tasks for today!{" "}
+                {" "} You have picked all the suggested tasks for today! {" "}
               </Text>
             </View>
           </View>

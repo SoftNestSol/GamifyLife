@@ -33,6 +33,10 @@ export default function HomeScreen() {
 
 	const [day, setDay] = useState(new Date()); // selected day of the calendar slider
 
+    useEffect(() => {
+        console.log(`DATE = ${day}`);
+    }, [day]);
+
 	// a function that updates the value of the selected day for the calendar slider
 	// will be passed down to the calendar slider component as a prop
 	const updateDay = (newDay) => {
@@ -87,7 +91,11 @@ export default function HomeScreen() {
 				}
 				{/* we'll need the tasks list to receive the day we selected and filter only those tasks*/}
 				<View style={styles.tasks}>
-					<TaskList tasks={allTasks} scheduled={true} date={day}/>
+                    {
+                        (allTasks.length === 0) 
+                            ? <Text> No tasks for today </Text> 
+                            : (<TaskList tasks={allTasks} scheduled={true} date={day}/>)
+                    }
 				</View>
 			</View>
 		</View>
