@@ -22,9 +22,17 @@ Gamify Life is an innovative productivity application that transforms your daily
    - Normal Tasks: One-time tasks that need to be completed once.
    - Recurring Tasks: Tasks that repeat over a limited period, perfect for daily or weekly activities.
    - Habits: Tasks that repeat indefinitely, helping to build long-term positive habits.
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/e7dfae33-916d-44db-9d8c-b824af6dfb63)
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/6b813fb4-62d4-4311-8a7e-1ed6919e848c)
+
+
 2. Journey Path: A visual map where you can track your productivity journey, including tasks completed on past days.
-3. Task Suggestions: Receive task suggestions from the app, which you can accept or decline based on your preferences.
-4. Gamification: Each completed task helps you increase stats such as fitness, intelligence, and skills, turning productivity into an engaging game.
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/26b37a98-3609-4893-a720-dd331475f73b)
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/1e21bf65-b7ba-4856-ad00-8fb34332403c)
+
+
+4. Task Suggestions: Receive task suggestions from the app, which you can accept or decline based on your preferences.
+5. Gamification: Each completed task helps you increase stats such as fitness, intelligence, and skills, turning productivity into an engaging game.
 
 ## Bug Reporting and Resolution
 ### Calendar Slider Bug
