@@ -81,14 +81,18 @@ export default function TaskCard({task}) {
                             }
                         </View>
                     </View>
-                    <View style = {styles.sectionWrapper}>
-                        <Text style = {styles.sectionTitle}>
-                            End Date
-                        </Text>
-                        <View style = {styles.sectionContentWrapper}>
-                            <Text style = {styles.sectionContent}> {formatDate(new Date(task.due_date))} </Text>
+                    {
+                        task.type !== "daily" &&
+                        <View style = {styles.sectionWrapper}>
+                            <Text style = {styles.sectionTitle}>
+                                End Date
+                            </Text>
+                            <View style = {styles.sectionContentWrapper}>
+                                <Text style = {styles.sectionContent}> {formatDate(new Date(task.due_date))} </Text>
+                            </View>
                         </View>
-                    </View>
+                    }
+                    
                 </View>
                 <View style = {styles.sectionWrapper}>
                     <Text style = {styles.sectionTitle}>
