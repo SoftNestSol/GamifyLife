@@ -9,7 +9,7 @@ import {
   useAuthContext,
 } from "./src/contexts/auth.context";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
+import { SuggestionsProvider } from "./src/contexts/suggestions.context.jsx";
 import Navbar from "./src/components/Navbar";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
@@ -119,6 +119,7 @@ function MainNavigator() {
 
 function App() {
   return (
+    <SuggestionsProvider>
     <AuthContextProvider>
       <TasksContextProvider>
         <NavigationContainer>
@@ -126,6 +127,7 @@ function App() {
         </NavigationContainer>
       </TasksContextProvider>
     </AuthContextProvider>
+    </SuggestionsProvider>
   );
 }
 
