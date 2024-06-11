@@ -3,51 +3,8 @@ import { StyleSheet, View, FlatList } from "react-native";
 import Task from "./Task";
 import { useTasksContext } from "../contexts/tasks.context";
 
-const todayTasks = [
-	{
-		id: 2,
-		title: "walk the dog",
-		emoji: "🐶", //  is this how we'll hold icon choices?? - should tell iordy for the db
-		description: "Husk has not gone out in some time",
-		type: "Task",
-		// anything else? - type, some sort of date =))\
-		//strenght,intelligence,blabla
-		stats: [1, 3, 0, 1],
-		state: "done",
-		date: "22/05/2024",
-		frequency: null,
-		days: null
-	},
-	{
-		id: 220,
-		title: "wash the dishes",
-		emoji: "🍽",
-		type: "Task",
-		description: "you do not want bugs, do you??",
-		stats: [1, 3, 0, 1],
-		state: "undone",
-		date: "23/05/02024",
-		frquency: null,
-		days: null
-	},
-	{
-		id: 230,
-		title: "finish aa homework =)",
-		emoji: "📚",
-		description:
-			"you said you would not put it off until the last moment this time",
-		type: "Habit",
-		stats: [1, 3, 0, 3],
-		state: "undone",
-		date: "24/05/2024",
-		frequency: "Every Week",
-		days: [0, 1, 0, 0, 1, 0, 0] // 0100100 - 36
-	}
-];
-
-export default function TaskList({ scheduled, date }) {
+export default function TaskList({ tasks, scheduled, date }) {
 	const [userTasks, setUserTasks] = useState(null);
-
 	const { getTodaysTasks } = useTasksContext();
 
 	// checks that two Date objects have the same date (and not necessarily the same time)
@@ -61,7 +18,17 @@ export default function TaskList({ scheduled, date }) {
 
 	// check if a reccuring task / habit happens on a date
 	const checkMatchingDates = (task, date) => {
-		const dateDayOfWeek = date.getDay();
+		let dateDayOfWeek = date.getDay(); // 0 for Sunday
+		if (dateDayOfWeek == 0) {
+			dateDayOfWeek = 6;
+		}
+		else {
+			dateDayOfWeek -= 1;
+		}
+		// if by any chance the days_per_week or week_interval is null
+		if(task.days_per_week === null || task.week_interval === null) {
+			return false;
+		}
 		// check if it's a right day of the week
 		if (task.days_per_week[dateDayOfWeek] == "0") {
 			return false;
@@ -77,22 +44,20 @@ export default function TaskList({ scheduled, date }) {
 	};
 
 	useEffect(() => {
-		getTodaysTasks().then((data) => {
-			// filter the tasks by date if necessary
-			if (date !== undefined) {
-				data = data.filter((task) => {
+		// filter the tasks by date if necessary
+		if (date !== undefined && tasks !== undefined) {
+			const data = tasks.filter((task) => (
+				task.type === "daily" 
 					// if we have a task 
-					if (task.type === "daily") {
-						return checkEqualDates(new Date(task.created_at), new Date(date));
-					}
+					? checkEqualDates(new Date(task.created_at), new Date(date))
 					// if we have a reccuring task / habit we have to see if it must be done on date 
-					else {
-						return checkMatchingDates(task, new Date(date));
-					}
-				});
-			}
+					: checkMatchingDates(task, new Date(date))
+			));
 			setUserTasks(data);
-		});
+		}
+		else {
+			getTodaysTasks().then((data) => { setUserTasks(data); });
+		}
 	}, [date]); // dependent on the date
 
 	const renderItem = ({ item }) => {
@@ -105,6 +70,7 @@ export default function TaskList({ scheduled, date }) {
 					item={item}
 					title={item.title}
 					state={taskDone}
+					showCheckbox={true}
 				/>
 			</View>
 		);

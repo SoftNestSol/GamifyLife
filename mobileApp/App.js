@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import {
-	NavigationContainer,
-	useNavigationState
+  NavigationContainer,
+  useNavigationState,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
-	AuthContextProvider,
-	useAuthContext
+  AuthContextProvider,
+  useAuthContext,
 } from "./src/contexts/auth.context";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -30,103 +30,103 @@ import { TasksContextProvider } from "./src/contexts/tasks.context.jsx";
 const Stack = createNativeStackNavigator();
 
 function MainNavigator() {
-	const { isLoading, user, logout } = useAuthContext();
-	const routes = useNavigationState((state) => state?.routes || []);
-	const currentRoute = routes[routes.length - 1]?.name;
+  const { isLoading, user, logout } = useAuthContext();
+  const routes = useNavigationState((state) => state?.routes || []);
+  const currentRoute = routes[routes.length - 1]?.name;
 
-	if (isLoading) {
-		return <LoadingScreen />;
-	}
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
-	const shouldShowNavbar =
-		currentRoute !== "Login" && currentRoute !== "Register";
+  const shouldShowNavbar =
+    currentRoute !== "Login" && currentRoute !== "Register";
 
-	return (
-		<>
-			<Stack.Navigator>
-				{user ? (
-					<>
-						<Stack.Screen
-							name="Home"
-							component={HomeScreen}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="Quests"
-							component={QuestsScreen}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="Journey"
-							component={JourneyScreen}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="OngoingTasks"
-							component={TasksScreen}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="TasksMenu1"
-							component={TaskCreationScreen1}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="NewTaskCreation"
-							component={NewTaskCreation}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="NewHabitCreation"
-							component={NewHabitCreation}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="NewRecurrentTask"
-							component={NewRecurrentTask}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="Suggestions"
-							component={SuggestionsScreen}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="Task"
-							component={TaskScreen}
-							options={{ headerShown: false }}
-						/>
-					</>
-				) : (
-					<>
-						<Stack.Screen
-							name="Login"
-							component={LoginScreen}
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="Register"
-							component={RegisterScreen}
-							options={{ headerShown: false }}
-						/>
-					</>
-				)}
-			</Stack.Navigator>
-			{shouldShowNavbar && user && <Navbar />}
-		</>
-	);
+  return (
+    <>
+      <Stack.Navigator>
+        {user ? (
+          <>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Quests"
+              component={QuestsScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Journey"
+              component={JourneyScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="OngoingTasks"
+              component={TasksScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TasksMenu1"
+              component={TaskCreationScreen1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="NewTaskCreation"
+              component={NewTaskCreation}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="NewHabitCreation"
+              component={NewHabitCreation}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="NewRecurrentTask"
+              component={NewRecurrentTask}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Suggestions"
+              component={SuggestionsScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Task"
+              component={TaskScreen}
+              options={{ headerShown: false }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{ headerShown: false }}
+            />
+          </>
+        )}
+      </Stack.Navigator>
+      {shouldShowNavbar && user && <Navbar />}
+    </>
+  );
 }
 
 function App() {
-	return (
-		<AuthContextProvider>
-			<TasksContextProvider>
-				<NavigationContainer>
-					<MainNavigator />
-				</NavigationContainer>
-			</TasksContextProvider>
-		</AuthContextProvider>
-	);
+  return (
+    <AuthContextProvider>
+      <TasksContextProvider>
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
+      </TasksContextProvider>
+    </AuthContextProvider>
+  );
 }
 
 export default App;

@@ -4,7 +4,8 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	Platform
+	Platform,
+	ScrollView
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -124,173 +125,152 @@ export default function NewRecurrentTaskCreation() {
 	const renderWeekdays = (day, index) => {
 		return (
 			<Text
-				key={index}
 				style={[styles.day, days[index] && styles.pickedDay]}
 				onPress={() => selectWeekday(index)}
 			>
-				{day}
+				{" "}
+				{day}{" "}
 			</Text>
 		);
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.titleContainer}>
-				<Text style={styles.title}>New Recurrent Task</Text>
-			</View>
-
-			<View style={styles.taskContainer}>
-				<View style={styles.taskTitleWrapper}>
-					<TextInput
-						style={styles.sectionContent}
-						onChangeText={(text) => setTitle(text)}
-						value={title}
-						placeholder="Task title:"
-						placeholderTextColor="#888"
-					/>
-
-					<TextInput
-						style={styles.sectionContentTitleEmoji}
-						onChangeText={(emoji) => setTitleEmoji(emoji)}
-						value={titleEmoji}
-						placeholder="Task emoji: "
-						placeholderTextColor="#888"
-					/>
+		<ScrollView>
+			<SafeAreaView style={styles.container}>
+				<View style={styles.titleContainer}>
+					<Text style={styles.title}>New Recurrent Task</Text>
 				</View>
 
-				<View style={styles.taskDetails}>
-					<View style={styles.multipleInputWrapper}>
-						<View style={styles.sectionWrapper}>
-							<Text style={styles.sectionTitle}>Frequency</Text>
+				<View style={styles.taskContainer}>
+					<View style={styles.taskTitleWrapper}>
+						<TextInput
+							style={styles.sectionContent}
+							onChangeText={setTitle}
+							value={title}
+							placeholder="Task title:"
+						/>
+
+						<TextInput
+							style={styles.sectionContentTitleEmoji}
+							onChangeText={setTitleEmoji}
+							value={titleEmoji}
+							placeholder="Task emoji: "
+						/>
+					</View>
+
+					<View style={styles.taskDetails}>
+						<View style={styles.multipleInputWrapper}>
+							<View style={styles.sectionWrapper}>
+								<Text style={styles.sectionTitle}>Frequency</Text>
+							</View>
+
+							<View style={styles.sectionWrapper}>
+								<Text style={styles.sectionTitle}>Days</Text>
+								<View style={styles.sectionContentWrapper}>
+									<View style={styles.daysWrapper}>
+										{renderWeekdays("M", 0)}
+										{renderWeekdays("T", 1)}
+										{renderWeekdays("W", 2)}
+										{renderWeekdays("T", 3)}
+										{renderWeekdays("F", 4)}
+										{renderWeekdays("S", 5)}
+										{renderWeekdays("S", 6)}
+									</View>
+								</View>
+							</View>
 						</View>
+
 						<View style={styles.sectionWrapper}>
-							<Text style={styles.sectionTitle}>Days</Text>
+							<Text style={styles.sectionTitle}>End Date: </Text>
 							<View style={styles.sectionContentWrapper}>
-								<View style={styles.daysWrapper}>
-									{["M", "T", "W", "T", "F", "S", "S"].map((day, index) =>
-										renderWeekdays(day, index)
-									)}
-								</View>
+								<TextInput
+									style={styles.sectionContent}
+									onChangeText={setCategory}
+									value={category}
+									placeholder="End date: "
+								/>
 							</View>
 						</View>
-					</View>
 
-					<View style={styles.sectionWrapper}>
-						<Text style={styles.sectionTitle}>Category</Text>
-						<View style={styles.sectionContentWrapper}>
-							<TextInput
-								placeholder="Category"
-								style={styles.sectionContent}
-								value={category}
-								onChangeText={(text) => setCategory(text)}
-								placeholderTextColor="#888"
-							/>
-						</View>
-					</View>
-
-					<View style={styles.sectionWrapper}>
-						<Text style={styles.sectionTitle}>Description</Text>
-						<View style={styles.sectionContentWrapper}>
-							<TextInput
-								style={styles.sectionContent}
-								onChangeText={(text) => setDescription(text)}
-								value={description}
-								placeholder="Description of your task: "
-								placeholderTextColor="#888"
-							/>
-						</View>
-					</View>
-
-					<View style={styles.sectionWrapper}>
-						<Text style={styles.sectionTitle}>Week Interval</Text>
-						<View style={styles.sectionContentWrapper}>
-							<TextInput
-								style={styles.sectionContent}
-								onChangeText={setWeekInterval}
-								value={weekInterval}
-								placeholder="Week Interval: "
-							/>
-						</View>
-					</View>
-
-					<View style={styles.sectionContentWrapper}>
-						<Text style={styles.sectionTitle}>Select the due date</Text>
-						<TouchableOpacity onPress={() => showMode("date")}>
-							<Text style={styles.sectionContent}>
-								{createdAt.toDateString()} {createdAt.toLocaleTimeString()}
-							</Text>
-						</TouchableOpacity>
-						{show && (
-							<DateTimePicker
-								testID="dateTimePicker"
-								value={createdAt}
-								mode={mode}
-								is24Hour={true}
-								display="default"
-								onChange={onChange}
-								onTouchCancel={() => setShow(false)}
-							/>
-						)}
-					</View>
-
-					<View style={styles.statsContainer}>
-						<Text style={styles.sectionTitle}> Stats </Text>
-						<View style={styles.statsWrapper}>
-							<View>
-								<View style={styles.stat}>
-									<Text style={styles.statName}> Fitness </Text>
-									<View style={styles.IncContainer}>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={decFitness}
-										>
-											<Text style={styles.buttonText}>-</Text>
-										</TouchableOpacity>
-										<Text style={styles.counter}>{fitnessCounter}</Text>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={incFitness}
-										>
-											<Text style={styles.buttonText}>+</Text>
-										</TouchableOpacity>
-									</View>
-								</View>
-
-								<View style={styles.stat}>
-									<Text style={styles.statName}> Intelligence </Text>
-									<View style={styles.IncContainer}>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={decIntelligence}
-										>
-											<Text style={styles.buttonText}>-</Text>
-										</TouchableOpacity>
-										<Text style={styles.counter}>{intelligenceCounter}</Text>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={incIntelligence}
-										>
-											<Text style={styles.buttonText}>+</Text>
-										</TouchableOpacity>
-									</View>
-								</View>
+						<View style={styles.sectionWrapper}>
+							<Text style={styles.sectionTitle}>Category</Text>
+							<View style={styles.sectionContentWrapper}>
+								<TextInput
+									style={styles.sectionContent}
+									onChangeText={setCategory}
+									value={category}
+									placeholder="Category: "
+								/>
 							</View>
+						</View>
 
-							<View>
+						<View style={styles.sectionWrapper}>
+							<Text style={styles.sectionTitle}>Description</Text>
+							<View style={styles.sectionContentWrapper}>
+								<TextInput
+									style={styles.sectionContent}
+									onChangeText={setDescription}
+									value={description}
+									placeholder="Description of your task: "
+								/>
+							</View>
+						</View>
+						<View style={styles.sectionContentWrapper}>
+							<Text style={styles.sectionTitle}>Select the due date</Text>
+							<TouchableOpacity onPress={() => showMode("date")}>
+								<Text style={styles.sectionContent}>
+									{createdAt.toDateString()} {createdAt.toLocaleTimeString()}
+								</Text>
+							</TouchableOpacity>
+							{show && (
+								<DateTimePicker
+									testID="dateTimePicker"
+									value={dueDate}
+									mode={mode}
+									is24Hour={true}
+									display="default"
+									onChange={onChange}
+									onTouchCancel={() => setShow(false)}
+								/>
+							)}
+						</View>
+
+						<View style={styles.statsContainer}>
+							<Text style={styles.sectionTitle}> Stats </Text>
+							<View style={styles.statsWrapper}>
 								<View>
 									<View style={styles.stat}>
-										<Text style={styles.statName}> Wellness </Text>
+										<Text style={styles.statName}> Fitness </Text>
 										<View style={styles.IncContainer}>
 											<TouchableOpacity
 												style={styles.button}
-												onPress={decWellness}
+												onPress={decFitness}
 											>
 												<Text style={styles.buttonText}>-</Text>
 											</TouchableOpacity>
-											<Text style={styles.counter}>{wellnessCounter}</Text>
+											<Text style={styles.counter}>{fitnessCounter}</Text>
 											<TouchableOpacity
 												style={styles.button}
-												onPress={incWellness}
+												onPress={incFitness}
+											>
+												<Text style={styles.buttonText}>+</Text>
+											</TouchableOpacity>
+										</View>
+									</View>
+
+									<View style={styles.stat}>
+										<Text style={styles.IncContainer}> Intelligence </Text>
+										<View style={styles.IncContainer}>
+											<TouchableOpacity
+												style={styles.button}
+												onPress={decIntelligence}
+											>
+												<Text style={styles.buttonText}>-</Text>
+											</TouchableOpacity>
+											<Text style={styles.counter}>{intelligenceCounter}</Text>
+											<TouchableOpacity
+												style={styles.button}
+												onPress={incIntelligence}
 											>
 												<Text style={styles.buttonText}>+</Text>
 											</TouchableOpacity>
@@ -299,22 +279,47 @@ export default function NewRecurrentTaskCreation() {
 								</View>
 
 								<View>
-									<View style={styles.stat}>
-										<Text style={styles.statName}> Skill </Text>
-										<View style={styles.IncContainer}>
-											<TouchableOpacity
-												style={styles.button}
-												onPress={decskill}
-											>
-												<Text style={styles.buttonText}>-</Text>
-											</TouchableOpacity>
-											<Text style={styles.counter}>{skillCounter}</Text>
-											<TouchableOpacity
-												style={styles.button}
-												onPress={incSkill}
-											>
-												<Text style={styles.buttonText}>+</Text>
-											</TouchableOpacity>
+									<View>
+										<View style={styles.stat}>
+											<View>
+												<Text style={styles.statName}> Wellness </Text>
+											</View>
+											<View style={styles.IncContainer}>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={decWellness}
+												>
+													<Text style={styles.buttonText}>-</Text>
+												</TouchableOpacity>
+												<Text style={styles.counter}>{wellnessCounter}</Text>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={incWellness}
+												>
+													<Text style={styles.buttonText}>+</Text>
+												</TouchableOpacity>
+											</View>
+										</View>
+									</View>
+
+									<View>
+										<View style={styles.stat}>
+											<Text style={styles.statName}> Skill </Text>
+											<View style={styles.IncContainer}>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={decskill}
+												>
+													<Text style={styles.buttonText}>-</Text>
+												</TouchableOpacity>
+												<Text style={styles.counter}>{skillCounter}</Text>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={incSkill}
+												>
+													<Text style={styles.buttonText}>+</Text>
+												</TouchableOpacity>
+											</View>
 										</View>
 									</View>
 								</View>
@@ -322,16 +327,8 @@ export default function NewRecurrentTaskCreation() {
 						</View>
 					</View>
 				</View>
-			</View>
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity
-					title="Submit"
-					onPress={handleSubmit}
-				>
-					<Text>Submit</Text>
-				</TouchableOpacity>
-			</View>
-		</SafeAreaView>
+			</SafeAreaView>
+		</ScrollView>
 	);
 }
 
@@ -350,7 +347,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#FCF4E7",
 		display: "flex",
 		alignItems: "center",
-		justifyContent: "center"
+		justifyContent: "center",
+		height: 700
 	},
 	taskTitleWrapper: {
 		display: "flex",
@@ -426,9 +424,13 @@ const styles = StyleSheet.create({
 	stat: {
 		flexDirection: "row",
 		marginVertical: 5,
-		justifyContent: "space-between"
+		justifyContent: "space-between",
+		alignItems: "center",
+		alignContent: "center"
 	},
-	statName: {},
+	statName: {
+		flexDirection: "row"
+	},
 	statValue: {
 		fontWeight: "500"
 	},

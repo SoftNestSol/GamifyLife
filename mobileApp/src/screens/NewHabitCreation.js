@@ -3,7 +3,8 @@ import {
 	View,
 	Text,
 	TextInput,
-	TouchableOpacity
+	TouchableOpacity,
+	ScrollView
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -57,6 +58,7 @@ export default function NewHabitCreation() {
 	const [description, setDescription] = React.useState("");
 	const [type, setType] = React.useState("habit");
 	const [weekInterval, setWeekInterval] = React.useState(1);
+	const [frequency, setFrequency] = React.useState(1);
 
 	const encodeDays = (days) => {
 		return days.map((day) => (day ? "1" : "0")).join("");
@@ -114,140 +116,115 @@ export default function NewHabitCreation() {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.titleContainer}>
-				<Text style={styles.title}>New Habit</Text>
-			</View>
-
-			<View style={styles.taskContainer}>
-				<View style={styles.taskTitleWrapper}>
-					<TextInput
-						style={styles.sectionContent}
-						onChangeText={setTitle}
-						value={title}
-						placeholder="Habit title:"
-					/>
-
-					<TextInput
-						style={styles.sectionContentTitleEmoji}
-						onChangeText={setTitleEmoji}
-						value={titleEmoji}
-						placeholder="Habit emoji: "
-					/>
+		<ScrollView>
+			<SafeAreaView style={styles.container}>
+				<View style={styles.titleContainer}>
+					<Text style={styles.title}>New Habit</Text>
 				</View>
 
-				<View style={styles.taskDetails}>
-					<View style={styles.multipleInputWrapper}>
-						<View style={styles.sectionWrapper}>
-							<Text style={styles.sectionTitle}>Frequency</Text>
+				<View style={styles.taskContainer}>
+					<View style={styles.taskTitleWrapper}>
+						<TextInput
+							style={styles.sectionContent}
+							onChangeText={setTitle}
+							value={title}
+							placeholder="Habit title:"
+						/>
+
+						<TextInput
+							style={styles.sectionContentTitleEmoji}
+							onChangeText={setTitleEmoji}
+							value={titleEmoji}
+							placeholder="Habit emoji: "
+						/>
+					</View>
+
+					<View style={styles.taskDetails}>
+						<View style={styles.multipleInputWrapper}>
+							<View style={styles.sectionWrapper}>
+								<Text style={styles.sectionTitle}>Days</Text>
+								<View style={styles.sectionContentWrapper}>
+									<View style={styles.daysWrapper}>
+										{["M ", "T ", "W ", "T ", "F ", "S ", "S "].map(
+											(day, index) => renderWeekdays(day, index)
+										)}
+									</View>
+								</View>
+							</View>
 						</View>
 
 						<View style={styles.sectionWrapper}>
-							<Text style={styles.sectionTitle}>Days</Text>
+							<Text style={styles.sectionTitle}>Category</Text>
 							<View style={styles.sectionContentWrapper}>
-								<View style={styles.daysWrapper}>
-									{["M", "T", "W", "T", "F", "S", "S"].map((day, index) =>
-										renderWeekdays(day, index)
-									)}
-								</View>
+								<TextInput
+									style={styles.sectionContent}
+									onChangeText={setCategory}
+									value={category}
+									placeholder="Category: "
+								/>
 							</View>
 						</View>
-					</View>
 
-					<View style={styles.sectionWrapper}>
-						<Text style={styles.sectionTitle}>Category</Text>
-						<View style={styles.sectionContentWrapper}>
-							<TextInput
-								style={styles.sectionContent}
-								onChangeText={setCategory}
-								value={category}
-								placeholder="Category: "
-							/>
-						</View>
-					</View>
-
-					<View style={styles.sectionWrapper}>
-						<Text style={styles.sectionTitle}>Description</Text>
-						<View style={styles.sectionContentWrapper}>
-							<TextInput
-								style={styles.sectionContent}
-								onChangeText={setDescription}
-								value={description}
-								placeholder="Description of your habit: "
-							/>
-						</View>
-					</View>
-
-					<View style={styles.sectionWrapper}>
-						<Text style={styles.sectionTitle}>Week Interval</Text>
-						<View style={styles.sectionContentWrapper}>
-							<TextInput
-								style={styles.sectionContent}
-								onChangeText={setWeekInterval}
-								value={weekInterval}
-								placeholder="Week Interval: "
-							/>
-						</View>
-					</View>
-
-					<View style={styles.statsContainer}>
-						<Text style={styles.sectionTitle}> Stats </Text>
-						<View style={styles.statsWrapper}>
-							<View>
-								<View style={styles.stat}>
-									<Text style={styles.statName}> Fitness </Text>
-									<View style={styles.IncContainer}>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={decFitness}
-										>
-											<Text style={styles.buttonText}>-</Text>
-										</TouchableOpacity>
-										<Text style={styles.counter}>{fitnessCounter}</Text>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={incFitness}
-										>
-											<Text style={styles.buttonText}>+</Text>
-										</TouchableOpacity>
-									</View>
-								</View>
-
-								<View style={styles.stat}>
-									<Text style={styles.statName}> Intelligence </Text>
-									<View style={styles.IncContainer}>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={decIntelligence}
-										>
-											<Text style={styles.buttonText}>-</Text>
-										</TouchableOpacity>
-										<Text style={styles.counter}>{intelligenceCounter}</Text>
-										<TouchableOpacity
-											style={styles.button}
-											onPress={incIntelligence}
-										>
-											<Text style={styles.buttonText}>+</Text>
-										</TouchableOpacity>
-									</View>
-								</View>
+						<View style={styles.sectionWrapper}>
+							<Text style={styles.sectionTitle}>Description</Text>
+							<View style={styles.sectionContentWrapper}>
+								<TextInput
+									style={styles.sectionContent}
+									onChangeText={setDescription}
+									value={description}
+									placeholder="Description of your habit: "
+								/>
 							</View>
+						</View>
 
-							<View>
+						<View style={styles.sectionWrapper}>
+							<Text style={styles.sectionTitle}>Week Interval</Text>
+							<View style={styles.sectionContentWrapper}>
+								<TextInput
+									style={styles.sectionContent}
+									onChangeText={setWeekInterval}
+									value={weekInterval}
+									placeholder="Week Interval: "
+								/>
+							</View>
+						</View>
+
+						<View style={styles.statsContainer}>
+							<Text style={styles.sectionTitle}> Stats </Text>
+							<View style={styles.statsWrapper}>
 								<View>
 									<View style={styles.stat}>
-										<Text style={styles.statName}> Wellness </Text>
+										<Text style={styles.statName}> Fitness </Text>
 										<View style={styles.IncContainer}>
 											<TouchableOpacity
 												style={styles.button}
-												onPress={decWellness}
+												onPress={decFitness}
 											>
 												<Text style={styles.buttonText}>-</Text>
 											</TouchableOpacity>
-											<Text style={styles.counter}>{wellnessCounter}</Text>
+											<Text style={styles.counter}>{fitnessCounter}</Text>
 											<TouchableOpacity
 												style={styles.button}
-												onPress={incWellness}
+												onPress={incFitness}
+											>
+												<Text style={styles.buttonText}>+</Text>
+											</TouchableOpacity>
+										</View>
+									</View>
+
+									<View style={styles.stat}>
+										<Text style={styles.statName}> Intelligence </Text>
+										<View style={styles.IncContainer}>
+											<TouchableOpacity
+												style={styles.button}
+												onPress={decIntelligence}
+											>
+												<Text style={styles.buttonText}>-</Text>
+											</TouchableOpacity>
+											<Text style={styles.counter}>{intelligenceCounter}</Text>
+											<TouchableOpacity
+												style={styles.button}
+												onPress={incIntelligence}
 											>
 												<Text style={styles.buttonText}>+</Text>
 											</TouchableOpacity>
@@ -256,39 +233,63 @@ export default function NewHabitCreation() {
 								</View>
 
 								<View>
-									<View style={styles.stat}>
-										<Text style={styles.statName}> Skill </Text>
-										<View style={styles.IncContainer}>
-											<TouchableOpacity
-												style={styles.button}
-												onPress={decskill}
-											>
-												<Text style={styles.buttonText}>-</Text>
-											</TouchableOpacity>
-											<Text style={styles.counter}>{skillCounter}</Text>
-											<TouchableOpacity
-												style={styles.button}
-												onPress={incSkill}
-											>
-												<Text style={styles.buttonText}>+</Text>
-											</TouchableOpacity>
+									<View>
+										<View style={styles.stat}>
+											<Text style={styles.statName}> Wellness </Text>
+											<View style={styles.IncContainer}>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={decWellness}
+												>
+													<Text style={styles.buttonText}>-</Text>
+												</TouchableOpacity>
+												<Text style={styles.counter}>{wellnessCounter}</Text>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={incWellness}
+												>
+													<Text style={styles.buttonText}>+</Text>
+												</TouchableOpacity>
+											</View>
+										</View>
+									</View>
+
+									<View>
+										<View style={styles.stat}>
+											<Text style={styles.statName}> Skill </Text>
+											<View style={styles.IncContainer}>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={decskill}
+												>
+													<Text style={styles.buttonText}>-</Text>
+												</TouchableOpacity>
+												<Text style={styles.counter}>{skillCounter}</Text>
+												<TouchableOpacity
+													style={styles.button}
+													onPress={incSkill}
+												>
+													<Text style={styles.buttonText}>+</Text>
+												</TouchableOpacity>
+											</View>
 										</View>
 									</View>
 								</View>
 							</View>
+						</View>
+						<View style={styles.submitButtonWrapper}>
+							<TouchableOpacity
+								//title="Submit"
+								onPress={handleSubmit}
+								style={styles.submitButton}
+							>
+								<Text style={styles.submitText}> Submit </Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 				</View>
-			</View>
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity
-					title="Submit"
-					onPress={handleSubmit}
-				>
-					<Text>Submit</Text>
-				</TouchableOpacity>
-			</View>
-		</SafeAreaView>
+			</SafeAreaView>
+		</ScrollView>
 	);
 }
 
@@ -301,13 +302,25 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center"
 	},
+	submitButton: {
+		backgroundColor: "white",
+		paddingHorizontal: 20,
+		borderRadius: 8,
+		borderColor: "black",
+		borderWidth: 1,
+		borderStyle: "dotted",
+		height: 30,
+		width: 90,
+		alignItems: "center"
+	},
 	container: {
 		flex: 1,
 		paddingTop: 40,
 		backgroundColor: "#FCF4E7",
 		display: "flex",
 		alignItems: "center",
-		justifyContent: "center"
+		justifyContent: "center",
+		height: 800
 	},
 	taskTitleWrapper: {
 		display: "flex",
@@ -330,7 +343,7 @@ const styles = StyleSheet.create({
 		borderRadius: 24
 	},
 	taskDetails: {
-		height: "70%",
+		height: "80%",
 		width: "80%",
 		alignSelf: "center",
 		paddingHorizontal: "7%",
@@ -395,7 +408,7 @@ const styles = StyleSheet.create({
 	},
 	daysWrapper: {
 		flex: 1,
-		paddingBottom: 4,
+		padding: 4,
 		flexDirection: "row",
 		alignItems: "center"
 	},
@@ -405,5 +418,13 @@ const styles = StyleSheet.create({
 	pickedDay: {
 		backgroundColor: "#cedefe",
 		borderRadius: 10
+	},
+	submitText: {
+		color: "black"
+	},
+	submitButtonWrapper: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center"
 	}
 });

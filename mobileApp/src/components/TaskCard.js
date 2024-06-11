@@ -7,8 +7,10 @@ import {
 export default function TaskCard({task}) {
 
     const renderWeekdays = (day, index) => {
+        console.log(task);
+        console.log(task.days_per_week);
         return(
-            <Text style = {[styles.day, task.days_per_week[index] && styles.pickedDay]}> {day} </Text>
+            <Text style = {[styles.day, task.days_per_week[index] === "1" && styles.pickedDay]}> {day} </Text>
         )
     } 
 
@@ -16,7 +18,7 @@ export default function TaskCard({task}) {
 		const year = date.getFullYear();
 		const month = String(date.getMonth() + 1).padStart(2, '0');
 		const day = String(date.getDate()).padStart(2, '0');
-		return `${day}.${month}.${year}`;
+		return `${day}/${month}/${year}`;
 	};
 
     return (
@@ -37,7 +39,7 @@ export default function TaskCard({task}) {
                     </View>
                 }
                 {
-                    (task.type == "habit" || task.type == "recurring") &&
+                    (task.type === "habit" || task.type === "recurring" || task.type === "Recurring") &&
                     <View style = {styles.row}>
                         <View style = {styles.sectionWrapper}>
                             <Text style = {styles.sectionTitle}>
@@ -45,7 +47,7 @@ export default function TaskCard({task}) {
                             </Text>
                             <View style = {styles.sectionContentWrapper}>
                                 <Text style = {styles.sectionContent}>
-                                    Once every {task.week_interval} week(s)
+                                    Every {task.week_interval} week(s)
                                 </Text>
                             </View>
                         </View>
@@ -65,17 +67,27 @@ export default function TaskCard({task}) {
                         </View>
                     </View>
                 }
-                <View style = {styles.sectionWrapper}>
-                    <Text style = {styles.sectionTitle}>
-                        Category
-                    </Text>
-                    <View style = {styles.sectionContentWrapper}>
-                        { (task.type === "daily") 
-                            ? (<Text style = {styles.sectionContent}> Task </Text>)
-                            : (task.type === "habit")
-                                ? (<Text style = {styles.sectionContent}> Habit </Text>)
-                                : (<Text style = {styles.sectionContent}> Reccuring Task </Text>)
-                        }
+                <View style = {styles.row}>
+                    <View style = {styles.sectionWrapper}>
+                        <Text style = {styles.sectionTitle}>
+                            Category
+                        </Text>
+                        <View style = {styles.sectionContentWrapper}>
+                            { (task.type === "daily") 
+                                ? (<Text style = {styles.sectionContent}> Task </Text>)
+                                : (task.type === "habit")
+                                    ? (<Text style = {styles.sectionContent}> Habit </Text>)
+                                    : (<Text style = {styles.sectionContent}> Recurring </Text>)
+                            }
+                        </View>
+                    </View>
+                    <View style = {styles.sectionWrapper}>
+                        <Text style = {styles.sectionTitle}>
+                            End Date
+                        </Text>
+                        <View style = {styles.sectionContentWrapper}>
+                            <Text style = {styles.sectionContent}> {formatDate(new Date(task.due_date))} </Text>
+                        </View>
                     </View>
                 </View>
                 <View style = {styles.sectionWrapper}>
