@@ -15,17 +15,15 @@ import axios from "axios";
 import { useAuthContext } from "../contexts/auth.context";
 
 export default function NewTaskCreation() {
-  const { user } = useAuthContext();
-  const [title, setTitle] = React.useState("");
-  const [titleEmoji, setTitleEmoji] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [category, setCategory] = React.useState("");
-  const [description, setDescription] = React.useState("");
-
-  const [wellnessCounter, setWellnessCounter] = useState(1);
-  const [intelligenceCounter, setIntelligenceCounter] = useState(1);
-  const [skillCounter, setSkillCounter] = useState(1);
-  const [fitnessCounter, setFitnessCounter] = useState(1);
+	const { user } = useAuthContext();
+	const [title, setTitle] = React.useState("");
+	const [titleEmoji, setTitleEmoji] = React.useState("");
+	const [category, setCategory] = React.useState("");
+	const [description, setDescription] = React.useState("");
+	const [wellnessCounter, setWellnessCounter] = useState(1);
+	const [intelligenceCounter, setIntelligenceCounter] = useState(1);
+	const [skillCounter, setSkillCounter] = useState(1);
+	const [fitnessCounter, setFitnessCounter] = useState(1);
 
   const incWellness = () => setWellnessCounter(wellnessCounter + 1);
   const decWellness = () => {
@@ -49,15 +47,11 @@ export default function NewTaskCreation() {
     if (fitnessCounter > 0) setFitnessCounter(fitnessCounter - 1);
   };
 
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
-  const [wellness, setWellness] = useState("");
-  const [intelligence, setIntelligence] = useState("");
-  const [skill, setSkill] = useState("");
-  const [fitness, setFitness] = useState("");
-  const [type, setType] = useState("daily");
-  const [createdAt, setCreatedAt] = useState(new Date());
-  const done = 0;
+	const [mode, setMode] = useState("date");
+	const [show, setShow] = useState(false);
+	const [type, setType] = useState("daily");
+	const [createdAt, setCreatedAt] = useState(new Date());
+	const done = 0;
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || createdAt;
@@ -70,32 +64,32 @@ export default function NewTaskCreation() {
     setMode(currentMode);
   };
 
-  const handleSubmit = () => {
-    const newTask = {
-      from_app: false,
-      from_buddy: null,
-      type: type,
-      created_at: createdAt,
-      done: done,
-      description: description,
-      title: title,
-      user_id: user.uid,
-      category: category,
-      fitness: fitness,
-      skill: skill,
-      wellness: wellness,
-      inteligence: intelligence,
-      emoji: titleEmoji,
-    };
-    try {
-      axios.post(
-        `https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/tasks/${user.uid}`,
-        newTask
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  };
+	const handleSubmit = () => {
+		const newTask = {
+			from_app: false,
+			from_buddy: null,
+			type: type,
+			created_at: createdAt,
+			done: done,
+			description: description,
+			title: title,
+			user_id: user.uid,
+			category: category,
+			fitness: fitnessCounter,
+			skill: skillCounter,
+			wellness: wellnessCounter,
+			inteligence: intelligenceCounter,
+			emoji: titleEmoji
+		};
+		try {
+			axios.post(
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/reccuring/${user.uid}`,
+				newTask
+			);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
   return (
     <ScrollView>

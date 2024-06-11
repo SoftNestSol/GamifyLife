@@ -151,10 +151,55 @@ router.post("/add/habits/:id", async (req, res) => {
 });
 
 router.post("/add/reccuring/:id", async (req, res) => {
-	const task = req.body;
+	const {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		due_date,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	} = req.body;
+
+	const reccuring = {
+		from_app,
+		from_buddy,
+		type,
+		created_at,
+		done,
+		description,
+		title,
+		user_id,
+		due_date,
+		category,
+		days_per_week,
+		week_interval,
+		fitness,
+		skill,
+		wellness,
+		inteligence,
+		emoji
+	};
+
 	const id = req.params.id;
-	const result = await insertReccuring(task, id);
-	res.send(result);
+
+	try {
+		const result = await insertReccuring(reccuring, id);
+		res.send(result);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err.message);
+	}
 });
 
 router.get("/tasks/:id/:date", async (req, res) => {

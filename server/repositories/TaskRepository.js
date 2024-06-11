@@ -156,8 +156,8 @@ const insertReccuring = async (reccuring, id) => {
 			title, 
 			user_id, 
 			due_date, 
-			days_per_week, 
 			category, 
+			days_per_week, 
 			week_interval, 
 			fitness, 
 			skill, 
@@ -183,6 +183,25 @@ const insertReccuring = async (reccuring, id) => {
 			${reccuring.inteligence}, 
 			N'${reccuring.emoji}'
 	)`;
+	/*
+		from_app: 0,
+			from_buddy: null,
+			type: type,
+			created_at: new Date().toISOString().split("T")[0],
+			done: 0,
+			description: description,
+			title: title,
+			user_id: user.uid,
+			due_date: dueDate.toISOString().split("T")[0],
+			days_per_week: encodeDays(days),
+			category: category,
+			week_interval: weekInterval,
+			fitness: fitnessCounter,
+			skill: skillCounter,
+			wellness: wellnessCounter,
+			inteligence: intelligenceCounter,
+			emoji: titleEmoji
+	*/
 	const result = await connection.query(query);
 	return result;
 };
