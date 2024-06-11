@@ -319,15 +319,15 @@ export default function NewRecurrentTaskCreation() {
                 </View>
               </View>
             </View>
-          </View>
-          <View style={styles.submitButtonWrapper}>
-            <TouchableOpacity
-              //title="Submit"
-              onPress={handleSubmit}
-              style={styles.submitButton}
-            >
-              <Text style={styles.submitText}> Submit </Text>
-            </TouchableOpacity>
+            <View style={styles.submitButtonWrapper}>
+              <TouchableOpacity
+                //title="Submit"
+                onPress={handleSubmit}
+                style={styles.submitButton}
+              >
+                <Text style={styles.submitText}> Submit </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -336,6 +336,13 @@ export default function NewRecurrentTaskCreation() {
 }
 
 const styles = StyleSheet.create({
+  submitButton: {
+    padding: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "black",
+    borderStyle: "dashed",
+  },
   submitButtonWrapper: {
     marginTop: 40,
     flex: 1,
