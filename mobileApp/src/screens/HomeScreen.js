@@ -8,6 +8,7 @@ import {
 	Touchable,
 	TouchableOpacity
 } from "react-native";
+import { useNavigationState } from "@react-navigation/native";
 
 import Stats from "../components/Stats";
 import CalendarSlider from "../components/CalendarSlider";
@@ -19,23 +20,26 @@ export default function HomeScreen() {
 	const navigation = useNavigation();
 	const { logout } = useAuthContext();
 
+	const routes = useNavigationState((state) => state?.routes || []);
+	const currentRoute = routes[routes.length - 1]?.name;
+
 	const [allTasks, setAllTasks] = useState([]);
- 
+
 	const { getAllUserTasks } = useTasksContext();
 
-	// prepare the data so that you can send it to Month Path, which in turn sends it to 
+	// prepare the data so that you can send it to Month Path, which in turn sends it to
 	// each pop up
 	useEffect(() => {
 		getAllUserTasks().then((data) => {
 			setAllTasks(data);
-		})
-	}, []);
+		});
+	}, [currentRoute]);
 
 	const [day, setDay] = useState(new Date()); // selected day of the calendar slider
 
-    useEffect(() => {
-        console.log(`DATE = ${day}`);
-    }, [day]);
+	useEffect(() => {
+		console.log(`DATE = ${day}`);
+	}, [day]);
 
 	// a function that updates the value of the selected day for the calendar slider
 	// will be passed down to the calendar slider component as a prop
@@ -48,25 +52,24 @@ export default function HomeScreen() {
 	const isToday = (date) => {
 		const today = new Date();
 		return (
-		  date.getDate() === today.getDate() &&
-		  date.getMonth() === today.getMonth() &&
-		  date.getFullYear() === today.getFullYear()
+			date.getDate() === today.getDate() &&
+			date.getMonth() === today.getMonth() &&
+			date.getFullYear() === today.getFullYear()
 		);
-	  };
+	};
 
 	// format the date for the title of the tasks list
 	const formatDate = (date) => {
 		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, '0');
-		const day = String(date.getDate()).padStart(2, '0');
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
 		return `${day}/${month}/${year}`;
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.topHalf}>
-				<View style={styles.leftQuarter}>
-				</View>
+				<View style={styles.leftQuarter}></View>
 				<View style={styles.rightQuarter}>
 					<View style={styles.chest}>
 						{/* <TouchableOpacity
@@ -83,19 +86,27 @@ export default function HomeScreen() {
 			</View>
 			<View style={styles.bottomHalf}>
 				<View style={styles.calendar}>
-					<CalendarSlider day={day} setDay={updateDay}/>
+					<CalendarSlider
+						day={day}
+						setDay={updateDay}
+					/>
 				</View>
-				{ isToday(day) 
-					? (<Text style={styles.tasksTitle}> Today's quests </Text>)
-					: (<Text style={styles.tasksTitle}> Quests for {formatDate(day)}</Text>)
-				}
+				{isToday(day) ? (
+					<Text style={styles.tasksTitle}> Today's quests </Text>
+				) : (
+					<Text style={styles.tasksTitle}> Quests for {formatDate(day)}</Text>
+				)}
 				{/* we'll need the tasks list to receive the day we selected and filter only those tasks*/}
 				<View style={styles.tasks}>
-                    {
-                        (allTasks.length === 0) 
-                            ? <Text style = {{textAlign: "center"}}> Tasks are loading... </Text> 
-                            : <TaskList tasks={allTasks} scheduled={true} date={day}/>
-                    }
+					{allTasks.length === 0 ? (
+						<Text style={{ textAlign: "center" }}> Tasks are loading... </Text>
+					) : (
+						<TaskList
+							tasks={allTasks}
+							scheduled={true}
+							date={day}
+						/>
+					)}
 				</View>
 			</View>
 		</View>
@@ -108,7 +119,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 5,
 		marginBottom: 14,
 		fontWeight: "600",
-		alignSelf: "center",
+		alignSelf: "center"
 	},
 	container: {
 		flex: 1,
@@ -130,7 +141,7 @@ const styles = StyleSheet.create({
 	},
 	chest: {
 		flex: 2,
-		justifyContent: "center", 
+		justifyContent: "center"
 	},
 	stats: {
 		flex: 3

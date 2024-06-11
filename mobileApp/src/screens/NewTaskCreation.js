@@ -64,7 +64,7 @@ export default function NewTaskCreation() {
 		setMode(currentMode);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		const newTask = {
 			from_app: false,
 			from_buddy: null,
@@ -82,12 +82,18 @@ export default function NewTaskCreation() {
 			emoji: titleEmoji
 		};
 		try {
-			axios.post(
-				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/reccuring/${user.uid}`,
+			const response = await axios.post(
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/tasks/${user.uid}`,
 				newTask
 			);
+			if (response.status !== 200) {
+				alert("Error creating task");
+				throw new Error("Error creating task");
+			}
+			alert("Task created successfully!");
 		} catch (err) {
 			console.error(err);
+			alert("Error creating task");
 		}
 	};
 

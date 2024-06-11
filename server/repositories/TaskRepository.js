@@ -72,6 +72,23 @@ const insertTask = async (task, id) => {
 	const connection = await connect();
 	const user = await connection.query(findUser);
 	const id_user = user.recordset[0].id;
+
+	/*
+		from_app: false,
+			from_buddy: null,
+			type: type,
+			created_at: createdAt,
+			done: done,
+			description: description,
+			title: title,
+			user_id: user.uid,
+			category: category,
+			fitness: fitnessCounter,
+			skill: skillCounter,
+			wellness: wellnessCounter,
+			inteligence: intelligenceCounter,
+			emoji: titleEmoji
+	*/
 	const query = `
 			INSERT INTO Tasks (
 					from_app, from_buddy, type, created_at, done, description, title, user_id, 
@@ -174,8 +191,8 @@ const insertReccuring = async (reccuring, id) => {
 			'${reccuring.title}', 
 			${id_user}, 
 			'${reccuring.due_date}', 
-			'${reccuring.days_per_week}', 
 			'${reccuring.category}', 
+			'${reccuring.days_per_week}', 
 			${reccuring.week_interval}, 
 			${reccuring.fitness}, 
 			${reccuring.skill}, 

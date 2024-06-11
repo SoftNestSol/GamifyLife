@@ -58,6 +58,7 @@ router.get("/tasks/:id", async (req, res) => {
 });
 
 router.post("/add/tasks/:id", async (req, res) => {
+	console.log(req.body);
 	const {
 		from_app,
 		from_buddy,
@@ -74,6 +75,7 @@ router.post("/add/tasks/:id", async (req, res) => {
 		inteligence,
 		emoji
 	} = req.body;
+
 	const task = {
 		from_app,
 		from_buddy,
@@ -161,8 +163,8 @@ router.post("/add/reccuring/:id", async (req, res) => {
 		title,
 		user_id,
 		due_date,
-		category,
 		days_per_week,
+		category,
 		week_interval,
 		fitness,
 		skill,

@@ -89,8 +89,8 @@ export default function NewRecurrentTaskCreation() {
 			title: title,
 			user_id: user.uid,
 			due_date: dueDate,
-			days_per_week: encodeDays(days),
 			category: category,
+			days_per_week: encodeDays(days),
 			week_interval: weekInterval,
 			fitness: fitnessCounter,
 			skill: skillCounter,
@@ -102,12 +102,14 @@ export default function NewRecurrentTaskCreation() {
 		try {
 			console.log(objectToSend);
 			const response = await axios.post(
-				`http://192.168.1.4:3000/user/add/reccuring/${user.uid}`,
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/reccuring/${user.uid}`,
 				objectToSend
 			);
 			console.log(response.data);
+			alert("Task created successfully");
 		} catch (error) {
 			console.error(error);
+			alert("Error creating task");
 		}
 	};
 
@@ -333,7 +335,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center"
 	},
-	
+
 	submitButton: {
 		backgroundColor: "white",
 		paddingHorizontal: 20,

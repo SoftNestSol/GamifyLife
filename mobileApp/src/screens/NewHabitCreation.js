@@ -90,8 +90,10 @@ export default function NewHabitCreation() {
 				objectToSend
 			);
 			console.log(response.data);
+			alert("Habit created successfully!");
 		} catch (error) {
 			console.error(error);
+			alert("Error creating habit");
 		}
 	};
 
