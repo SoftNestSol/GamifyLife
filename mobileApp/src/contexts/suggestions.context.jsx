@@ -18,14 +18,21 @@ export const SuggestionsProvider = ({ children }) => {
 
   const getSuggestions = async () => {
     const interests = ['Fitness', 'Gaming', 'Yoga'];
-    const defaultSuggestions = interests.map(interest => ({
-      title: `Demo task with '${interest}'`,
-      description: `This is a demo task related to ${interest}.`
-    }));
+const defaultSuggestions = interests.map(interest => ({
+  interest: interest.toLowerCase(),
+  suggestion: {
+    title: `Demo task with '${interest}'`,
+    description: `This is a demo task related to ${interest}.`
+  }
+}));
+
+console.log(defaultSuggestions);
+
 
     try {
+        console.log("caut sugesti")
       const response = await axios.get(
-        `https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/suggest/${user.uid}`,
+        `https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/suggest/9`,
         {
           headers: {
             "Content-Type": "application/json"
@@ -33,7 +40,11 @@ export const SuggestionsProvider = ({ children }) => {
         }
       );
       console.log("Suggestions response:", response.data); // Log the response
-      return response.data;
+      if (response.data && Array.isArray(response.data)) {
+        return defaultSuggestions
+      } else {
+        throw new Error("Invalid format: Expected an array.");
+      }
     } catch (error) {
       console.log(
         "Error fetching suggestions:",
@@ -49,9 +60,9 @@ export const SuggestionsProvider = ({ children }) => {
       setSuggestions(suggestionsData);
     };
 
-    if (user?.uid) {
-      fetchSuggestions();
-    }
+    console.log("fetching suggestions");
+    fetchSuggestions();
+    
   }, [user]);
 
   return (
