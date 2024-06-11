@@ -68,10 +68,13 @@ const suggestTask = async (userId) => {
   }
   
   // Default response in case of an error or no response
-  const defaultTasks = interests.map(interest => ({
+  const defaultSuggestions = interests.map(interest => ({
+  interest: interest.toLowerCase(),
+  suggestion: {
     title: `Demo task with '${interest}'`,
     description: `This is a demo task related to ${interest}.`
-  }));
+  }
+}));
   
   console.log("here2");
   return defaultTasks;
