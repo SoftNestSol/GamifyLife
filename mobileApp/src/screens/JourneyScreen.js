@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, SafeAreaView, View, Text, ImageBackground } from 'react-native';
 import MonthPath from '../components/MonthPath';
+import { useTasksContext } from "../contexts/tasks.context";
 
 const months = [
   { month: 1, year: 2024, days: 31, name: "January" },
@@ -69,6 +70,18 @@ const JourneyScreen = () => {
     }
   }, []);
 
+  const [allTasks, setAllTasks] = useState([]);
+
+  const { getAllUserTasks } = useTasksContext();
+
+  // prepare the data so that you can send it to Month Path, which in turn sends it to 
+  // each pop up
+  useEffect(() => {
+      getAllUserTasks().then((data) => {
+        setAllTasks(data);
+      })
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
@@ -89,7 +102,8 @@ const JourneyScreen = () => {
                   <Text style={styles.monthName}>Start of {monthData.name}</Text>
                 </View>
                 <MonthPath 
-                  {...monthData} 
+                  {...monthData}
+                  tasks={allTasks} 
                   isVisible={visibleMonths[index]} 
                   highlightDay={monthData.month === currentMonth ? currentDay : null}
                 />

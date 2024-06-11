@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 // primeste in friend numele... nu cred ca ar fi chiar asa, probabil primesc id-ul
 // si fac call si capat numele si avatarul
-export default function FriendCard({title,description,stats,friend}) {
+export default function FriendCard({ title, description, stats, friend }) {
   const [extended, setExtended] = useState(false);
   
   return (

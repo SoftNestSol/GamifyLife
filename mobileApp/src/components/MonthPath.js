@@ -1,6 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { useState } from 'react';
+import { View, Text, StyleSheet, Dimensions, Pressable, Modal, ImageBackground } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import DayModal from './DayModal.js';
 
 const { width } = Dimensions.get('window');
 const amplitude = 80;
@@ -14,7 +16,7 @@ const generatePath = (positions) => {
   }).join(' ');
 };
 
-const MonthPath = ({ month, year, days, isVisible, highlightDay, backgroundImage }) => {
+const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgroundImage }) => {
   const positions = Array.from({ length: days }, (_, index) => {
     const y = index * verticalSpacing;
     const x = width / 2 + amplitude * Math.sin(frequency * index * Math.PI);
@@ -22,6 +24,14 @@ const MonthPath = ({ month, year, days, isVisible, highlightDay, backgroundImage
   });
 
   const path = generatePath(positions);
+  // for each day control the visibilty of the details
+  const [modalVisible, setModalVisible] = useState(false);
+  const [pickedDay, setPickedDay] = useState(0); // the day for which we activate the modal
+  
+  // function to send to the Modal content so that it can control it's visibility 
+  const upgradeModalVisible = (newState) => {
+    setModalVisible(newState);
+  };
 
   return (
     <View style={styles.container}>
@@ -33,18 +43,37 @@ const MonthPath = ({ month, year, days, isVisible, highlightDay, backgroundImage
           {positions.map(([x, y], index) => {
             const isHighlighted = highlightDay === index + 1;
             return (
-              <View key={index} style={[styles.dayItem, { top: y - 30, left: x - 30 }]}>
-                {isHighlighted && (
-                  <>
-                    <View style={styles.highlightCircle}></View>
-                    <Text style={styles.indicatorText}>You are here</Text>
-                  </>
-                )}
-                <View style={[styles.shadow, isHighlighted && styles.highlightedShadow]}></View>
-                <View style={[styles.circle, isHighlighted && styles.highlightedCircle]}>
-                  <Text style={[styles.dayText, isHighlighted && styles.highlightedDayText]}>{index + 1}</Text>
-                </View>
-              </View>
+              <>
+                {/* when pressing on any day a modal should pop up with details for the day */}
+                <Modal
+                  animationType='fade'
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
+                    console.log('Modal has been closed.');
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <DayModal tasks={tasks} date={new Date(`${year}-${month}-${pickedDay}`)} modalVisible={modalVisible} setModalVisible={upgradeModalVisible}/> 
+                </Modal>
+                
+                <Pressable 
+                  key={index} 
+                  style={[styles.dayItem, { top: y - 30, left: x - 30 }]}
+                  // set picked dat and activate the modal
+                  onPress={() => {setModalVisible(true); setPickedDay(index + 1);}}>
+                  {isHighlighted && (
+                    <>
+                      <View style={styles.highlightCircle}></View>
+                      <Text style={styles.indicatorText}>You are here</Text>
+                    </>
+                  )}
+                  <View style={[styles.shadow, isHighlighted && styles.highlightedShadow]}></View>
+                  <View style={[styles.circle, isHighlighted && styles.highlightedCircle]}>
+                    <Text style={[styles.dayText, isHighlighted && styles.highlightedDayText]}>{index + 1}</Text>
+                  </View>
+                </Pressable>
+              </>
             );
           })}
         </ImageBackground>
