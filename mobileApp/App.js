@@ -44,7 +44,7 @@ function MainNavigator() {
 	return (
 		<>
 			<Stack.Navigator>
-				{user ? (
+				{true ? (
 					<>
 						<Stack.Screen
 							name="Home"
@@ -112,7 +112,7 @@ function MainNavigator() {
 					</>
 				)}
 			</Stack.Navigator>
-			{shouldShowNavbar && user && <Navbar />}
+			{shouldShowNavbar && true && <Navbar />}
 		</>
 	);
 }
