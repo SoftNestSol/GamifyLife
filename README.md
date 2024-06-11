@@ -65,3 +65,11 @@ Gamify Life is an innovative productivity application that transforms your daily
 * **BUG:** Only on Android devices, the last two buttons were not visible. You could press on the space where they were supposed to be and they would redirect you to the right creation screen, but they didn't appear.
 ##### Commit that fixed the bug: https://github.com/SoftNestSol/GamifyLife/commit/639e6722af70dc791e92d44b3048c4a89ad64823
 
+### Task Creation Shrinking Bug
+![image](https://github.com/SoftNestSol/GamifyLife/assets/66740435/d5c9ef79-d950-4cea-bce1-d1f23b1ac46c)
+#### Steps to Reproduce
+1. Open the app and log in.
+2. Press the middle button on the navbar, which leads to the creation menu.
+3. Choose any of the three kinds of tasks available for creation. You would be redirected to a task creation screen full of inputs.
+* **BUG:** Only on Android devices, when pressing on an input to complete it, as the keyboard would come up and cover half of the screen, the whole task creation card would shrink trying to fit in the remaining space. You couldn't see what you typed anymore and it would be quite difficult to press on any other input.
+##### Commit that fixed the bug: https://github.com/SoftNestSol/GamifyLife/commit/639e6722af70dc791e92d44b3048c4a89ad64823
