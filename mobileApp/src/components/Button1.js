@@ -7,7 +7,7 @@ export default function Button1({title,action,pressed}) {
     
     useEffect(()=>{
         console.log(pressed)
-        setBtnColor(pressed ? "#9EBEFE" : "#FFFFFF")
+        setBtnColor(pressed ? "#cedefe" : "#FFFFFF")
 
     },[pressed])
   return (
@@ -53,6 +53,4 @@ const styles = StyleSheet.create({
         top:3,
         left:3
     },
-
-
 });

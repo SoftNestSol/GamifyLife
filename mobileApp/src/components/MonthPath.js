@@ -20,19 +20,19 @@ const getSeasonBackground = (month) => {
     case 12:
     case 1:
     case 2:
-      return require('../../assets/android.png'); // Update with correct path
+      return require('../../assets/winter.png'); // Update with correct path
     case 3:
     case 4:
     case 5:
-      return require('../../assets/android.png'); // Update with correct path
+      return require('../../assets/spring.png'); // Update with correct path
     case 6:
     case 7:
     case 8:
-      return require('../../assets/android.png'); // Update with correct path
+      return require('../../assets/summer.png'); // Update with correct path
     case 9:
     case 10:
     case 11:
-      return require('../../assets/android.png'); // Update with correct path
+      return require('../../assets/summer.png'); // Update with correct path
     default:
       return null;
   }

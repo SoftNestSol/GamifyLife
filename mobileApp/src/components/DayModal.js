@@ -102,7 +102,7 @@ const DayModal = ({ tasks, date, modalVisible, setModalVisible }) => {
                 ))}
               </View>
             </View>
-            <View style={styles.section}>
+            <View style={[styles.section, {paddingBottom: 20,}]}>
               <View style={styles.sectionTitle}>
                 <Text style={styles.subtitle}> Unfinished: </Text>
               </View>
@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: '80%',
+    height: "70%",
     backgroundColor: "#fff",
     borderRadius: 24,
-    padding: 20,
     alignItems: 'center',
     shadowColor: "#000",
     shadowOffset: {
@@ -155,8 +155,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    borderColor: "transparent",
-    borderBottomColor: "#000",
+    borderColor: "#000",
     borderWidth: 1,
   },
   title: {
