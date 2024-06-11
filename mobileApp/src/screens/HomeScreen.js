@@ -20,7 +20,7 @@ export default function HomeScreen() {
 	const { logout } = useAuthContext();
 
 	const [allTasks, setAllTasks] = useState([]);
-
+ 
 	const { getAllUserTasks } = useTasksContext();
 
 	// prepare the data so that you can send it to Month Path, which in turn sends it to 
