@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, Pressable, Modal, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Pressable, Modal, Image} from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import DayModal from './DayModal.js';
 
@@ -16,7 +16,30 @@ const generatePath = (positions) => {
   }).join(' ');
 };
 
-const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgroundImage }) => {
+const getSeasonBackground = (month) => {
+  switch (month) {
+    case 12:
+    case 1:
+    case 2:
+      return require('../../assets/android.png'); // Update with correct path
+    case 3:
+    case 4:
+    case 5:
+      return require('../../assets/android.png'); // Update with correct path
+    case 6:
+    case 7:
+    case 8:
+      return require('../../assets/android.png'); // Update with correct path
+    case 9:
+    case 10:
+    case 11:
+      return require('../../assets/android.png'); // Update with correct path
+    default:
+      return null;
+  }
+};
+
+const MonthPath = ({ tasks,month, year, days, isVisible, highlightDay }) => {
   const positions = Array.from({ length: days }, (_, index) => {
     const y = index * verticalSpacing;
     const x = width / 2 + amplitude * Math.sin(frequency * index * Math.PI);
@@ -24,6 +47,9 @@ const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgrou
   });
 
   const path = generatePath(positions);
+
+  const backgroundImage = getSeasonBackground(month);
+
   // for each day control the visibilty of the details
   const [modalVisible, setModalVisible] = useState(false);
   const [pickedDay, setPickedDay] = useState(0); // the day for which we activate the modal
@@ -36,7 +62,12 @@ const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgrou
   return (
     <View style={styles.container}>
       {isVisible && (
-        <ImageBackground source={backgroundImage} style={styles.background} resizeMode="cover">
+        <>
+          <View style={styles.backgroundContainer}>
+            {Array.from({ length: Math.ceil((days * verticalSpacing) / 800) }).map((_, i) => (
+              <Image key={i} source={backgroundImage} style={styles.backgroundImage} />
+            ))}
+          </View>
           <Svg height={days * verticalSpacing} width={width}>
             <Path d={path} stroke="black" strokeWidth={2} fill="none" strokeDasharray="4, 4" />
           </Svg>
@@ -44,8 +75,7 @@ const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgrou
             const isHighlighted = highlightDay === index + 1;
             return (
               <>
-                {/* when pressing on any day a modal should pop up with details for the day */}
-                <Modal
+              <Modal
                   animationType='fade'
                   transparent={true}
                   visible={modalVisible}
@@ -76,7 +106,7 @@ const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgrou
               </>
             );
           })}
-        </ImageBackground>
+        </>
       )}
     </View>
   );
@@ -85,10 +115,20 @@ const MonthPath = ({ tasks, month, year, days, isVisible, highlightDay, backgrou
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    marginVertical: 20,
+    height:'100%',// Ensure the container does not overflow
   },
-  background: {
+  backgroundContainer: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
+    flexDirection: 'column',
+    overflow: 'hidden', // Ensure the background container does not overflow
+  },
+  backgroundImage: {
+    width: '100%',
+    height:800, // Adjust this value based on your image height
+    resizeMode: 'contain', // Ensure the image covers the full width without repeating
   },
   dayItem: {
     position: 'absolute',

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, StyleSheet, SafeAreaView, View, Text, ImageBackground } from 'react-native';
+import { ScrollView, StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import MonthPath from '../components/MonthPath';
 import { useTasksContext } from "../contexts/tasks.context";
 
@@ -18,29 +18,6 @@ const months = [
   { month: 12, year: 2024, days: 31, name: "December" },
 ];
 
-const getSeasonBackground = (month) => {
-  switch (month) {
-    case 12:
-    case 1:
-    case 2:
-      return require('../../assets/spring.png');
-    case 3:
-    case 4:
-    case 5:
-      return require('../../assets/summer.png');
-    case 6:
-    case 7:
-    case 8:
-      return require('../../assets/spring.png');
-    case 9:
-    case 10:
-    case 11:
-      return require('../../assets/summer.png');
-    default:
-      return null;
-  }
-};
-
 const JourneyScreen = () => {
   const [visibleMonths, setVisibleMonths] = useState([true, ...Array(months.length - 1).fill(false)]);
   const scrollViewRef = useRef(null);
@@ -48,10 +25,11 @@ const JourneyScreen = () => {
   const handleScroll = (event) => {
     const scrollY = event.nativeEvent.contentOffset.y;
     const viewportHeight = event.nativeEvent.layoutMeasurement.height;
+    const buffer = 600; // Buffer area in pixels to add above and below the viewport
     const newVisibleMonths = months.map((monthData, index) => {
       const startY = index * (monthData.days * 80);
       const endY = startY + monthData.days * 80;
-      return scrollY + viewportHeight >= startY && scrollY <= endY;
+      return (scrollY + viewportHeight + buffer > startY) && (scrollY - buffer < endY);
     });
     setVisibleMonths(newVisibleMonths);
   };
@@ -59,16 +37,6 @@ const JourneyScreen = () => {
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
   const currentDay = today.getDate();
-
-  useEffect(() => {
-    const currentMonthIndex = months.findIndex(month => month.month === currentMonth);
-    if (currentMonthIndex !== -1) {
-      const scrollToY = currentMonthIndex * (months[currentMonthIndex].days * 80) + ((currentDay - 1) * 80);
-      setTimeout(() => {
-        scrollViewRef.current.scrollTo({ y: scrollToY, animated: true });
-      }, 100);
-    }
-  }, []);
 
   const [allTasks, setAllTasks] = useState([]);
 
@@ -82,6 +50,16 @@ const JourneyScreen = () => {
       })
   }, []);
 
+  useEffect(() => {
+    const currentMonthIndex = months.findIndex(month => month.month === currentMonth);
+    if (currentMonthIndex !== -1) {
+      const scrollToY = currentMonthIndex * (months[currentMonthIndex].days * 80) + ((currentDay - 1) * 80);
+      setTimeout(() => {
+        scrollViewRef.current.scrollTo({ y: scrollToY, animated: true });
+      }, 100);
+    }
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
@@ -93,24 +71,19 @@ const JourneyScreen = () => {
         onScroll={handleScroll}
         scrollEventThrottle={16}
       >
-        {months.map((monthData, index) => {
-          const backgroundImage = getSeasonBackground(monthData.month);
-          return (
-            <View key={index} style={{ height: monthData.days * 80 }}>
-              <ImageBackground source={backgroundImage} style={styles.background} resizeMode="cover">
-                <View style={styles.carouselContainer}>
-                  <Text style={styles.monthName}>Start of {monthData.name}</Text>
-                </View>
-                <MonthPath 
+        {months.map((monthData, index) => (
+          <View key={index} style={{ paddingTop: index === 0 ? 20 : 0, height: monthData.days * 80, marginBottom: 40 }}>
+            <View style={styles.carouselContainer}>
+              <Text style={styles.monthName}>The start of {monthData.name}</Text>
+            </View>
+             <MonthPath 
                   {...monthData}
                   tasks={allTasks} 
                   isVisible={visibleMonths[index]} 
                   highlightDay={monthData.month === currentMonth ? currentDay : null}
                 />
-              </ImageBackground>
-            </View>
-          );
-        })}
+          </View>
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -144,10 +117,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     paddingBottom: 100,
-  },
-  background: {
-    width: '100%',
-    height: '100%',
   },
   carouselContainer: {
     height: 100,
