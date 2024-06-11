@@ -1,18 +1,27 @@
-import { useNavigation } from "@react-navigation/native";
-import { Button,FlatList,Text ,View,ScrollView,SafeAreaView } from "react-native";
+import { View, Text, ScrollView, SafeAreaView } from "react-native";
 
-import TaskList from "../components/TaskList";
-import TasksCarousel from "../components/TaskCarousel";
-import  CalendarSlider from "../components/CalendarSlider";
+import TasksCarousel from "../components/TasksCarousel";
+import SuggestionsCard from "../components/SuggestionsCard";
+import FriendsChallenges from "../components/FriendsChallenges";
 
 export default function QuestsScreen() {   
+    const stats =[]
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style = {styles.container}>
             <ScrollView>
-                <TasksCarousel style={styles.carouselContainer} />
-                <CalendarSlider style={styles.calendarContainer} />
-                <TaskList style={styles.taskContainer} />
+                <View style = {styles.titleContainer}>
+                    <Text style = {styles.title}> QuestBook </Text>
+                </View>
+                <TasksCarousel style = {styles.carouselContainer} />
+                {/* <TaskList style={styles.taskContainer} /> 
+                <Card
+                    title="Title of a task"
+                    description="A very cool description"
+                    stats={stats}
+                />*/}
+                <FriendsChallenges/>
+                <SuggestionsCard />
             </ScrollView>
         </SafeAreaView>
     );
@@ -21,10 +30,22 @@ export default function QuestsScreen() {
 const styles = {
     container: {
         flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
+        paddingTop: 40,
+        backgroundColor:"#FCF4E7"
     },
-    //
+    titleContainer: {
+        marginVertical: 5,
+        marginHorizontal: 20,
+        paddingBottom: 15,
+        borderColor: "black",
+        borderStyle: "dashed",
+        borderBottomWidth: 1,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "600",
+        alignSelf: "center",
+    },
     carouselContainer: {
         height: 50,
         justifyContent: "center",
