@@ -142,6 +142,26 @@ export const TasksContextProvider = ({ children }) => {
     }
   };
 
+  getSuggestions = async () => {
+    try {
+      const response = await axios.get(
+        `https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/suggest/${user.uid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Tasks response:", response.data); // Log the response
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Error fetching today's tasks:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
   const state = {
     tasks,
     setTasks,

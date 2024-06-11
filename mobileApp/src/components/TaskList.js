@@ -16,33 +16,37 @@ export default function TaskList({ tasks, scheduled, date }) {
     );
   };
 
-  // check if a reccuring task / habit happens on a date
-  const checkMatchingDates = (task, date) => {
-    let dateDayOfWeek = date.getDay(); // 0 for Sunday
-    if (dateDayOfWeek == 0) {
-      dateDayOfWeek = 6;
-    } else {
-      dateDayOfWeek -= 1;
-    }
-    // if by any chance the days_per_week or week_interval is null
-    if (task.days_per_week === null || task.week_interval === null) {
-      return false;
-    }
-    // check if it's a right day of the week
-    if (task.days_per_week[dateDayOfWeek] == "0") {
-      return false;
-    }
-    // check if the right number of weeks has passed
-    const createDate = new Date(task.created_at);
-    // convert the difference from miliseconds to weeks
-    const weeksBetween = Math.ceil(
-      (date - createDate) / (1000 * 60 * 60 * 24 * 7)
-    );
-    if (weeksBetween % task.week_interval > 0) {
-      return false;
-    }
-    return true;
-  };
+	// check if a reccuring task / habit happens on a date
+	const checkMatchingDates = (task, date) => {
+		let dateDayOfWeek = date.getDay(); // 0 for Sunday
+		if (dateDayOfWeek == 0) {
+			dateDayOfWeek = 6;
+		}
+		else {
+			dateDayOfWeek -= 1;
+		}
+		// if by any chance the days_per_week or week_interval is null
+		if(task.days_per_week === null || task.week_interval === null) {
+			return false;
+		}
+		// check if it's a right day of the week
+		if (task.days_per_week[dateDayOfWeek] == "0") {
+			return false;
+		}
+		// check if the right number of weeks has passed
+		const createDate = new Date(task.created_at);
+		// convert the difference from miliseconds to weeks
+		const weeksBetween = Math.ceil((date - createDate) / (1000 * 60 * 60 * 24 * 7)); 
+		if (weeksBetween % task.week_interval > 0) {
+			return false;
+		}
+		// lastly, if we have a reccurent task and it's after it's due date, no need to
+		// take it into consideration anymore
+		if (task.type === "recurring" && task.due_date < date) {
+			return false;
+		}
+		return true;
+	};
 
   useEffect(() => {
     // filter the tasks by date if necessary
