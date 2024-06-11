@@ -17,10 +17,8 @@ export default function NewTaskCreation() {
 	const { user } = useAuthContext();
 	const [title, setTitle] = React.useState("");
 	const [titleEmoji, setTitleEmoji] = React.useState("");
-	const [date, setDate] = React.useState("");
 	const [category, setCategory] = React.useState("");
 	const [description, setDescription] = React.useState("");
-
 	const [wellnessCounter, setWellnessCounter] = useState(1);
 	const [intelligenceCounter, setIntelligenceCounter] = useState(1);
 	const [skillCounter, setSkillCounter] = useState(1);
@@ -50,10 +48,6 @@ export default function NewTaskCreation() {
 
 	const [mode, setMode] = useState("date");
 	const [show, setShow] = useState(false);
-	const [wellness, setWellness] = useState("");
-	const [intelligence, setIntelligence] = useState("");
-	const [skill, setSkill] = useState("");
-	const [fitness, setFitness] = useState("");
 	const [type, setType] = useState("daily");
 	const [createdAt, setCreatedAt] = useState(new Date());
 	const done = 0;
@@ -80,15 +74,15 @@ export default function NewTaskCreation() {
 			title: title,
 			user_id: user.uid,
 			category: category,
-			fitness: fitness,
-			skill: skill,
-			wellness: wellness,
-			inteligence: intelligence,
+			fitness: fitnessCounter,
+			skill: skillCounter,
+			wellness: wellnessCounter,
+			inteligence: intelligenceCounter,
 			emoji: titleEmoji
 		};
 		try {
 			axios.post(
-				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/tasks/${user.uid}`,
+				`https://europe-west1-gamifylife-810f8.cloudfunctions.net/api/user/add/reccuring/${user.uid}`,
 				newTask
 			);
 		} catch (err) {

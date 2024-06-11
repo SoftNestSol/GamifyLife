@@ -16,7 +16,6 @@ export default function NewHabitCreation() {
 
 	const { user } = useAuthContext();
 
-	const [frequency, setFrequency] = React.useState("");
 	const [days, setDays] = React.useState([
 		false,
 		false,
@@ -56,12 +55,8 @@ export default function NewHabitCreation() {
 
 	const [category, setCategory] = React.useState("");
 	const [description, setDescription] = React.useState("");
-	const [wellness, setWellness] = React.useState("");
-	const [intelligence, setIntelligence] = React.useState("");
-	const [skill, setSkill] = React.useState("");
-	const [fitness, setFitness] = React.useState("");
 	const [type, setType] = React.useState("habit");
-	const [weekInterval, setWeekInterval] = React.useState("1");
+	const [weekInterval, setWeekInterval] = React.useState(1);
 
 	const encodeDays = (days) => {
 		return days.map((day) => (day ? "1" : "0")).join("");
@@ -80,10 +75,10 @@ export default function NewHabitCreation() {
 			category: category,
 			days_per_week: encodeDays(days),
 			week_interval: weekInterval,
-			fitness: fitness,
-			skill: skill,
-			wellness: wellness,
-			inteligence: intelligence,
+			fitness: fitnessCounter,
+			skill: skillCounter,
+			wellness: wellnessCounter,
+			inteligence: intelligenceCounter,
 			emoji: titleEmoji
 		};
 
