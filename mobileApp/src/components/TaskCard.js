@@ -6,13 +6,9 @@ export default function TaskCard({ task }) {
     console.log(task.days_per_week);
     return (
       <Text
-        style={[
-          styles.day,
-          task.days_per_week[index] === "1" && styles.pickedDay,
-        ]}
+        style={[styles.day, task.days_per_week[index] === "1" && styles.pickedDay,]}
       >
-        {" "}
-        {day}{" "}
+        {" "} {day} {" "}
       </Text>
     );
   };
@@ -77,7 +73,7 @@ export default function TaskCard({ task }) {
               )}
             </View>
           </View>
-          {task.type !== "daily" && (
+          {task.type !== "daily" && task.type !== "habit" && (
             <View style={styles.sectionWrapper}>
               <Text style={styles.sectionTitle}>End Date</Text>
               <View style={styles.sectionContentWrapper}>
