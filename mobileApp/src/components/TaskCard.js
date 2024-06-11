@@ -8,7 +8,7 @@ export default function TaskCard({ task }) {
       <Text
         style={[styles.day, task.days_per_week[index] === "1" && styles.pickedDay,]}
       >
-        {" "} {day} {" "}
+       {day}
       </Text>
     );
   };
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
   },
   day: {
     fontSize: 14,
+    paddingHorizontal: 2,
   },
   pickedDay: {
     backgroundColor: "#cedefe",
