@@ -18,7 +18,7 @@ export default function TaskList({ tasks, scheduled, date }) {
 
 	// check if a reccuring task / habit happens on a date
 	const checkMatchingDates = (task, date) => {
-		var dateDayOfWeek = date.getDay(); // 0 for Sunday
+		let dateDayOfWeek = date.getDay(); // 0 for Sunday
 		if (dateDayOfWeek == 0) {
 			dateDayOfWeek = 6;
 		}

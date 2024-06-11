@@ -26,7 +26,7 @@ export default function TaskScreen({route}) {
                         ? (<Text style = {styles.sectionContent}> Task </Text>)
                         : (task.type === "habit")
                             ? (<Text style = {styles.sectionContent}> Habit </Text>)
-                            : (<Text style = {styles.sectionContent}> Reccuring Task </Text>)
+                            : (<Text style = {styles.sectionContent}> Recurring Task </Text>)
                     }
                 </Text>
                 <TrashBin width = "30" height = "30"/>

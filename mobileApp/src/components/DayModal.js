@@ -44,6 +44,11 @@ const checkMatchingDates = (task, date) => {
     if (weeksBetween % task.week_interval > 0) {
         return false;
     }
+    // lastly, if we have a reccurent task and it's after it's due date, no need to
+    // take it into consideration anymore
+    if (task.type === "recurring" && task.due_date < date) {
+        return false;
+    }
     return true;
 };
 
