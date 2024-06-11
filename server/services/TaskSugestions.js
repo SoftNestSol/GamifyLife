@@ -10,7 +10,7 @@ const suggestTask = async (userId) => {
   const prompt = `Generate task suggestions based on user interests. Interests are ${interests}. Provide a short title and a brief description (50 words max) for each task. Format the output as a JSON array of objects with "title" and "description" properties. Example: [{"title": "title1", "description": "description1"}, {"title": "title2", "description": "description2"}] and nothing more.`;
   const options = {
     method: 'POST',
-    url: 'http://20.19.88.114:33337/v1/chat/completions',
+    url: 'http://20.218.136.148:33337/v1/chat/completions',
     headers: { 'Content-Type': 'application/json' },
     data: {
       messages: [
