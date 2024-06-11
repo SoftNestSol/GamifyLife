@@ -6,7 +6,8 @@ import {
 	StyleSheet,
 	Text,
 	Touchable,
-	TouchableOpacity
+	TouchableOpacity,
+    Image
 } from "react-native";
 import { useNavigationState } from "@react-navigation/native";
 
@@ -69,7 +70,13 @@ export default function HomeScreen() {
 	return (
 		<View style={styles.container}>
 			<View style={styles.topHalf}>
-				<View style={styles.leftQuarter}></View>
+				<View style={styles.leftQuarter}>
+                    <View style={styles.characterContainer}>
+                        <Image 
+                            source={require('../../assets/boy.png')} 
+                            style={styles.character} />
+                    </View>
+                </View>
 				<View style={styles.rightQuarter}>
 					<View style={styles.chest}>
 						{/* <TouchableOpacity
@@ -99,7 +106,7 @@ export default function HomeScreen() {
 				{/* we'll need the tasks list to receive the day we selected and filter only those tasks*/}
 				<View style={styles.tasks}>
 					{allTasks.length === 0 ? (
-						<Text style={{ textAlign: "center" }}> Tasks are loading... </Text>
+				    	<Text style={{ textAlign: "center" }}> Tasks are loading... </Text>
 					) : (
 						<TaskList
 							tasks={allTasks}
@@ -134,6 +141,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center"
 	},
+    characterContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    character: {
+        marginTop: "30%",
+        marginLeft: "10%",
+        height: 300,
+        width: 200,
+    },
 	rightQuarter: {
 		flex: 1,
 		justifyContent: "flex-end",
