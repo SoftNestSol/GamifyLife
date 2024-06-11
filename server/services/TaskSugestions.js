@@ -38,8 +38,6 @@ const suggestTask = async (userId) => {
       // Log the raw message content
       console.log("Raw message content:", messageContent);
       
-      
-
       // Function to transform array of arrays into array of objects
       function cleanAndParseTaskSuggestions(jsonString) {
         // Use a regular expression to remove any characters after the last valid JSON character
@@ -57,8 +55,7 @@ const suggestTask = async (userId) => {
             return [];
         }
     }
-    
-
+      
       // Transform the data
       const transformedData = cleanAndParseTaskSuggestions(messageContent);
       console.log("Parsed data:", transformedData);
@@ -69,7 +66,15 @@ const suggestTask = async (userId) => {
   } catch (error) {
     console.error("Error making request:", error);
   }
+  
+  // Default response in case of an error or no response
+  const defaultTasks = interests.map(interest => ({
+    title: `Demo task with '${interest}'`,
+    description: `This is a demo task related to ${interest}.`
+  }));
+  
   console.log("here2");
+  return defaultTasks;
 }
 
 module.exports = {
