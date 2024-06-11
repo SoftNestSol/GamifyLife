@@ -85,10 +85,10 @@ const style = StyleSheet.create({
   },
   topBorderedView: {
     borderRadius: 10,
-    width: "10%",
+    width: "100%",
     backgroundColor: "#fff",
     // Apply border only to the top
-    borderTopWidth: 0.0, // Width of the top border
+    borderTopWidth: 1, // Width of the top border
     borderTopColor: "#000", // Color of the top border
   },
   home: {
