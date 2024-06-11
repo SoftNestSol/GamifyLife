@@ -69,12 +69,12 @@ export default function HomeScreen() {
 				</View>
 				<View style={styles.rightQuarter}>
 					<View style={styles.chest}>
-						<TouchableOpacity
+						{/* <TouchableOpacity
 								style={styles.logoutButton}
 								onPress={logout}
 							>
 							<Text>Logout</Text>
-						</TouchableOpacity>
+						</TouchableOpacity> */}
 					</View>
 					<View style={styles.stats}>
 						<Stats />
@@ -93,8 +93,8 @@ export default function HomeScreen() {
 				<View style={styles.tasks}>
                     {
                         (allTasks.length === 0) 
-                            ? <Text> No tasks for today </Text> 
-                            : (<TaskList tasks={allTasks} scheduled={true} date={day}/>)
+                            ? <Text style = {{textAlign: "center"}}> Tasks are loading... </Text> 
+                            : <TaskList tasks={allTasks} scheduled={true} date={day}/>
                     }
 				</View>
 			</View>
