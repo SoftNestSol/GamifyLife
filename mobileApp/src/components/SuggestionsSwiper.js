@@ -53,34 +53,34 @@ const labels = {
 }
 
 // will get the json with the suggestions from jan
-const suggestions = [
-  {
-    interest: "fitness",
-    suggestion: {
-      title: "30-Day Fitness Challenge",
-      description:
-        "Engage in a 30-day fitness program that includes yoga, cardio, and strength training",
-    },
-  },
-  {
-    interest: "Gaming",
-    suggestion: {
-      title: "Game Design Challenge",
-      description:
-        "Create your own video game from scratch, designing the game mechanics, characters and environments",
-    },
-  },
-  {
-    interest: "Yoga",
-    suggestion: {
-      title: "Yoga Retreat Plan",
-      description:
-        "Plan a 7-day yoga retreat in a scenic location, includin daily yoga classes, meditation classes and healthy vegeterian meals",
-    },
-  },
-];
+// const suggestions = [
+//   {
+//     interest: "fitness",
+//     suggestion: {
+//       title: "30-Day Fitness Challenge",
+//       description:
+//         "Engage in a 30-day fitness program that includes yoga, cardio, and strength training",
+//     },
+//   },
+//   {
+//     interest: "Gaming",
+//     suggestion: {
+//       title: "Game Design Challenge",
+//       description:
+//         "Create your own video game from scratch, designing the game mechanics, characters and environments",
+//     },
+//   },
+//   {
+//     interest: "Yoga",
+//     suggestion: {
+//       title: "Yoga Retreat Plan",
+//       description:
+//         "Plan a 7-day yoga retreat in a scenic location, includin daily yoga classes, meditation classes and healthy vegeterian meals",
+//     },
+//   },
+// ];
 
-export default function SuggestionsSwiper() {
+export default function SuggestionsSwiper({suggestions}) {
     const numSuggestions = suggestions.length;
     const [picked, setPicked] = useState(0); // counter - we want it to be reset at midnight...
     // initially we have all the suggestions, but the list gets shorter as we choose tasks
