@@ -19,13 +19,15 @@ export default function NewRecurrentTaskCreation() {
 	const [mode, setMode] = useState("date");
 	const [show, setShow] = useState(false);
 	const [weekInterval, setWeekInterval] = useState(1);
+	const [category, setCategory] = useState("");
+	const [description, setDescription] = useState("");
+	const [dueDate, setDueDate] = useState(new Date());
+	const [type, setType] = useState("recurrent");
 
 	const { user } = useAuthContext();
 
-	const [createdAt, setCreatedAt] = useState(new Date());
-
 	const onChange = (event, selectedDate) => {
-		const currentDate = selectedDate || createdAt;
+		const currentDate = selectedDate || dueDate;
 		setShow(Platform.OS === "ios");
 		setDueDate(currentDate);
 	};
@@ -71,11 +73,6 @@ export default function NewRecurrentTaskCreation() {
 	const decFitness = () => {
 		if (fitnessCounter > 0) setFitnessCounter(fitnessCounter - 1);
 	};
-
-	const [category, setCategory] = useState("");
-	const [description, setDescription] = useState("");
-	const [dueDate, setDueDate] = useState(new Date());
-	const [type, setType] = useState("recurrent");
 
 	const encodeDays = (days) => {
 		return days.map((day) => (day ? "1" : "0")).join("");
@@ -125,11 +122,11 @@ export default function NewRecurrentTaskCreation() {
 	const renderWeekdays = (day, index) => {
 		return (
 			<Text
+				key={index}
 				style={[styles.day, days[index] && styles.pickedDay]}
 				onPress={() => selectWeekday(index)}
 			>
-				{" "}
-				{day}{" "}
+				{day}
 			</Text>
 		);
 	};
@@ -181,18 +178,6 @@ export default function NewRecurrentTaskCreation() {
 						</View>
 
 						<View style={styles.sectionWrapper}>
-							<Text style={styles.sectionTitle}>End Date: </Text>
-							<View style={styles.sectionContentWrapper}>
-								<TextInput
-									style={styles.sectionContent}
-									onChangeText={setCategory}
-									value={category}
-									placeholder="End date: "
-								/>
-							</View>
-						</View>
-
-						<View style={styles.sectionWrapper}>
 							<Text style={styles.sectionTitle}>Category</Text>
 							<View style={styles.sectionContentWrapper}>
 								<TextInput
@@ -219,7 +204,7 @@ export default function NewRecurrentTaskCreation() {
 							<Text style={styles.sectionTitle}>Select the due date</Text>
 							<TouchableOpacity onPress={() => showMode("date")}>
 								<Text style={styles.sectionContent}>
-									{createdAt.toDateString()} {createdAt.toLocaleTimeString()}
+									{dueDate.toDateString()} {dueDate.toLocaleTimeString()}
 								</Text>
 							</TouchableOpacity>
 							{show && (
@@ -326,6 +311,15 @@ export default function NewRecurrentTaskCreation() {
 							</View>
 						</View>
 					</View>
+					<View style={styles.submitButtonWrapper}>
+						<TouchableOpacity
+							//title="Submit"
+							onPress={handleSubmit}
+							style={styles.submitButton}
+						>
+							<Text style={styles.submitText}> Submit </Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			</SafeAreaView>
 		</ScrollView>
@@ -333,6 +327,25 @@ export default function NewRecurrentTaskCreation() {
 }
 
 const styles = StyleSheet.create({
+	submitButtonWrapper: {
+		marginTop: 40,
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	
+	submitButton: {
+		backgroundColor: "white",
+		paddingHorizontal: 20,
+		borderRadius: 8,
+		borderColor: "black",
+		borderWidth: 1,
+		borderStyle: "dotted",
+		height: 30,
+		width: 90,
+		alignItems: "center"
+	},
+
 	button: {
 		padding: 4
 	},

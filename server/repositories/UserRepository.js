@@ -28,16 +28,20 @@ const deleteUser = async (id) => {
 	return result.recordset;
 };
 
-
 const getUserInterests = async (id) => {
-	const query = `SELECT interest_id FROM UserInterests where user_id = ${id}`;
+	const findUserQuery = `SELECT * FROM Users WHERE uid = ${id}`;
+
 	const connection = await connect();
+
+	const user = await connection.query(findUserQuery);
+
+	const id_user = user.recordset[0].id;
+
+	const query = `SELECT * FROM UserInterests WHERE user_id = ${id_user}`;
+
 	const result = await connection.query(query);
 	return result;
 };
-
-
-
 
 module.exports = {
 	selectUsers,
