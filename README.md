@@ -6,8 +6,7 @@ Gamify Life is an innovative productivity application that transforms your daily
 <li> How It Works </li>
 <li> Installation </li>
 <li> Usage </li>
-<li> User Stories </li>
-<li> Backlog Creation </li>
+<li> User Stories + Backlog Creation </li>
 <li> Diagrams </li>
 <li> Source Control </li>
 <li> Automated Testing </li>
@@ -22,22 +21,28 @@ Gamify Life is an innovative productivity application that transforms your daily
    - Normal Tasks: One-time tasks that need to be completed once.
    - Recurring Tasks: Tasks that repeat over a limited period, perfect for daily or weekly activities.
    - Habits: Tasks that repeat indefinitely, helping to build long-term positive habits.
-   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/e7dfae33-916d-44db-9d8c-b824af6dfb63)
-   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/6b813fb4-62d4-4311-8a7e-1ed6919e848c)
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/1d3ce04e-4ad5-4652-b7e8-8cf8927e7bc4)
+
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/cabfd2f4-67f4-4c4a-9913-09c0bd588927)
+
 
 
 2. Journey Path: A visual map where you can track your productivity journey, including tasks completed on past days.
-   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/26b37a98-3609-4893-a720-dd331475f73b)
-   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/1e21bf65-b7ba-4856-ad00-8fb34332403c)
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/cea1aafa-4cba-47e3-a01e-b7d4fbc07ef3)
+   <br>
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/6372e822-fe95-434c-a7a9-bd895a113b7d)
+
 
 
 4. Task Suggestions: Receive task suggestions from the app, which you can accept or decline based on your preferences.
-5. Gamification: Each completed task helps you increase stats such as fitness, intelligence, and skills, turning productivity into an engaging game.
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/7e067f35-9836-4a42-a045-0b979622d8ec)
 
-## Bug Reporting and Resolution
-### Calendar Slider Bug
-![image](https://github.com/SoftNestSol/GamifyLife/assets/66740435/d3813fc6-1583-4422-afc8-1572293c537c)
-#### Steps to Reproduce
-1. Open app and log in
-2. On the Home screen, there is a 
+6. Gamification: Each completed task helps you increase stats such as fitness, intelligence, and skills, turning productivity into an engaging game.
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/954fa2e6-95bc-4896-971d-dad053261ff4)
+
+## User stories + backlog creation
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/2f5e2576-e4a3-4ce1-ad2d-fef6242e5c77)
+   ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/d2033c71-2c18-4468-bf3f-0524247315ce)
+
+
 
