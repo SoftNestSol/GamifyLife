@@ -44,5 +44,8 @@ Gamify Life is an innovative productivity application that transforms your daily
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/2f5e2576-e4a3-4ce1-ad2d-fef6242e5c77)
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/d2033c71-2c18-4468-bf3f-0524247315ce)
 
+## Diagrams
+![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/74a8c240-3e70-4619-a06d-5f4fc57b8735)
+
 
 
