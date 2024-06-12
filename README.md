@@ -86,6 +86,7 @@ https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1
 !(https://github.com/SoftNestSol/GamifyLife/assets/66740435/547bfd20-a91f-4008-9327-baa1bc8fad1f)
 
 ## Design Patterns
+The design patterns we used are : RESTApi,MVC,RepositoryPattern,Middleware Pattern,Front Controller Pattern
 
 ## AI Tools
 
