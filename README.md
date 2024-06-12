@@ -77,6 +77,7 @@ This practice ensured isolated development environments, reducing the risk of co
 * **BUG:** Only on Android devices, when pressing on an input to complete it, as the keyboard would come up and cover half of the screen, the whole task creation card would shrink trying to fit in the remaining space. You couldn't see what you typed anymore and it would be quite difficult to press on any other input.
 ##### Commit that fixed the bug: https://github.com/SoftNestSol/GamifyLife/commit/639e6722af70dc791e92d44b3048c4a89ad64823
 
+## Refactoring and Code Standards
 
 ## Code Comments
 * We tried to keep our code nice and tidy and wrote comments especially on the parts where:
@@ -84,6 +85,10 @@ This practice ensured isolated development environments, reducing the risk of co
   - more people worked on the same fragments of code
   - we used some unfamiliar concepts / new components
 <br/>
+
+## Design Patterns
+
+## AI Tools
 https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1e-189b2103de8e
 !(https://github.com/SoftNestSol/GamifyLife/assets/66740435/a5208ffa-e45a-417e-9de7-04d230b4afb8)
 !(https://github.com/SoftNestSol/GamifyLife/assets/66740435/547bfd20-a91f-4008-9327-baa1bc8fad1f)
