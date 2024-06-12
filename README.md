@@ -89,7 +89,19 @@ https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1
 
 ## Design Patterns
 The design patterns we used are : RESTApi,MVC,RepositoryPattern,Middleware Pattern,Front Controller Pattern
+![image](https://github.com/SoftNestSol/GamifyLife/assets/72871085/60848819-5e52-4aa7-b038-ecd11fe6fb34)
+![image](https://github.com/SoftNestSol/GamifyLife/assets/72871085/63133391-299e-42c0-932f-750a0ce946fc)
 
 ## AI Tools
+We used ChatGPT4, 4o ,Github Copilot for assisting in code writting.
+
+We implemented a custom AI feature solution that can be further expanded on using custom Ai models for different purposes.
+We used Jan Open-Source project (https://jan.ai/) for running open-source models for cost efficiency and flexibility.
+
+##Technologies
+Google Firebase used for google authentification and cloud function for hosting the backend.
+Microsoft Azure for hosting SQL Server DB.
+Docker And Azure Virtual Machine for containerization of Jan to open an API route for Ai completitions.
+
 
 
