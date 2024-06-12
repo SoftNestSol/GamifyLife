@@ -73,3 +73,14 @@ Gamify Life is an innovative productivity application that transforms your daily
 3. Choose any of the three kinds of tasks available for creation. You would be redirected to a task creation screen full of inputs.
 * **BUG:** Only on Android devices, when pressing on an input to complete it, as the keyboard would come up and cover half of the screen, the whole task creation card would shrink trying to fit in the remaining space. You couldn't see what you typed anymore and it would be quite difficult to press on any other input.
 ##### Commit that fixed the bug: https://github.com/SoftNestSol/GamifyLife/commit/639e6722af70dc791e92d44b3048c4a89ad64823
+
+## Code Comments
+* We tried to keep our code nice and tidy and wrote comments especially on the parts where:
+  - the logic got a bit hard to follow for anyone but the one who wrote it
+  - more people worked on the same fragments of code
+  - we used some unfamiliar concepts / new components
+![Screenshot 2024-06-12 025129](https://github.com/SoftNestSol/GamifyLife/assets/66740435/350f3c4e-8601-4888-9953-3759c5a23739)
+![Screenshot 2024-06-12 025203](https://github.com/SoftNestSol/GamifyLife/assets/66740435/15ecc254-7cbd-43ee-b547-7368d270bac9)
+![Screenshot 2024-06-12 025253](https://github.com/SoftNestSol/GamifyLife/assets/66740435/e0ba31c7-ef65-4136-b09e-e11f9e51cda5)
+
+
