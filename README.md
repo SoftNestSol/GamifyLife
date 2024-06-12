@@ -98,10 +98,22 @@ We used ChatGPT4, 4o ,Github Copilot for assisting in code writting.
 We implemented a custom AI feature solution that can be further expanded on using custom Ai models for different purposes.
 We used Jan Open-Source project (https://jan.ai/) for running open-source models for cost efficiency and flexibility.
 
-##Technologies
+## Technologies
 Google Firebase used for google authentification and cloud function for hosting the backend.
 Microsoft Azure for hosting SQL Server DB.
 Docker And Azure Virtual Machine for containerization of Jan to open an API route for Ai completitions.
 
+
+jan ssh connection
+
+![Untitled](https://github.com/SoftNestSol/GamifyLife/assets/72871085/c4dc4208-da11-421a-9150-2abe062cfa85)
+
+![sdasd](https://github.com/SoftNestSol/GamifyLife/assets/72871085/0f44f4eb-5797-4b4e-baca-85e7d278ce10)
+
+
+
+![WhatsApp Image 2024-06-12 at 03 29 43_1cb58895](https://github.com/SoftNestSol/GamifyLife/assets/72871085/8ee00785-dc0f-4521-b37e-2d5b65c9dcf6)
+
+![WhatsApp Image 2024-06-12 at 03 30 15_17a893c4](https://github.com/SoftNestSol/GamifyLife/assets/72871085/c9f906a8-a247-4dce-86f7-c61ae32f988f)
 
 
