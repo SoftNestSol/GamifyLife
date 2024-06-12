@@ -15,6 +15,7 @@ const selectUserById = async (id) => {
 };
 
 const insertUser = async (user) => {
+	//console.log("user", user);
 	const query = `INSERT INTO Users (first_name, last_name, email, uid) VALUES ('${user.first_name}', '${user.last_name}', '${user.email}', '${user.uid}')`;
 	const connection = await connect();
 	const result = await connection.query(query);

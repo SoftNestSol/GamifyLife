@@ -6,7 +6,8 @@ import {
 	TextInput,
 	StyleSheet,
 	ImageBackground,
-	TouchableOpacity
+	TouchableOpacity,
+	Pressable
 } from "react-native";
 import { useAuthContext } from "../contexts/auth.context";
 
@@ -82,6 +83,18 @@ export default function Login() {
 					>
 						<Text style={styles.button}>Login</Text>
 					</TouchableOpacity>
+					<View>
+						<Pressable
+							style={styles.registerButton}
+							onPress={() => {
+								navigation.navigate("Register");
+							}}
+						>
+							<Text style={styles.registerText}>
+								Don't have an account? Register now
+							</Text>
+						</Pressable>
+					</View>
 				</View>
 			</ImageBackground>
 		</View>
@@ -89,6 +102,17 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
+	registerButton: {
+		backgroundColor: "#fff",
+		borderRadius: 10,
+		marginTop: 20,
+		padding: 10
+	},
+	registerText: {
+		textAlign: "center",
+		color: "#000"
+	},
+
 	container: {
 		display: "flex",
 		justifyContent: "center",

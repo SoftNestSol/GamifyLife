@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
 			const user = userCredential.user;
 			const uid = user.uid;
 			setUser(user);
-			return user;
+			return uid;
 		} catch (error) {
 			console.log(error);
 		}
