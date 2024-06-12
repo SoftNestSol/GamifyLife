@@ -7,6 +7,7 @@ Gamify Life is an innovative productivity application that transforms your daily
 <li> Diagrams </li>
 <li> Source Control </li>
 <li> Bug Reporting and Resolution </li>
+<li> Refactoring and Code Standards </li>
 <li> Code Comments </li>
 <li> Design Patterns </li>
 <li> AI Tools </li>
@@ -17,7 +18,6 @@ Gamify Life is an innovative productivity application that transforms your daily
    - Recurring Tasks: Tasks that repeat over a limited period, perfect for daily or weekly activities.
    - Habits: Tasks that repeat indefinitely, helping to build long-term positive habits. <br/>
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/1d3ce04e-4ad5-4652-b7e8-8cf8927e7bc4)
-
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/cabfd2f4-67f4-4c4a-9913-09c0bd588927)
 
 
@@ -74,6 +74,8 @@ This practice ensured isolated development environments, reducing the risk of co
 3. Choose any of the three kinds of tasks available for creation. You would be redirected to a task creation screen full of inputs.
 * **BUG:** Only on Android devices, when pressing on an input to complete it, as the keyboard would come up and cover half of the screen, the whole task creation card would shrink trying to fit in the remaining space. You couldn't see what you typed anymore and it would be quite difficult to press on any other input.
 ##### Commit that fixed the bug: https://github.com/SoftNestSol/GamifyLife/commit/639e6722af70dc791e92d44b3048c4a89ad64823
+
+## Refactoring and Code Standards
 
 ## Code Comments
 * We tried to keep our code nice and tidy and wrote comments especially on the parts where:
