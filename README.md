@@ -7,7 +7,6 @@ Gamify Life is an innovative productivity application that transforms your daily
 <li> Diagrams </li>
 <li> Source Control </li>
 <li> Bug Reporting and Resolution </li>
-<li> Refactoring and Code Standards </li>
 <li> Code Comments </li>
 <li> Design Patterns </li>
 <li> AI Tools </li>
@@ -16,24 +15,23 @@ Gamify Life is an innovative productivity application that transforms your daily
 1. Task Creation and Completion:
    - Normal Tasks: One-time tasks that need to be completed once.
    - Recurring Tasks: Tasks that repeat over a limited period, perfect for daily or weekly activities.
-   - Habits: Tasks that repeat indefinitely, helping to build long-term positive habits.
+   - Habits: Tasks that repeat indefinitely, helping to build long-term positive habits. <br/>
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/1d3ce04e-4ad5-4652-b7e8-8cf8927e7bc4)
 
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/cabfd2f4-67f4-4c4a-9913-09c0bd588927)
 
 
 
-2. Journey Path: A visual map where you can track your productivity journey, including tasks completed on past days.
+2. Journey Path: A visual map where you can track your productivity journey, including tasks completed on past days. <br/>
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/cea1aafa-4cba-47e3-a01e-b7d4fbc07ef3)
-   <br>
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/6372e822-fe95-434c-a7a9-bd895a113b7d)
 
 
 
-4. Task Suggestions: Receive task suggestions from the app, which you can accept or decline based on your preferences.
+4. Task Suggestions: Receive task suggestions from the app, which you can accept or decline based on your preferences. <br/>
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/7e067f35-9836-4a42-a045-0b979622d8ec)
 
-6. Gamification: Each completed task helps you increase stats such as fitness, intelligence, and skills, turning productivity into an engaging game.
+6. Gamification: Each completed task helps you increase stats such as fitness, intelligence, and skills, turning productivity into an engaging game. <br/>
    ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/954fa2e6-95bc-4896-971d-dad053261ff4)
 
 ## User stories + backlog creation
@@ -77,20 +75,18 @@ This practice ensured isolated development environments, reducing the risk of co
 * **BUG:** Only on Android devices, when pressing on an input to complete it, as the keyboard would come up and cover half of the screen, the whole task creation card would shrink trying to fit in the remaining space. You couldn't see what you typed anymore and it would be quite difficult to press on any other input.
 ##### Commit that fixed the bug: https://github.com/SoftNestSol/GamifyLife/commit/639e6722af70dc791e92d44b3048c4a89ad64823
 
-## Refactoring and Code Standards
-
 ## Code Comments
 * We tried to keep our code nice and tidy and wrote comments especially on the parts where:
   - the logic got a bit hard to follow for anyone but the one who wrote it
   - more people worked on the same fragments of code
   - we used some unfamiliar concepts / new components
 <br/>
+https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1e-189b2103de8e
+!(https://github.com/SoftNestSol/GamifyLife/assets/66740435/a5208ffa-e45a-417e-9de7-04d230b4afb8)
+!(https://github.com/SoftNestSol/GamifyLife/assets/66740435/547bfd20-a91f-4008-9327-baa1bc8fad1f)
 
 ## Design Patterns
 
 ## AI Tools
-https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1e-189b2103de8e
-!(https://github.com/SoftNestSol/GamifyLife/assets/66740435/a5208ffa-e45a-417e-9de7-04d230b4afb8)
-!(https://github.com/SoftNestSol/GamifyLife/assets/66740435/547bfd20-a91f-4008-9327-baa1bc8fad1f)
 
 
