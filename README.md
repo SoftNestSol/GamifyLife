@@ -84,7 +84,7 @@ This practice ensured isolated development environments, reducing the risk of co
   - more people worked on the same fragments of code
   - we used some unfamiliar concepts / new components
 <br/>
-!(https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1e-189b2103de8e)
+https://github.com/SoftNestSol/GamifyLife/assets/66740435/fa186544-4df6-4e42-8e1e-189b2103de8e
 !(https://github.com/SoftNestSol/GamifyLife/assets/66740435/a5208ffa-e45a-417e-9de7-04d230b4afb8)
 !(https://github.com/SoftNestSol/GamifyLife/assets/66740435/547bfd20-a91f-4008-9327-baa1bc8fad1f)
 
