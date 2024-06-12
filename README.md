@@ -3,13 +3,9 @@ Gamify Life is an innovative productivity application that transforms your daily
 
 ## Table of contents
 <li> Features </li>
-<li> How It Works </li>
-<li> Installation </li>
-<li> Usage </li>
 <li> User Stories + Backlog Creation </li>
 <li> Diagrams </li>
 <li> Source Control </li>
-<li> Automated Testing </li>
 <li> Bug Reporting and Resolution </li>
 <li> Refactoring and Code Standards </li>
 <li> Code Comments </li>
@@ -46,6 +42,13 @@ Gamify Life is an innovative productivity application that transforms your daily
 
 ## Diagrams
 ![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/74a8c240-3e70-4619-a06d-5f4fc57b8735)
+
+## Source Control
+In our project, we utilized Git for source control to efficiently manage and coordinate our development efforts. We structured our work across three different branches: main, front-end, and back-end.Each new feature or bug fix was developed in its own dedicated branch, branching off from either front-end or back-end.
+This practice ensured isolated development environments, reducing the risk of conflicts and enabling focused development. We also regularly merged changes from front-end and back-end into main to keep the main branch up to date with the latest stable code. Utilized pull requests for code reviews, ensuring that all changes were reviewed and approved before being merged into the main branch.Pull requests allowed for discussion, feedback, and improvements, enhancing code quality and collaboration.Throughout the project, we made a total of 133 commits.The commit messages were clear and descriptive, providing a detailed history of the development process and changes made.
+![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/88577357-004a-4979-83d4-510d6fa056e8)
+![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/17113e92-bcc7-4904-8973-66961df060c1)
+![image](https://github.com/SoftNestSol/GamifyLife/assets/115917247/67528e89-5a4a-4751-86f6-f9773f4ccf1a)
 
 ## Bug Reporting and Resolution
 ### Calendar Slider Bug
